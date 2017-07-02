@@ -1,4 +1,4 @@
-package com.vsm22.lizard;
+package com.vsm22.scrobbletree;
 
 import java.io.BufferedReader;
 import java.io.IOException;

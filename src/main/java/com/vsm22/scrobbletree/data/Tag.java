@@ -1,4 +1,4 @@
-package com.vsm22.lizard.data;
+package com.vsm22.scrobbletree.data;
 
 public class Tag {
 	private String name;

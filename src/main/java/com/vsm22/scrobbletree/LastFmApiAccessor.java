@@ -1,4 +1,4 @@
-package com.vsm22.lizard;
+package com.vsm22.scrobbletree;
 
 
 import java.io.IOException;
@@ -14,8 +14,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.vsm22.lizard.data.Artist;
-import com.vsm22.lizard.data.Tag;
+import com.vsm22.scrobbletree.data.Artist;
+import com.vsm22.scrobbletree.data.Tag;
 
 public class LastFmApiAccessor {	
 	private static String apiKey;

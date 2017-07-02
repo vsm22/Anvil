@@ -1,4 +1,4 @@
-package com.vsm22.lizard;
+package com.vsm22.scrobbletree;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
