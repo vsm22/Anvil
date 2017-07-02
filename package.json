@@ -1,0 +1,15 @@
+{
+  "name": "scrobbletree",
+  "version": "0.1.0",
+  "description": "A music exploration app based on the Last.FM API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vsm22",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "react": "^15.6.1"
+  }
+}

@@ -1,0 +1,6 @@
+**/remote-resources.xml
+node_modules
+.DS_Store
+.metadata
+.project
+.settings
