@@ -4,7 +4,9 @@ package com.vsm22.scrobbletree;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,6 +53,7 @@ public class LastFmApiAccessor {
 				+ "&api_key=" + apiKey;
 		
 		InputStream artistInfoStream = RemoteResourceAccessor.getResponseStream(requestSpec);
+		
 		Document artistInfoDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(artistInfoStream);
 
 		Element artistElement = (Element) artistInfoDocument.getElementsByTagName("artist").item(0);
@@ -76,7 +79,15 @@ public class LastFmApiAccessor {
 			String similarArtistImageMediumUrl = similarArtistElement.getElementsByTagName("image").item(1).getTextContent();
 			String similarArtistImageLargeUrl = similarArtistElement.getElementsByTagName("image").item(2).getTextContent();
 			
-			similarArtists.add(new Artist(similarArtistName, similarArtistUrl, similarArtistImageSmallUrl, similarArtistImageMediumUrl, similarArtistImageLargeUrl));	
+			Map<String, Object> similarArtistArgs = new HashMap<>();
+			
+			similarArtistArgs.put("name", similarArtistName);
+			similarArtistArgs.put("url", similarArtistUrl);
+			similarArtistArgs.put("imageSmallUrl", similarArtistImageSmallUrl);
+			similarArtistArgs.put("imageMediumUrl", similarArtistImageMediumUrl);
+			similarArtistArgs.put("imageLargeUrl", similarArtistImageLargeUrl);
+			
+			similarArtists.add(new Artist(similarArtistArgs));	
 		}
 		
 		List<Tag> artistTags = new ArrayList<>(); 
@@ -91,10 +102,21 @@ public class LastFmApiAccessor {
 			artistTags.add(new Tag(tagName, tagUrl));
 		}
 		
-		Artist artist = new Artist(artistName, artistUrl, artistImageSmallUrl, artistImageMediumUrl, artistImageLargeUrl, 
-				artistBioSummary, artistBioContent, artistTags, similarArtists);
+		Map<String, Object> artistArgs = new HashMap<>();
 		
-		return artist;
+		artistArgs.put("name", artistName);
+		artistArgs.put("url", artistUrl);
+		artistArgs.put("imageSmallUrl", artistImageSmallUrl);
+		artistArgs.put("imageMediumUrl", artistImageMediumUrl);
+		artistArgs.put("imageLargeUrl", artistImageLargeUrl);
+		artistArgs.put("bioSummary", artistBioSummary);
+		artistArgs.put("bioContent", artistBioContent);
+		artistArgs.put("tags", artistTags);
+		artistArgs.put("similarArtists", similarArtists);
+			
+		Artist newArtist = new Artist(artistArgs);
+		
+		return newArtist;
 	}
 	
 
