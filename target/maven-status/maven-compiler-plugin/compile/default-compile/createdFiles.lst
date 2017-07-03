@@ -1,8 +1,8 @@
-com/vsm22/lizard/MainRestController.class
-com/vsm22/lizard/RemoteResourceAttributeLoader.class
-com/vsm22/lizard/data/Tag.class
-com/vsm22/lizard/MainRunner.class
-com/vsm22/lizard/LastFmApiAccessor.class
-com/vsm22/lizard/data/Artist.class
-com/vsm22/lizard/RemoteResourceAccessor.class
-com/vsm22/lizard/MainController.class
+com/vsm22/scrobbletree/data/Artist.class
+com/vsm22/scrobbletree/LastFmApiAccessor.class
+com/vsm22/scrobbletree/data/Tag.class
+com/vsm22/scrobbletree/RemoteResourceAccessor.class
+com/vsm22/scrobbletree/MainRunner.class
+com/vsm22/scrobbletree/MainController.class
+com/vsm22/scrobbletree/MainRestController.class
+com/vsm22/scrobbletree/RemoteResourceAttributeLoader.class

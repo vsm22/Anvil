@@ -1,0 +1,10 @@
+@media screen and (min-width: 480px) {
+
+/** DEV */
+body::before {
+	position: fixed; 
+	content: "screen-size: medium";
+	color: #aaa;
+}
+
+}

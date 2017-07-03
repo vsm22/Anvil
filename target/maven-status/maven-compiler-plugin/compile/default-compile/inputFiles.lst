@@ -1,8 +1,8 @@
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/MainController.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/RemoteResourceAttributeLoader.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/MainRestController.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/data/Artist.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/MainRunner.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/RemoteResourceAccessor.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/LastFmApiAccessor.java
-/Volumes/StorageVol1/Workspace/Code/try-spring-boot2/src/main/java/com/vsm22/lizard/data/Tag.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainRunner.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/Artist.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainController.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/LastFmApiAccessor.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainRestController.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/Tag.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/RemoteResourceAttributeLoader.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/RemoteResourceAccessor.java
