@@ -1,8 +1,12 @@
-com/vsm22/scrobbletree/data/Artist.class
-com/vsm22/scrobbletree/LastFmApiAccessor.class
-com/vsm22/scrobbletree/data/Tag.class
-com/vsm22/scrobbletree/RemoteResourceAccessor.class
 com/vsm22/scrobbletree/MainRunner.class
+com/vsm22/scrobbletree/last_fm_api_accessors/ArtistSearchResponseParser.class
+com/vsm22/scrobbletree/RemoteResourceAccessor.class
+com/vsm22/scrobbletree/last_fm_api_accessors/ArtistInfoResponseParser.class
 com/vsm22/scrobbletree/MainController.class
+com/vsm22/scrobbletree/data/ArtistSearchResult.class
+com/vsm22/scrobbletree/data/Artist.class
+com/vsm22/scrobbletree/QueryResolver.class
 com/vsm22/scrobbletree/MainRestController.class
 com/vsm22/scrobbletree/RemoteResourceAttributeLoader.class
+com/vsm22/scrobbletree/data/Tag.class
+com/vsm22/scrobbletree/last_fm_api_accessors/LastFmApiAccessor.class

@@ -1,8 +1,12 @@
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/last_fm_api_accessors/LastFmApiAccessor.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainRunner.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/Artist.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainController.java
-/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/LastFmApiAccessor.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/last_fm_api_accessors/ArtistSearchResponseParser.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainRestController.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/QueryResolver.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/last_fm_api_accessors/ArtistInfoResponseParser.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/Tag.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/RemoteResourceAttributeLoader.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/ArtistSearchResult.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/RemoteResourceAccessor.java
