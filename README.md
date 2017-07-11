@@ -2,7 +2,7 @@
 A music exploration app based on the Last.FM API
 
 # Source Directory Structure Guide
-'''
+```
 │
 └ /src/main
    │
@@ -20,4 +20,4 @@ A music exploration app based on the Last.FM API
       ├ /index.js (main entry point)
       │ 
       └ /react-components
-'''
+```
