@@ -17,7 +17,7 @@ A music exploration app based on the Last.FM API
    ├ /resources/public (public entry point)
    │
    └ /js
-      ├ /react-components
+      ├ /react-components (react components)
       │ 
       └ /index.js (main entry point)
 ```
