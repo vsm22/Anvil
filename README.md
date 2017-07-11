@@ -14,7 +14,7 @@ A music exploration app based on the Last.FM API
    │   │
    │   └ /remote_resource_accessors (utility classes to access the remote API)
    │ 
-   ├ /resources/public (public points, including index.html, build.js, and stylesheets)
+   ├ /resources/public (public entry point)
    │
    └ /js
       ├ /react-components
