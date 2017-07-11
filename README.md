@@ -10,7 +10,7 @@ A music exploration app based on the Last.FM API
    │   │
    │   ├ /data (classes for local data representation) 
    │   │   │
-   │   │   └ /parsers (utility classes for parsing xml responses to local data classes)
+   │   │   └ /parsers (utility classes for parsing xml to local data classes)
    │   │
    │   └ /remote_resource_accessors (utility classes to access the remote API)
    │ 
