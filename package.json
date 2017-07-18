@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack ./src/main/js/index.js ./src/main/resources/public/build.js",
+    "watch": "webpack ./src/main/js/index.js ./src/main/resources/public/build.js --watch"
   },
   "author": "vsm22",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
+    "flux": "^3.1.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   }

@@ -1,24 +1,23 @@
 import React from "react";
 import HeaderComponent from "./HeaderComponent";
-import MainViewerComponent from "./MainViewerComponent";
 import SearchComponent from "./SearchComponent";
+import SearchResultViewerComponent from "./SearchResultViewerComponent";
+import ArtistInfoViewerComponent from "./ArtistInfoViewerComponent";
+import DevViewerComponent from "./DevViewerComponent";
 
 "use strict";
 
-class RootComponent extends React.Component {
-	constructor() {
-		super();
-	}
-	
-	render() {
+function RootComponent(props) {
 		return (
 			<div>
-				<HeaderComponent />
-				<SearchComponent />
-				<MainViewerComponent />
+				<HeaderComponent {...props} />
+				<SearchComponent {...props} />
+				<SearchResultViewerComponent {...props} />
+				<ArtistInfoViewerComponent {...props} />
+				<DevViewerComponent {...props} />
 			</div>
 		);
-	}
 }
+
 
 export default RootComponent
