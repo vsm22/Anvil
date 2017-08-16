@@ -17,7 +17,7 @@ The front end is served as a static page, leaving client-side rendering, includi
 
 The REST API function of the back-end is fulfilled by the `MainRestController` class, which returns data amalgamated from remote resources as formatted JSON. The JSON served by this component is decoupled from the data received from the remote resources via the separation of the business logic into *Remote Resource Accessor* classes which obtain and parse data from remote resources, and a `DataBuilder` class, which amalgamates the obtained data, builds a local representation, and delivers it as JSON via the `MainRestController`. The following diagram provides an overview of the components involved in the back-end logic.
 
-![Back-end diagram](https://github.com/vsm22/scrobbletree/tree/dev/doc/scrobbletree-rest-diagram.svg “Back-end diagram”)
+![Back-end diagram](https://github.com/vsm22/scrobbletree/tree/dev/doc/scrobbletree-rest-diagram.png “Back-end diagram”)
 
 The dashed boxes in in the illustration indicate the two major component blocks - the *Data Builder*, which is responsible for providing formatted data to the client via the *Rest Controller*, and the *Remote Resource Accessors and Parsers* which request data from the remote APIs and provide it to the *Data Builder*. The separation into these two component blocks ensures loose coupling between the front-end and the remote resources. The *Data Builder* acts as a mediating element: should the backend be updated with additional or different remote resources, the front-end can still receive the data format it expects; conversely, should the front-end be changed to expect a different data format, this can be accommodated without affecting how the app queries the remote resources.
 
@@ -31,6 +31,6 @@ The front-end is built with *React* using *Flux* and *React-Router 4*. The compo
 
 The following diagram outlines the data propagation
 
-![Flux diagram](https://github.com/vsm22/scrobbletree/tree/dev/doc/scrobbletree-flux-diagram.svg “Flux diagram”)
+![Flux diagram](https://github.com/vsm22/scrobbletree/tree/dev/doc/scrobbletree-flux-diagram.png “Flux diagram”)
 
 In this model, the data used by the application resides as *state* in the *Data Stores* and flows into the *Component Tree* via props. The *Main Flux Container* is the main entry point into the application, rendered in *index.js* as the root of the *React DOM* and acts as the glue between the *React Component Tree*, the *Action Dispatcher*, and the *Data Stores*. It maintains a dictionary of hooks for *Dispatcher Actions* and *Data Store States* and provides these hooks to the *Component Tree*. Whenever an event occurs in the component tree, such as the user searching for an artist, the event triggers an *Action* in the *Action Dispatcher*. The action is propagated to the *Data Stores*, which execute their business logic and update their state according to the *Action Type*. When the *Data Stores* are updated, the *Component Tree* is re-rendered, reflecting the new data state.  
