@@ -5,7 +5,9 @@ Scrobbletree is a web app for music exploration. The purpose of the app is to al
 ## Repo Structure
 
 *src\main\java\vsm22\scrobbletree* - back-end components using Java and Spring Boot
+
 *src\main\js* - front-end components using React
+
 *src\main\resources* - static resources
 
 ## Project Design Notes
