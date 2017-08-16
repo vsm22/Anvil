@@ -31,6 +31,6 @@ The front-end is built with *React* using *Flux* and *React-Router 4*. The compo
 
 The following diagram outlines the data propagation
 
-![Flux diagram](https://github.com/vsm22/scrobbletree/tree/dev/doc/scrobbletree-flux-diagram.png “Flux diagram”)
+![Flux diagram](https://image.ibb.co/kNgzGa/scrobbletree_flux_diagram.png)
 
 In this model, the data used by the application resides as *state* in the *Data Stores* and flows into the *Component Tree* via props. The *Main Flux Container* is the main entry point into the application, rendered in *index.js* as the root of the *React DOM* and acts as the glue between the *React Component Tree*, the *Action Dispatcher*, and the *Data Stores*. It maintains a dictionary of hooks for *Dispatcher Actions* and *Data Store States* and provides these hooks to the *Component Tree*. Whenever an event occurs in the component tree, such as the user searching for an artist, the event triggers an *Action* in the *Action Dispatcher*. The action is propagated to the *Data Stores*, which execute their business logic and update their state according to the *Action Type*. When the *Data Stores* are updated, the *Component Tree* is re-rendered, reflecting the new data state.  
