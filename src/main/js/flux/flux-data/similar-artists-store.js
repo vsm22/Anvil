@@ -10,21 +10,70 @@ class SimilarArtistsStore extends ReduceStore {
     super(MainDispatcher);
   }
 
+  /**
+   *  State contains currentQuery and cache properties
+  **/
   getInitialState() {
-    return [];
+    return {
+      currentQuery: {
+        artistName: "",
+        similarArtists: {
+          artistList: [{
+            "name": "",
+            "imageSmallUrl": "",
+            "imageMediumUrl": "",
+            "imageLargeUrl": "",
+            "bio": ""
+          }]
+        }
+      },
+      cache: new Map()
+    };
   }
 
   reduce(state, action) {
     switch(action.type) {
       case ActionTypes.INIT_ARTIST_PAGE_LOAD:
-        SimilarArtistsService.getXHRPromise(action.artistName)
-          .then(result => {
-            DispatcherActions.loadSimilarArtists(result);
-          });
-        return state;
+        if (state.cache.has(action.query)) {
+          return {
+            currentQuery: {
+              artistName: action.query,
+              similarArtists: state.cache.get(action.query),
+            },
+            cache: state.cache.set(action.query, {
+              lastAccessed: Date.now(),
+              similarArtists: state.cache.get(action.query).similarArtists
+            })
+          };
+        }
+        else {
+          SimilarArtistsService.getXHRPromise(action.query)
+            .then(result => {
+              DispatcherActions.finishSimilarArtistsLoad(result);
+            }
+          );
+          return {
+            currentQuery: {
+              artistName: action.query,
+              similarArtists: [{}]
+            },
+            cache: state.cache
+          };
+        }
 
-      case ActionTypes.LOAD_SIMILAR_ARTISTS:
-        return action.similarArtistsJSON["artistList"];
+      case ActionTypes.FINISH_SIMILAR_ARTISTS_LOAD:
+        return {
+          currentQuery: {
+            artistName: state.currentQuery.artistName,
+            similarArtists: action.result
+          },
+          cache: state.cache.set(state.currentQuery.artistName,
+            {
+              lastAccessed: Date.now(),
+              similarArtists: action.result
+            }
+          )
+        };
 
       default:
         return state;

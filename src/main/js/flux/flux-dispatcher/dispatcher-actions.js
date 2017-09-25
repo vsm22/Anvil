@@ -38,10 +38,10 @@ const DispatcherActions = {
     })
   },
 
-  loadSimilarArtists(similarArtistsJSON) {
+  finishSimilarArtistsLoad(result) {
     MainDispatcher.dispatch({
-      type: ActionTypes.LOAD_SIMILAR_ARTISTS,
-      similarArtistsJSON: similarArtistsJSON
+      type: ActionTypes.FINISH_SIMILAR_ARTISTS_LOAD,
+      result: result
     })
   },
 

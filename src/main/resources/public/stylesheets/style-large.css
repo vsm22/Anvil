@@ -1,10 +1,2 @@
 @media screen and (min-width: 981px) {
-
-/** DEV */
-body::before {
-	position: fixed;
-	content: "screen-size: large";
-	color: #aaa;
-}
-
 }

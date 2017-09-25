@@ -16,7 +16,7 @@ function getStores() {
       ArtistSearchStore,
       ArtistInfoStore,
       SimilarArtistsStore,
-      ApplicationStateStore      
+      ApplicationStateStore
     ];
 }
 
@@ -40,12 +40,12 @@ function getState() {
       finishArtistPageLoad: DispatcherActions.finishArtistPageLoad,
       artistInfo: ArtistInfoStore.getState(),
 
-      // load similar artists
-      loadSimilarArtists: DispatcherActions.loadSimilarArtists,
+      // similar artists
+      finishSimilarArtistsLoad: DispatcherActions.finishSimilarArtistsLoad,
       similarArtists: SimilarArtistsStore.getState(),
 
       // app state
-      appState: ApplicationStateStore.getState()
+      applicationState: ApplicationStateStore.getState()
     };
 }
 

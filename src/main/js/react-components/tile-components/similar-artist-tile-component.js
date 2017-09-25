@@ -1,9 +1,13 @@
 import React from "react";
 
 const SimilarArtistTileComponent = (props) => (
-      <div>
-        <div>{props.artist["name"]}</div>
-        <img src={props.artist["imageExtraLargeUrl"]} />
+      <div className="similar-artist-tile">
+        <div className="artist-image-wrap">
+          <img className="artist-image"
+               src={props.artist["imageMediumUrl"]}
+               onMouseOver={() => { props.setHoveredArtist(props.artist["name"]) }}
+          />
+        </div>
       </div>
 );
 

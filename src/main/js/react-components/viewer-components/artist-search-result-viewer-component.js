@@ -7,6 +7,7 @@ class ArtistSearchResultViewerComponent extends React.Component {
   }
 
   componentWillMount() {
+    console.log("init search");
     const queryRegex = /\?artistName=(.*)/;
     const urlParam = this.props.location.search;
     const artistName = queryRegex.exec(urlParam)[1];
@@ -15,23 +16,25 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
   render() {
     const props = this.props;
+    const artistList = props.artistSearchResult.currentQuery.artistList;
 
     return (
       <div id="artist-search-result-container">
-        <h1> artists matching {props.artistSearchResult.currentQuery.artistName} </h1>
         <ul>
           {
-            props.artistSearchResult.currentQuery.artistList.map((artistResultJSON) => {
+            artistList.map((artistResultJSON) => {
               let curArtistName = artistResultJSON["name"];
 
               return (
                 <li key={curArtistName}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    props.redirectLocation("/artistInfo?artistName=" + curArtistName);
-                  }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      props.redirectLocation("/artistInfo?artistName=" + curArtistName);
+                    }
                 }>
-                  <ArtistSearchResultTileComponent artistResultJSON={artistResultJSON} />
+                  <ArtistSearchResultTileComponent
+                    artistResultJSON={artistResultJSON}
+                  />
                 </li>
               );
             })

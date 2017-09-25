@@ -1,9 +1,17 @@
-import React from "react"
+import React from "react";
+import SpinnerCurtain from "../../graphics/spinner-curtain";
 
-const SpinnerComponent = (props) => (
-  <div className="wrap spinner-wrap">
-    <h1> Loading... </h1>
-  </div>
-);
+const SpinnerComponent = (props) => {
+  return (
+    <div className="wrap spinner-wrap" id="plop">
+      {
+      /*
+      <canvas id="spinner-canvas" ref={SpinnerCurtain}></canvas>
+      */
+      }
+      <h1> load </h1>
+    </div>
+  );
+}
 
 export default SpinnerComponent

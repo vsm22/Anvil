@@ -1,12 +1,10 @@
-/** DEV */
-body::before {
-	position: fixed;
-	content: "screen-size: small";
-	color: #aaa;
-}
 
 * {
 	box-sizing: border-box;
+}
+
+body {
+	background-color: hsl(0, 100%, 100%);
 }
 
 ul {
@@ -15,6 +13,10 @@ ul {
 
 button {
 	transform: translateY(-2px);
+}
+
+h1 {
+	text-align: center;
 }
 
 /**
@@ -30,6 +32,23 @@ header h2 {
 }
 
 /**
+ * Root component
+ */
+#root-component-wrap {
+	height: 100vh;
+	width: 100vw;
+}
+
+/**
+ * Spinner
+ */
+#spinner-canvas {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+/**
  * Main search form
  */
 #main-search-form {
@@ -38,6 +57,7 @@ header h2 {
 	border: 1px solid #aaa;
 	padding: 1em;
 	text-align: center;
+	background-color: #fff;
 }
 
 #main-search-widgets-container {
@@ -63,21 +83,14 @@ header h2 {
 
 .main-viewer-component-wrap {
 	width: 100vw;
-	padding: 1em;
 }
 
+/**
+ * Artist search results
+ */
 #artist-search-result-container {
 	display: block;
-	width: 500px;
-	margin-left: auto;
-	margin-right: auto;
 	text-align: center;
-}
-
-#artist-search-result-container h1 {
-	font-size: 2em;
-	padding-top: 1em;
-	padding-bottom: 1em;
 }
 
 .artist-search-result-tile {
@@ -88,29 +101,48 @@ header h2 {
 .artist-search-result-tile .artist-name {
 	position: relative;
 	display: block;
+	padding-top: 1em;
+	padding-bottom: 1.5em;
 	width: 100%;
-
-	font-size: 3em;
+	font-size: 2em;
 }
 
 .artist-search-result-tile .artist-image-wrap {
 	position: relative;
-	width: 320px;
 	height: 320px;
 	margin-left: auto;
 	margin-right: auto;
-	border-radius: 50%;
-	overflow: hidden;
-	background-color: #212121;
+	overflow: visible;
+}
+
+.artist-search-result-tile .artist-image-wrap .image-circular-background {
+	width: 320px;
+	height: 320px;
+}
+
+.background-effects {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.background-effects .bar {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 0px;
+	height: 17%;
+	background-color: blue;
 }
 
 .artist-search-result-tile .artist-image {
+	min-height: 320px;
+	min-width: 320px;
 	filter: grayscale(100%);
-}
-
-.artist-search-result-tile .artist-image-wrap:hover {
-	cursor: pointer;
-	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
+	border-radius: 50%;
+	background-color: hsl(210, 100%, 20%);
 }
 
 .artist-search-result-tile .artist-image:hover {
@@ -132,21 +164,144 @@ header h2 {
 
 .artist-info-wrap h1 {
 	margin-top: 1em;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 }
 
 .artist-info-wrap .artist-image-wrap {
-	float: right;
+	position: relative;
+	width: 100%;
+	height: 320px;
+}
+
+.artist-info-wrap .artist-image-wrap .background-effects .bar {
+	width: 200px;
+}
+
+.artist-info-wrap .artist-image {
 	width: 320px;
 	height: 320px;
 	border-radius: 50%;
-	overflow: hidden;
+	z-index: 100;
+	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
+}
+
+.artist-info-wrap .artist-image-wrap .background-effects .bar {
+	width: 0px;
+	transition: width 1s;
+	z-index: -1;
 }
 
 .artist-bio {}
 
 .artist-bio p {
 	margin-bottom: 1em;
-	line-height: 2em;
-	letter-spacing: 0.065em;
+	line-height: 1.8em;
+	letter-spacing: 0.06em;
+}
+
+/**
+ * Similar Artists
+ */
+#similar-artists-container h1 {
+	text-align: center;
+}
+
+#similar-artists-container ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-bottom: 2em;
+	max-width: 100%;
+	list-style-type: none;
+}
+
+.similar-artist-tile {
+	width: 50px;
+	height: 50px;
+}
+
+.similar-artist-tile:hover {
+	cursor: pointer;
+}
+
+.similar-artist-tile .artist-name {
+	position: absolute;
+	font-size: 1em;
+}
+
+.similar-artist-tile .artist-image-wrap {
+	overflow: hidden;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	background-color: hsl(210, 100%, 50%);
+}
+
+.similar-artist-tile .artist-image {
+	width: 100%;
+	height: 100%;
+}
+
+.similar-artist-tile .artist-image:hover {
+	filter: grayscale();
+}
+
+.similar-artist-name-display {
+	padding-bottom: 1em;
+	text-align: center;
+	color: #555;
+	font-size: 2em;
+}
+
+/**
+ * Artist albums
+ */
+
+#artist-albums-wrap h1 {
+	display: block;
+	text-align: center;
+}
+
+#artist-albums-wrap .albums-list {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	list-style-type: none;
+}
+
+#artist-albums-wrap .album-list li {
+	display: inline-block;
+}
+
+.artist-albums-tile {
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	width: 200px;
+	padding-bottom: 0.5em;
+	border: 1px solid hsla(0, 100%, 100%, 0);
+}
+
+.artist-albums-tile:hover {
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.artist-albums-tile h1 {
+	font-size: 1em;
+	text-align: center;
+}
+
+.artist-albums-tile img {
+	margin-left: auto;
+	margin-right: auto;
+	width: 160px;
+	height: 160px;
+	background-color: hsl(210, 100%, 50%);
+	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }

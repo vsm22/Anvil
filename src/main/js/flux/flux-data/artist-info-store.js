@@ -23,7 +23,8 @@ class ArtistInfoStore extends ReduceStore {
           "imageMediumUrl": "",
           "imageLargeUrl": "",
           "bio": "",
-          "similarArtists": [{}]
+          "similarArtists": [{}],
+          "albumList": [{}]
         }
       },
       cache: new Map()
