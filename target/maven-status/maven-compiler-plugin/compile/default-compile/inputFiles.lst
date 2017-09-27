@@ -6,6 +6,7 @@
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/util/RemoteResourceAccessor.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/ArtistInfo.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/MainRestController.java
+/Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/util/ConfigLoader.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/remote/lastfm/LastFM_Track.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/RequestType.java
 /Volumes/StorageVol1/Workspace/scrobbletree/src/main/java/com/vsm22/scrobbletree/data/remote/lastfm/LastFM_Date.java

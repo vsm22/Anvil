@@ -1,6 +1,5 @@
 package com.vsm22.scrobbletree.data.remote.lastfm;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,8 +20,11 @@ public class LastFM_ApiAccessor {
 	  		RemoteResourceAttributeLoader loader = new RemoteResourceAttributeLoader("src/main/resources/remote-resources.xml");
 	  		Element lastFmResourceSpec = loader.getResourceSpec("last.fm"); 
 	  		
-	  		apiKey = lastFmResourceSpec.getElementsByTagName("resource-key").item(0).getTextContent();
-	  		apiSharedSecret = lastFmResourceSpec.getElementsByTagName("resource-shared-secret").item(0).getTextContent();
+	  		String apiKeyEnvVar = lastFmResourceSpec.getElementsByTagName("resource-key-env-var").item(0).getTextContent();
+	  		String apiSharedSecretEnvVar = lastFmResourceSpec.getElementsByTagName("resource-shared-secret-env-var").item(0).getTextContent();
+	  		
+	  		apiKey = System.getenv(apiKeyEnvVar);	
+	  		apiSharedSecret = System.getenv(apiSharedSecretEnvVar);
 	  		apiUrl = lastFmResourceSpec.getElementsByTagName("resource-url").item(0).getTextContent();
 	  		apiUsername = lastFmResourceSpec.getElementsByTagName("resource-username").item(0).getTextContent();
 		} catch (Exception e) {

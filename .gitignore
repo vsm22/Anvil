@@ -1,4 +1,4 @@
-**/remote-resources.xml
+**/secret-remote-resources.xml
 node_modules
 .idea
 .DS_Store

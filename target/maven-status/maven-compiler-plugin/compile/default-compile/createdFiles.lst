@@ -7,6 +7,7 @@ com/vsm22/scrobbletree/data/remote/lastfm/LastFM_ItemType.class
 com/vsm22/scrobbletree/data/remote/lastfm/LastFM_Track.class
 com/vsm22/scrobbletree/MainController.class
 com/vsm22/scrobbletree/DataBuilder.class
+com/vsm22/scrobbletree/util/ConfigLoader.class
 com/vsm22/scrobbletree/data/remote/lastfm/LastFM_Bio.class
 com/vsm22/scrobbletree/data/remote/lastfm/LastFM_ApiAccessor.class
 com/vsm22/scrobbletree/data/ArtistSearchItem.class
