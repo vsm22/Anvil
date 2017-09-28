@@ -49,10 +49,19 @@ class BarsWaveGraphic {
           }
           return barsArr;
     }());
+
+    _this.runDriver();
   }
 
+  /**
+   * Run a "driver" loop that updates an x-position value (driver.x) in relation to
+   *  a velocity (v), current time, and container width.
+   */
   runDriver() {
-    let _this = this;
+    const _this = this;
+
+    _this.driver.x = (Date.now() % (_this.container.clientWidth / _this.driver.v)) * _this.driver.v;
+
     window.requestAnimationFrame(() => { _this.runDriver(); });
   }
 
@@ -88,7 +97,7 @@ class BarsWaveGraphic {
 
     function runAnimationLoop() {
       if (animationIsActive) {
-        _this.driver.x = (Date.now() % (_this.container.clientWidth / _this.driver.v)) * _this.driver.v;
+
 
         if (_this.driver.x > _this.container.clientWidth - 5) {
           animationIsActive = false;
