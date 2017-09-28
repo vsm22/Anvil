@@ -15,7 +15,7 @@ class BarsWaveGraphic {
     this.numBars = (o.numBars !== undefined) ? o.numBars : 20;
     this.barWidth = this.container.clientWidth / this.numBars;
     this.bars = [];
-    this.exciter = {
+    this.driver = {
       x: 0,
       y: 0,
       v: (o.velocity !== undefined) ? o.velocity : (o.v !== undefined) ? o.v : 0.5
@@ -51,6 +51,11 @@ class BarsWaveGraphic {
     }());
   }
 
+  runDriver() {
+    let _this = this;
+    window.requestAnimationFrame(() => { _this.runDriver(); });
+  }
+
   resetWavePath() {
     const _this = this;
 
@@ -61,6 +66,7 @@ class BarsWaveGraphic {
       bar.oy = _this.centralAxis + (Math.sin(bar.ox / waveFreq) * waveAmp);
     });
   }
+
 
   /**
    * Traveling wave animation
@@ -82,9 +88,9 @@ class BarsWaveGraphic {
 
     function runAnimationLoop() {
       if (animationIsActive) {
-        _this.exciter.x = (Date.now() % (_this.container.clientWidth / _this.exciter.v)) * _this.exciter.v;
+        _this.driver.x = (Date.now() % (_this.container.clientWidth / _this.driver.v)) * _this.driver.v;
 
-        if (_this.exciter.x > _this.container.clientWidth - 5) {
+        if (_this.driver.x > _this.container.clientWidth - 5) {
           animationIsActive = false;
           pausePeriod = Math.floor(Math.random() * 5000);
           pauseStart = Date.now();
@@ -92,7 +98,7 @@ class BarsWaveGraphic {
         }
 
         _this.bars.forEach(bar => {
-          if (bar.isAvailable && Math.abs(_this.exciter.x - bar.attr().x) < 10) {
+          if (bar.isAvailable && Math.abs(_this.driver.x - bar.attr().x) < 10) {
             bar.attr({ y: bar.oy });
             animateBarExpansion(bar);
           }
