@@ -10,26 +10,22 @@ class ApplicationStateStore extends ReduceStore {
   }
 
   getInitialState() {
-    return ApplicationStateTypes.DISPLAY_LANDING;
+    return ApplicationStateTypes.READY;
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case ActionTypes.REDIRECT_LOCATION:
-        return ApplicationStateTypes.REDIRECT_LOCATION;
-
       case ActionTypes.INIT_ARTIST_SEARCH:
       case ActionTypes.INIT_ARTIST_PAGE_LOAD:
-        return ApplicationStateTypes.DISPLAY_SPINNER;
+        console.log("LOADING");
+        return ApplicationStateTypes.READY;
 
       case ActionTypes.FINISH_ARTIST_SEARCH:
-        return ApplicationStateTypes.DISPLAY_ARTIST_SEARCH_RESULTS;
-
-      case ActionTypes.FINISH_ARTIST_PAGE_LOAD:
-        return ApplicationStateTypes.DISPLAY_ARTIST_INFO;
+        return ApplicationStateTypes.SEARCH_RESULT;
 
       default:
-        return state;
+        console.log("READY");
+        return ApplicationStateTypes.READY;
     }
   }
 }

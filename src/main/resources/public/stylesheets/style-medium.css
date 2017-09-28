@@ -1,12 +1,4 @@
 @media screen and (min-width: 641px) {
-
-/** DEV */
-body::before {
-	position: fixed;
-	content: "screen-size: medium";
-	color: #aaa;
-}
-
 /**
  * Main search form
  */

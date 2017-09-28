@@ -5,19 +5,30 @@ import ArtistSearchResultViewerComponent from "../viewer-components/artist-searc
 import ArtistInfoViewerComponent from "../viewer-components/artist-info-viewer-component";
 import SpinnerComponent from "../viewer-components/spinner-component";
 import DevViewerComponent from "../viewer-components/dev-viewer-component";
+import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graphic-component";
 
 const MainViewerComponent = (props) => (
     <div className="wrap main-viewer-component-wrap">
       {/* render components based on routes */}
       <Route path="/artistSearch"
         render={ (routeProps) => {
-            return <ArtistSearchResultViewerComponent {...Object.assign({}, props, routeProps)} />
+            if (props.applicationState === ApplicationStateTypes.LOADING) {
+              console.log("search loading");
+              return <SpinnerComponent />
+            } else {
+              console.log("search ready");
+              return <ArtistSearchResultViewerComponent {...Object.assign({}, props, routeProps)} />
+            }
           }
         }
       />
       <Route path="/artistInfo"
         render={ (routeProps) => {
-            return <ArtistInfoViewerComponent {...Object.assign({}, props, routeProps)} />
+            if (props.applicationState === ApplicationStateTypes.LOADING) {
+              return <SpinnerComponent />
+            } else {
+              return <ArtistInfoViewerComponent {...Object.assign({}, props, routeProps)} />
+            }
           }
         }
       />
