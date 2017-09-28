@@ -1,8 +1,12 @@
 **/secret-remote-resources.xml
+.env.secrets
 node_modules
-.idea
+.classpath
+.idea/
+*.iml
 .DS_Store
 .metadata
 .project
 .settings
-/target/
+target/
+RemoteSystemsTempFiles/
