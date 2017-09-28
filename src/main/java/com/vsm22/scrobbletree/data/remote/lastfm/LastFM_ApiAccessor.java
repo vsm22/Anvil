@@ -19,7 +19,7 @@ public class LastFM_ApiAccessor {
 	
 	private LastFM_ApiAccessor() {
 		try {
-	  		RemoteResourceAttributeLoader loader = new RemoteResourceAttributeLoader("src/main/resources/remote-resources.xml");
+	  		RemoteResourceAttributeLoader loader = new RemoteResourceAttributeLoader();
 	  		Element lastFmResourceSpec = loader.getResourceSpec("last.fm"); 
 	  		
 	  		String apiKeyEnvVar = lastFmResourceSpec.getElementsByTagName("resource-key-env-var").item(0).getTextContent();
