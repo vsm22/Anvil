@@ -12,9 +12,9 @@ class BarsWaveGraphic {
     this.animationState = 1;
 
     this.container = container;
-    this.numBars = (o.numBars !== undefined) ? o.numBars : 20;
-    this.barWidth = this.container.clientWidth / this.numBars;
-    this.bars = [];
+    this.numSegments = (o.numSegments !== undefined) ? o.numSegments : 20;
+    this.segmentWidth = this.container.clientWidth / this.numSegments;
+    this.segments = [];
     this.driver = {
       x: 0,
       y: 0,
@@ -32,50 +32,91 @@ class BarsWaveGraphic {
   init() {
     const _this = this;
 
-    this.bars = (function createBarsArr() {
-          let barsArr = [];
-          for (let i = 0; i < _this.numBars; i++) {
-            let ox = i * _this.barWidth;
+    this.segments = (function createBarsArr() {
+          let segmentsArr = [];
+          for (let i = 0; i < _this.numSegments; i++) {
+            let ox = i * _this.segmentWidth;
             let oy = (_this.centralAxis / 2) + Math.sin(ox / 200) * _this.container.clientHeight / 2;
-            let newBar = _this.snp.rect(ox, oy, _this.barWidth, 0);
-            newBar.attr({
+            let newSegment = _this.snp.rect(ox, oy, _this.segmentWidth, 0);
+            newSegment.attr({
               fill: "hsl(" + _this.primaryHue + ", 100, 50)",
               opacity: 0
             });
-            newBar.isAvailable = true;
-            newBar.ox = ox;
-            newBar.oy = oy;
-            barsArr.push(newBar);
+            newSegment.isAvailable = true;
+            newSegment.ox = ox;
+            newSegment.oy = oy;
+            segmentsArr.push(newBar);
           }
-          return barsArr;
+          return segmentsArr;
     }());
 
-    _this.runDriver();
+    _this.runAnimationDriver();
   }
 
   /**
    * Run a "driver" loop that updates an x-position value (driver.x) in relation to
    *  a velocity (v), current time, and container width.
    */
-  runDriver() {
+  runAnimationDriver() {
     const _this = this;
 
-    _this.driver.x = (Date.now() % (_this.container.clientWidth / _this.driver.v)) * _this.driver.v;
+    let animationIsActive = true;
+    let pauseStart, pausePeriod;
 
-    window.requestAnimationFrame(() => { _this.runDriver(); });
+    if (animationIsActive) {
+      if (_this.driver.x > _this.container.clientWidth - 5) {
+        animationIsActive = false;
+        pausePeriod = Math.floor(Math.random() * 5000);
+        pauseStart = Date.now();
+        _this.resetWavePath();
+      }
+
+      _this.driver.x = (Date.now() % (_this.container.clientWidth / _this.driver.v)) * _this.driver.v;
+      _this.draw();
+      window.requestAnimationFrame(() => { _this.runAnimationDriver(); });
+    }
+    else if (Date.now() > pauseStart + pausePeriod) {
+      animationIsActive = true;
+    }
   }
 
-  resetWavePath() {
+  /**
+   * Create a random wave freq and amplitude
+   */
+  resetWavePath(o) {
     const _this = this;
+    o = o || {};
 
-    let waveFreq = Math.ceil(Math.random() * 200);
-    let waveAmp = Math.floor(Math.random() * (_this.container.clientHeight / 2));
+    // set default freq and amp ranges
+    o.minFreq = (o.minFreq !== undefined) ? o.minFreq : 0;
+    o.maxFreq = (o.maxFreq !== undefined) ? o.maxFreq : 200;
+    o.minAmp = (o.minAmp !== undefined) ? o.minAmp : 0;
+    o.maxAmp = (o.maxAmp !== undefined) ? o.maxAmp : _this.container.clientHeight / 2;
 
-    this.bars.forEach(bar => {
-      bar.oy = _this.centralAxis + (Math.sin(bar.ox / waveFreq) * waveAmp);
+    // generate random freq and amplitude within the given range
+    let waveFreq = (Math.random() * (o.maxFreq - o.minFreq)) + o.minFreq;
+    waveFreq = Math.ceil(waveFreq);
+    let waveAmp = (Math.random() * (o.maxAmp - o.minAmp)) + o.minAmp;
+    waveAmp = Math.floor(waveAmp);
+
+    // set the y origin (oy) for each segment according to a sin function with given freq and amp
+    this.segments.forEach(segment => {
+      segment.oy = _this.centralAxis + (Math.sin(segment.ox / waveFreq) * waveAmp);
     });
   }
 
+  /**
+   * Set the animation state
+   */
+  setAnimationState(state) {
+    this.animationState = state;
+  }
+
+  /**
+   * Draw current state
+   */
+  draw() {
+  }
 
   /**
    * Traveling wave animation
@@ -89,37 +130,16 @@ class BarsWaveGraphic {
     _this.animationState = 1;
 
     // reset opacity to 0 at the beginning of the animation
-    _this.bars.forEach(bar => {
-        bar.attr({opacity: 0});
+    _this.segments.forEach(segment => {
+        segment.attr({opacity: 0});
     });
 
-    runAnimationLoop();
-
-    function runAnimationLoop() {
-      if (animationIsActive) {
-
-
-        if (_this.driver.x > _this.container.clientWidth - 5) {
-          animationIsActive = false;
-          pausePeriod = Math.floor(Math.random() * 5000);
-          pauseStart = Date.now();
-          _this.resetWavePath();
-        }
-
-        _this.bars.forEach(bar => {
-          if (bar.isAvailable && Math.abs(_this.driver.x - bar.attr().x) < 10) {
-            bar.attr({ y: bar.oy });
-            animateBarExpansion(bar);
-          }
-        });
-      } else if (Date.now() > pauseStart + pausePeriod){
-        animationIsActive = true;
+    _this.segments.forEach(segment => {
+      if (segment.isAvailable && Math.abs(_this.driver.x - segment.attr().x) < 10) {
+        segment.attr({ y: segment.oy });
+        animateBarExpansion(segment);
       }
-
-      if (_this.animationState === 1) {
-        window.requestAnimationFrame(runAnimationLoop);
-      }
-    }
+    });
 
     function animateBarExpansion(el) {
       el.isAvailable = false;
@@ -159,9 +179,9 @@ class BarsWaveGraphic {
     y = (y !== undefined) ? y : 0;
     height = (height !== undefined) ? height : 20;
 
-    _this.bars.forEach(bar => {
-        bar.stop();
-        bar.animate({y: y, height: height, opacity: _this.maxOpacity}, 1000, mina.elastic);
+    _this.segments.forEach(bar => {
+        segment.stop();
+        segment.animate({y: y, height: height, opacity: _this.maxOpacity}, 1000, mina.elastic);
     });
   }
 }
