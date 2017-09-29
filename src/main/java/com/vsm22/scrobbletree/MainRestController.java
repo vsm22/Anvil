@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="/api")
 public class MainRestController {
-	
+	DataBuilder dataBuilder = DataBuilder.getInstance();
+
 	@RequestMapping(value="/getArtistSearch")
 	@Cacheable("artistSearchCache")
 	public String getArtistSearch(@RequestParam(value="query", required=true) String query) throws Exception {
@@ -15,7 +16,7 @@ public class MainRestController {
 		System.out.println("Artist search request issued, query= " + query);
 			
 		try {		
-			return DataBuilder.createArtistSearch(query).toJson();	
+			return dataBuilder.createArtistSearch(query).toJson();
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;
@@ -29,7 +30,7 @@ public class MainRestController {
 		System.out.println("Artist info request issued, query= " + query);
 			
 		try {		
-			return DataBuilder.createArtistInfo(query).toJson();	
+			return dataBuilder.createArtistInfo(query).toJson();
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;
@@ -43,7 +44,7 @@ public class MainRestController {
 		System.out.println("Similar artists request issued, query= " + query);
 
 		try {
-			return DataBuilder.createSimilarArtists(query).toJson();
+			return dataBuilder.createSimilarArtists(query).toJson();
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;
