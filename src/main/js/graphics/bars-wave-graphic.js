@@ -267,7 +267,7 @@ class BarsWaveGraphic {
   }
 
   /**
-   * "Fall and shimmer" animation
+   * Shimmer animation
    */
   animateShimmer() {
     const _this = this;

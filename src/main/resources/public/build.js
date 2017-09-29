@@ -30323,7 +30323,7 @@ var BarsWaveGraphic = function () {
     }
 
     /**
-     * "Fall and shimmer" animation
+     * Shimmer animation
      */
 
   }, {
