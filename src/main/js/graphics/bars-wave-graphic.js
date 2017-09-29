@@ -122,7 +122,8 @@ class BarsWaveGraphic {
         this.animateTravelingWave();
         break;
       case 2:
-        this.animateRain();
+        //this.animateRain();
+        this.animateShimmer();
         break;
       default:
         break;
@@ -143,7 +144,8 @@ class BarsWaveGraphic {
         break;
       case 2:
         _this.setAllAvailable(true);
-        _this.lineUpHorizontally();
+        _this.lineUpHorizontally(0, _this.container.clientHeight);
+        break;
       default:
         break;
     }
@@ -260,6 +262,40 @@ class BarsWaveGraphic {
           segment.attr({y: segment.oheight, opacity: 0.1, height: segment.oheight});
           segment.isAvailable = true;
         }
+      );
+    }
+  }
+
+  /**
+   * "Fall and shimmer" animation
+   */
+  animateShimmer() {
+    const _this = this;
+
+    _this.segments.forEach(segment => {
+      if (segment.isAvailable && Math.abs(_this.driver.x - segment.attr().x) < 10) {
+        segment.isAvailable = false;
+        fadeOut(segment);
+      }
+    });
+
+    function fadeOut(segment) {
+      segment.animate({
+          opacity: 0
+        },
+        1000,
+        mina.linear,
+        () => { fadeIn(segment); }
+      );
+    }
+
+    function fadeIn(segment) {
+      segment.animate({
+          opacity: 0.2
+        },
+        1000,
+        mina.linear,
+        () => { segment.isAvailable = true; }
       );
     }
   }

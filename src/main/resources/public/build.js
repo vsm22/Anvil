@@ -30167,7 +30167,8 @@ var BarsWaveGraphic = function () {
           this.animateTravelingWave();
           break;
         case 2:
-          this.animateRain();
+          //this.animateRain();
+          this.animateShimmer();
           break;
         default:
           break;
@@ -30191,7 +30192,8 @@ var BarsWaveGraphic = function () {
           break;
         case 2:
           _this.setAllAvailable(true);
-          _this.lineUpHorizontally();
+          _this.lineUpHorizontally(0, _this.container.clientHeight);
+          break;
         default:
           break;
       }
@@ -30315,6 +30317,39 @@ var BarsWaveGraphic = function () {
           opacity: 0
         }, Math.random() * 5000 + 2000, mina.easeout, function () {
           segment.attr({ y: segment.oheight, opacity: 0.1, height: segment.oheight });
+          segment.isAvailable = true;
+        });
+      }
+    }
+
+    /**
+     * "Fall and shimmer" animation
+     */
+
+  }, {
+    key: "animateShimmer",
+    value: function animateShimmer() {
+      var _this = this;
+
+      _this.segments.forEach(function (segment) {
+        if (segment.isAvailable && Math.abs(_this.driver.x - segment.attr().x) < 10) {
+          segment.isAvailable = false;
+          fadeOut(segment);
+        }
+      });
+
+      function fadeOut(segment) {
+        segment.animate({
+          opacity: 0
+        }, 1000, mina.linear, function () {
+          fadeIn(segment);
+        });
+      }
+
+      function fadeIn(segment) {
+        segment.animate({
+          opacity: 0.2
+        }, 1000, mina.linear, function () {
           segment.isAvailable = true;
         });
       }
