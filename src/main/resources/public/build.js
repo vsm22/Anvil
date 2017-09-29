@@ -30039,7 +30039,7 @@ var BarsWaveGraphic = function () {
 
     this.snp = new Snap(container);
 
-    this.animationState = 1;
+    this.animationState = 0; // animation state determines which animation is currently running
 
     this.container = container;
     this.numSegments = o.numSegments !== undefined ? o.numSegments : 20;
@@ -30074,47 +30074,17 @@ var BarsWaveGraphic = function () {
             fill: "hsl(" + _this.primaryHue + ", 100, 50)",
             opacity: 0
           });
-          newSegment.isAvailable = true;
-          newSegment.ox = ox;
-          newSegment.oy = oy;
-          segmentsArr.push(newBar);
+          newSegment.isAvailable = true; // isAvailable means not currently being transformed
+          newSegment.ox = ox; // original x value
+          newSegment.oy = oy; // original y value
+          segmentsArr.push(newSegment);
         }
         return segmentsArr;
       }();
 
+      _this.setAnimationState(1);
+
       _this.runAnimationDriver();
-    }
-
-    /**
-     * Run a "driver" loop that updates an x-position value (driver.x) in relation to
-     *  a velocity (v), current time, and container width.
-     */
-
-  }, {
-    key: "runAnimationDriver",
-    value: function runAnimationDriver() {
-      var _this = this;
-
-      var animationIsActive = true;
-      var pauseStart = void 0,
-          pausePeriod = void 0;
-
-      if (animationIsActive) {
-        if (_this.driver.x > _this.container.clientWidth - 5) {
-          animationIsActive = false;
-          pausePeriod = Math.floor(Math.random() * 5000);
-          pauseStart = Date.now();
-          _this.resetWavePath();
-        }
-
-        _this.driver.x = Date.now() % (_this.container.clientWidth / _this.driver.v) * _this.driver.v;
-        _this.draw();
-        window.requestAnimationFrame(function () {
-          _this.runAnimationDriver();
-        });
-      } else if (Date.now() > pauseStart + pausePeriod) {
-        animationIsActive = true;
-      }
     }
 
     /**
@@ -30146,13 +30116,40 @@ var BarsWaveGraphic = function () {
     }
 
     /**
-     * Set the animation state
+     * Run a "driver" loop that updates an x-position value (driver.x) in relation to
+     *  a velocity (v), current time, and container width.
      */
 
   }, {
-    key: "setAnimationState",
-    value: function setAnimationState(state) {
-      this.animationState = state;
+    key: "runAnimationDriver",
+    value: function runAnimationDriver() {
+      var _this = this;
+
+      var animationIsActive = true;
+      var pauseStart = void 0,
+          pausePeriod = void 0;
+
+      if (animationIsActive) {
+        // update the x value and draw the current state
+        _this.driver.x = Date.now() % (_this.container.clientWidth / _this.driver.v) * _this.driver.v;
+        _this.draw();
+
+        // check if we're near the edge. If we are, pause for a random time (up to 5000ms)
+        if (_this.driver.x > _this.container.clientWidth - 5) {
+          animationIsActive = false;
+          pausePeriod = Math.floor(Math.random() * 5000);
+          pauseStart = Date.now();
+          _this.resetWavePath();
+        }
+      }
+      // if the pause period has elapsed, resume animation
+      else if (Date.now() > pauseStart + pausePeriod) {
+          animationIsActive = true;
+        }
+
+      window.requestAnimationFrame(function () {
+        _this.runAnimationDriver();
+      });
     }
 
     /**
@@ -30161,7 +30158,70 @@ var BarsWaveGraphic = function () {
 
   }, {
     key: "draw",
-    value: function draw() {}
+    value: function draw() {
+      switch (this.animationState) {
+        case 0:
+          break;
+        case 1:
+          this.animateTravelingWave();
+          break;
+        default:
+          break;
+      }
+    }
+
+    /**
+     * Set the animation state
+     */
+
+  }, {
+    key: "setAnimationState",
+    value: function setAnimationState(state) {
+      var _this = this;
+
+      // do the necessary initialization before each state change
+      switch (state) {
+        case 1:
+          _this.setAllAvailable(true);
+          _this.setAllOpacity(0);
+          break;
+        case 2:
+          _this.setAllAvailable(true);
+          _this.lineUpHorizontally();
+        default:
+          break;
+      }
+
+      _this.animationState = state;
+    }
+
+    /**
+     * Marks all segments as available or not
+     */
+
+  }, {
+    key: "setAllAvailable",
+    value: function setAllAvailable() {
+      var isAvailable = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      this.segments.forEach(function (segment) {
+        segment.isAvailable = isAvailable;
+      });
+    }
+
+    /**
+     * Sets all opacity to a value
+     */
+
+  }, {
+    key: "setAllOpacity",
+    value: function setAllOpacity() {
+      var newOpacity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+      this.segments.forEach(function (segment) {
+        segment.attr({ opacity: newOpacity });
+      });
+    }
 
     /**
      * Traveling wave animation
@@ -30172,53 +30232,40 @@ var BarsWaveGraphic = function () {
     key: "animateTravelingWave",
     value: function animateTravelingWave() {
       var _this = this;
-      var animationIsActive = true;
-      var pauseStart = void 0,
-          pausePeriod = void 0;
-
-      _this.animationState = 1;
-
-      // reset opacity to 0 at the beginning of the animation
-      _this.segments.forEach(function (segment) {
-        segment.attr({ opacity: 0 });
-      });
 
       _this.segments.forEach(function (segment) {
         if (segment.isAvailable && Math.abs(_this.driver.x - segment.attr().x) < 10) {
           segment.attr({ y: segment.oy });
-          animateBarExpansion(segment);
+          animateExpansion(segment);
         }
       });
 
-      function animateBarExpansion(el) {
-        el.isAvailable = false;
-        el.animate({
+      // function for expanding the segment
+      function animateExpansion(segment) {
+        segment.isAvailable = false;
+        segment.animate({
           height: _this.waveHeight,
-          y: el.oy - _this.waveHeight / 2,
+          y: segment.oy - _this.waveHeight / 2,
           opacity: _this.maxOpacity
         }, 500, mina.easein, function () {
-          animateBarContraction(el);
+          animateContraction(segment);
         });
       }
 
-      function animateBarContraction(el) {
-        el.animate({
+      // function for contracting the segment
+      function animateContraction(segment) {
+        segment.animate({
           height: 0,
-          y: el.oy,
+          y: segment.oy,
           opacity: 0
         }, 1000, mina.easeout, function () {
-          markBarAsAvailable(el);
+          segment.isAvailable = true;
         });
-      }
-
-      function markBarAsAvailable(el) {
-        el.isAvailable = true;
       }
     }
 
     /**
-     * Horizontal Lineup Animation
-     * Triggered on animationState 2
+     * Line up segments in a horizontal line
      */
 
   }, {
@@ -30226,14 +30273,16 @@ var BarsWaveGraphic = function () {
     value: function lineUpHorizontally(y, height) {
       var _this = this;
 
-      _this.animationState = 2;
-
       y = y !== undefined ? y : 0;
       height = height !== undefined ? height : 20;
 
-      _this.segments.forEach(function (bar) {
+      _this.segments.forEach(function (segment) {
         segment.stop();
-        segment.animate({ y: y, height: height, opacity: _this.maxOpacity }, 1000, mina.elastic);
+        segment.animate({
+          y: y,
+          height: height,
+          opacity: _this.maxOpacity
+        }, 1000, mina.elastic);
       });
     }
   }]);
