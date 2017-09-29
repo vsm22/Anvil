@@ -121,6 +121,9 @@ class BarsWaveGraphic {
       case 1:
         this.animateTravelingWave();
         break;
+      case 2:
+        this.animateRain();
+        break;
       default:
         break;
     }
@@ -215,19 +218,50 @@ class BarsWaveGraphic {
     const _this = this;
 
     y = (y !== undefined) ? y : 0;
-    height = (height !== undefined) ? height : 20;
+    height = (height !== undefined) ? height : 1;
 
     _this.segments.forEach(segment => {
         segment.stop();
+        segment.oy = y;
+        segment.oheight = height;
         segment.animate({
-            y: y,
-            height: height,
+            y: segment.oy,
+            height: segment.oheight,
             opacity: _this.maxOpacity
           },
           1000,
           mina.elastic
         );
     });
+  }
+
+  /**
+   * Creates a falling rain-like animation
+   */
+  animateRain() {
+    const _this = this;
+
+    _this.segments.forEach(segment => {
+      if (segment.isAvailable && _this.driver.x > segment.attr().x) {
+        animateFalling(segment);
+      }
+    });
+
+    function animateFalling(segment) {
+      segment.isAvailable = false;
+      segment.animate({
+          y: _this.container.clientHeight,
+          height: 100,
+          opacity: 0
+        },
+        (Math.random() * 5000) + 2000,
+        mina.easeout,
+        () => {
+          segment.attr({y: segment.oheight, opacity: 0.1, height: segment.oheight});
+          segment.isAvailable = true;
+        }
+      );
+    }
   }
 }
 
