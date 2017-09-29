@@ -30340,7 +30340,7 @@ var BarsWaveGraphic = function () {
 
       function fadeOut(segment) {
         segment.animate({
-          opacity: 0
+          opacity: 0.01
         }, 1000, mina.linear, function () {
           fadeIn(segment);
         });
