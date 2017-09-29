@@ -13079,26 +13079,24 @@ var BackgroundAnimationComponent = function (_React$Component) {
 
     _this2.initComponent = _this2.initComponent.bind(_this2);
     _this2.state = {
-      barsWaveGraphic1: {},
-      barsWaveGraphic2: {}
+      animationComponents: []
     };
     return _this2;
   }
 
   _createClass(BackgroundAnimationComponent, [{
     key: "initComponent",
-    value: function initComponent(el) {
+    value: function initComponent(container) {
       this.setState({
-        barsWaveGraphic1: new _barsWaveGraphic2.default(el, {
+        animationComponents: [new _barsWaveGraphic2.default(container, {
           maxOpacity: 0.1,
           primaryHue: Math.floor(Math.random() * 255),
           centralAxis: 100
-        }),
-        barsWaveGraphic2: new _barsWaveGraphic2.default(el, {
+        }), new _barsWaveGraphic2.default(container, {
           maxOpacity: 0.1,
           primaryHue: Math.floor(Math.random() * 255),
           centralAxis: 100
-        })
+        })]
       });
     }
   }, {
@@ -13106,9 +13104,12 @@ var BackgroundAnimationComponent = function (_React$Component) {
     value: function render() {
       var _this = this;
 
+      var animationComponents = this.state.animationComponents;
+
       if (this.props.applicationState === _applicationStateTypes2.default.SEARCH_RESULT) {
-        _this.state.barsWaveGraphic1.lineUpHorizontally();
-        _this.state.barsWaveGraphic2.lineUpHorizontally();
+        animationComponents.forEach(function (animationComponent) {
+          animationComponent.setAnimationState(2);
+        });
       }
 
       return _react2.default.createElement("svg", { ref: this.initComponent,

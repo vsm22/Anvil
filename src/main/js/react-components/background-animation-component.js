@@ -7,32 +7,36 @@ class BackgroundAnimationComponent extends React.Component {
     super(props);
     this.initComponent = this.initComponent.bind(this);
     this.state = {
-      barsWaveGraphic1: {},
-      barsWaveGraphic2: {}
+      animationComponents: []
     };
   }
 
-  initComponent(el) {
+  initComponent(container) {
     this.setState({
-      barsWaveGraphic1: new BarsWaveGraphic(el, {
+      animationComponents: [
+        new BarsWaveGraphic(container, {
           maxOpacity: 0.1,
           primaryHue: Math.floor(Math.random() * 255),
           centralAxis: 100
-      }),
-      barsWaveGraphic2: new BarsWaveGraphic(el, {
-          maxOpacity: 0.1,
-          primaryHue: Math.floor(Math.random() * 255),
-          centralAxis: 100
-      })
+        }),
+        new BarsWaveGraphic(container, {
+            maxOpacity: 0.1,
+            primaryHue: Math.floor(Math.random() * 255),
+            centralAxis: 100
+        })
+      ]
     });
   }
 
   render() {
     const _this = this;
 
+    let animationComponents = this.state.animationComponents;
+
     if (this.props.applicationState === ApplicationStateTypes.SEARCH_RESULT) {
-       _this.state.barsWaveGraphic1.lineUpHorizontally();
-       _this.state.barsWaveGraphic2.lineUpHorizontally();
+      animationComponents.forEach(animationComponent => {
+        animationComponent.setAnimationState(2);
+      });
     }
 
     return (
