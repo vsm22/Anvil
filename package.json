@@ -1,5 +1,5 @@
 {
-  "name": "scrobbletree",
+  "name": "Anvil",
   "version": "0.1.0",
   "description": "A music exploration app based on the Last.FM API",
   "main": "index.js",
