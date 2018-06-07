@@ -12,6 +12,7 @@ import lombok.Data;
 
 @Data
 public class LastFM_Album {
+
 	private String name;
 	private String artistName;
 	private String url;

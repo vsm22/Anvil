@@ -1,6 +1,7 @@
 package vsm22.anvil;
 
 public enum RequestType {
+
 	GET_ARTIST_SEARCH("getArtistSearch"),
 	GET_ARTIST_INFO("getArtistInfo"),
 	GET_SIMILAR_ARTISTS("getSimilarArtists"),
@@ -11,7 +12,7 @@ public enum RequestType {
 	GET_TRACK_INFO("getTrackInfo");
 	
 	private String requestString;
-	
+
 	RequestType(String requestString) {
 		this.requestString = requestString;
 	}

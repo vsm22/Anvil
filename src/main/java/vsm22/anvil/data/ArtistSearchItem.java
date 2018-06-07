@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class ArtistSearchItem {
+
 	private String name;
 	private String genre;
 	private String imageSmallUrl;

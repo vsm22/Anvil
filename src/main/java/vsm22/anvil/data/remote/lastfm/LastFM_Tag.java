@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 
 @Data
 public class LastFM_Tag {
+
 	private String name;
 	private String url;
 	

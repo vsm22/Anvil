@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class ArtistSearch {
+
 	private List<ArtistSearchItem> artistList = new ArrayList<>();
 	
 	public ArtistSearch() {};

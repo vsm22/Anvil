@@ -7,7 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class Wiki_ExtractParser {
+
 	public static Wiki_Extract parse(Element queryElement) {
+
 		NodeList extractNodeList = queryElement.getElementsByTagName("extract");
 		
 		Element extractElement = (extractNodeList.getLength() > 0) ? (Element) extractNodeList.item(0) : null;

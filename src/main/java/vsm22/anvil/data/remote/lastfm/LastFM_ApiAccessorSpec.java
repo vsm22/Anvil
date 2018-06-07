@@ -9,6 +9,7 @@ import vsm22.anvil.util.RemoteResourceAttributeLoader;
  * Singleton class used to generate request URLs for the LastFM API
  */
 public class LastFM_ApiAccessorSpec {
+
 	private static volatile LastFM_ApiAccessorSpec instance;
 	
 	private String apiKey;

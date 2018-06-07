@@ -24,6 +24,7 @@ import vsm22.anvil.util.RemoteResourceAccessor;
  * Singleton class for building the middleware data classes used for API responses
  */
 public class DataBuilder {
+	
 	private static volatile DataBuilder instance;
 
 	private LastFM_ApiAccessorSpec lastFM_ApiAccessorSpec;

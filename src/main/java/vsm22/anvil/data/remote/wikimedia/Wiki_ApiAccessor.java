@@ -9,7 +9,8 @@ import vsm22.anvil.RequestType;
 import vsm22.anvil.util.RemoteResourceAccessor;
 import vsm22.anvil.util.RemoteResourceAttributeLoader;
 
-public class Wiki_ApiAccessor {	
+public class Wiki_ApiAccessor {
+
 	private static String apiKey;
 	private static String apiSharedSecret;
 	private static String apiUrl;

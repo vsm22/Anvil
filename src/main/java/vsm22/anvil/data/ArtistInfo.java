@@ -11,6 +11,7 @@ import lombok.Data;
 
 @Data
 public class ArtistInfo {
+
 	private String name;
 	private String imageSmallUrl;
 	private String imageMediumUrl;

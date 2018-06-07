@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class Wiki_Extract {
+
 	private String extract;
 	
 	public Wiki_Extract(Map<String, Object> args) {

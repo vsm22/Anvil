@@ -11,6 +11,7 @@ import lombok.Data;
 
 @Data
 public class LastFM_Track {
+
 	private String name;
 	private String url;
 	private Integer duration;
