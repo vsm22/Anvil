@@ -1,6 +1,7 @@
 import React from "react";
 
-const ArtistAlbumsTileComponent = (props) => {
+const ArtistAlbumsTileComponent = (props) => {\
+
   const album = props.album;
   const albumName = album["name"];
   const albumImageUrl = (album["imageLargeUrl"] !== undefined) ? album["imageLargeUrl"]
@@ -26,4 +27,4 @@ const ArtistAlbumsTileComponent = (props) => {
   );
 }
 
-export default ArtistAlbumsTileComponent;
+export default ArtistAlbumsTileComponent
