@@ -12,6 +12,14 @@ class BarsWaveGraphic {
         this.animationState = 0; // animation state determines which animation is currently running
 
         this.container = container;
+
+        _this.init(o);
+        _this.animateTravelingWave();
+    }
+
+    init(o) {
+        const _this = this;
+
         this.numSegments = (o.numSegments !== undefined) ? o.numSegments : 20;
         this.segmentWidth = this.container.clientWidth / this.numSegments;
         this.segments = [];
@@ -24,13 +32,6 @@ class BarsWaveGraphic {
         this.primaryHue = (o.primaryHue !== undefined) ? o.primaryHue : 210;
         this.maxOpacity = (o.maxOpacity !== undefined) ? o.maxOpacity : 1;
         this.centralAxis = (o.centralAxis !== undefined) ? o.centralAxis : this.container.clientHeight / 2;
-
-        _this.init();
-        _this.animateTravelingWave();
-    }
-
-    init() {
-        const _this = this;
 
         this.segments = (function createBarsArr() {
             let segmentsArr = [];

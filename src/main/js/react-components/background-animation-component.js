@@ -3,6 +3,7 @@ import BarsWaveGraphic from "../graphics/bars-wave-graphic";
 import ApplicationStateTypes from "../flux/flux-data/application-state-types";
 
 class BackgroundAnimationComponent extends React.Component {
+
     constructor(props) {
         super(props);
         this.initComponent = this.initComponent.bind(this);
@@ -12,23 +13,33 @@ class BackgroundAnimationComponent extends React.Component {
     }
 
     initComponent(container) {
+
+        const _this = this;
+
+        let graphicOptions = {
+            maxOpacity: 0.1,
+            primaryHue: Math.floor(Math.random() * 255),
+            centralAxis: 100
+        };
+
         this.setState({
             animationComponents: [
-                new BarsWaveGraphic(container, {
-                    maxOpacity: 0.1,
-                    primaryHue: Math.floor(Math.random() * 255),
-                    centralAxis: 100
-                }),
-                new BarsWaveGraphic(container, {
-                    maxOpacity: 0.1,
-                    primaryHue: Math.floor(Math.random() * 255),
-                    centralAxis: 100
-                })
+                new BarsWaveGraphic(container, graphicOptions),
+                new BarsWaveGraphic(container, graphicOptions)
             ]
+        });
+
+        window.addEventListener("resize", () => {
+            window.requestAnimationFrame(() => {
+                _this.state.animationComponents.forEach(component => {
+                    component.init(graphicOptions);
+                })
+            });
         });
     }
 
     render() {
+
         const _this = this;
 
         let animationComponents = this.state.animationComponents;
@@ -40,6 +51,7 @@ class BackgroundAnimationComponent extends React.Component {
         }
 
         return (
+
             <svg ref={this.initComponent}
                 style={{
                     position: "absolute",
@@ -55,4 +67,4 @@ class BackgroundAnimationComponent extends React.Component {
     }
 }
 
-export default BackgroundAnimationComponent;
+export default BackgroundAnimationComponent
