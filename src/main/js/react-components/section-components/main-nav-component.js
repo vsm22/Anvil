@@ -7,19 +7,25 @@ const MainNavComponent = (props) => {
 
     return (
 
-        <nav class="login-nav">
+        <nav class="main-nav">
             <ul>
 
                 <li>
-                    <button>
-                        {(isUserLoggedIn === false) ? <div> Log in </div> : <div> Log out </div>}
-                    </button>
+                    <a href="">
+                        Top Artists
+                    </a>
                 </li>
 
                 <li>
-                    <button>
-                        {(isUserLoggedIn === false) ? <div> Register </div> : ""}
-                    </button>
+                    <a href="">
+                        My Collections
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        My Playlists
+                    </a>
                 </li>
 
             </ul>

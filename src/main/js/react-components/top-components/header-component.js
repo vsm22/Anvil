@@ -1,6 +1,7 @@
 import React from "react";
 import BackgroundAnimationComponent from "../background-animation-component";
 import MainNavComponent from "../section-components/main-nav-component";
+import LoginNavComponent from "../section-components/login-nav-component";
 
 const HeaderComponent = (props) => (
 
@@ -14,6 +15,7 @@ const HeaderComponent = (props) => (
         </div>
 
         <MainNavComponent {...props} />
+        <LoginNavComponent {...props} />
 
     </header>
 );

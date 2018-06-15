@@ -8,8 +8,9 @@ import DevViewerComponent from "../viewer-components/dev-viewer-component";
 import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graphic-component";
 
 const MainViewerComponent = (props) => (
+
     <div className="wrap main-viewer-component-wrap">
-        {/* render components based on routes */}
+
         <Route path="/artistSearch"
             render={(routeProps) => {
                 if (props.applicationState === ApplicationStateTypes.LOADING) {
@@ -22,6 +23,7 @@ const MainViewerComponent = (props) => (
             }
             }
         />
+        
         <Route path="/artistInfo"
             render={(routeProps) => {
                 if (props.applicationState === ApplicationStateTypes.LOADING) {
