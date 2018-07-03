@@ -1,31 +1,37 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LoginNavComponent = (props) => {
+const AuthenticationNavComponent = (props) => {
 
     // TODO: set this from the store
     let isUserLoggedIn = false;
 
     return (
 
-        <nav class="login-nav">
+        <nav class="authentication-nav">
             <ul>
 
                 <li>
-                    <button>
-                        {(isUserLoggedIn === false) ? <div> Log in </div> : <div> Log out </div>}
-                    </button>
+                    <Link to="/login">
+                        <button>
+                            {(isUserLoggedIn === false) ? <div> Log in </div> : <div> Log out </div>}
+                        </button>
+                    </Link>
                 </li>
 
                 <li>
-                    <button>
-                        {(isUserLoggedIn === false) ? <div> Register </div> : ""}
-                    </button>
+                    <Link to="/register">
+                        <button>
+                            {(isUserLoggedIn === false) ? <div> Register </div> : ""}
+                        </button>
+                    </Link>
                 </li>
 
             </ul>
         </nav>
 
     );
-}
 
-export default LoginNavComponent
+};
+
+export default AuthenticationNavComponent

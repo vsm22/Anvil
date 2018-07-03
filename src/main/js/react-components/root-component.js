@@ -8,9 +8,13 @@ import BackgroundAnimationComponent from "./background-animation-component";
 
 const RootComponent = (props) => (
     <div className="wrap root-component-wrap" id="root-component-wrap">
-        <BackgroundAnimationComponent {...props} />
+        {/* <BackgroundAnimationComponent {...props} /> */}
         <HeaderComponent {...props} />
-        <SearchBarComponent {...props} />
+
+        <Route path={new RegExp("^(?:(?!/register|/login)).*$")} render={() =>
+            <SearchBarComponent {...props} />
+        } />
+
         <MainViewerComponent {...props} />
     </div>
 );

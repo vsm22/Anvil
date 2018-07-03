@@ -18,6 +18,7 @@ function MainRouter(props) {
                 <Route path="/" render={() => <RootComponent {...props} />} />
                 <Route path="/artistSearch" render={() => <RootComponent {...props} />} />
                 <Route path="/artistInfo" render={() => <RootComponent {...props} />} />
+                <Route path="/register" render={() => <RootComponent {...props} />} />
             </div>
         </BrowserRouter>
 

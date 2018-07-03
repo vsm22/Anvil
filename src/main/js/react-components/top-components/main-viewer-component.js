@@ -6,10 +6,20 @@ import ArtistInfoViewerComponent from "../viewer-components/artist-info-viewer-c
 import SpinnerComponent from "../viewer-components/spinner-component";
 import DevViewerComponent from "../viewer-components/dev-viewer-component";
 import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graphic-component";
+import LoginViewerComponent from "../viewer-components/login-viewer-component";
+import RegistrationViewerComponent from "../viewer-components/registration-viewer-component";
 
 const MainViewerComponent = (props) => (
 
     <div className="wrap main-viewer-component-wrap">
+
+        <Route path="/login"
+            render={() => <LoginViewerComponent {...props} /> }
+        />
+
+        <Route path="/register"
+            render={() => <RegistrationViewerComponent {...props} /> }
+        />
 
         <Route path="/artistSearch"
             render={(routeProps) => {
