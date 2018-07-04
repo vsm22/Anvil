@@ -1,4 +1,5 @@
 import React from "react";
+import { REGISTRATION_API_URL } from "config"
 
 class RegistrationViewerComponent extends React.Component {
 
@@ -17,10 +18,27 @@ class RegistrationViewerComponent extends React.Component {
     }
 
     handleSubmit(event) {
+
         event.preventDefault();
-        console.log("Triggered doSubmitRegistration with event " + event);
-        console.log("State: " + Object.entries(this.state).reduce((acc, cur) => { return acc + " " + cur; }));
-        return false;
+        event.stopPropagation();
+
+        console.log("Attempting handle submit");
+        console.log("REGISTRATION_API_URL: " + REGISTRATION_API_URL);
+
+        let query = REGISTRATION_API_URL
+                    + "?username=" + this.state.username
+                    + "&email=" + this.state.email
+                    + "&password=" + this.state.password;
+
+        fetch(query, { method: "POST" })
+            .then((response) => {
+                return response.text();
+            })
+            .then((token) => {
+                localStorage.setItem("jwt": token);
+            });
+
+        console.log(localStorage.getItem("jwt"));
     }
 
     handleChange(event) {

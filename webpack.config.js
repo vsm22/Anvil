@@ -1,3 +1,4 @@
+const path = require("path");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = [{
@@ -7,6 +8,11 @@ module.exports = [{
     output: {
         path: __dirname + "/src/main/resources/public",
         filename: "build.js"
+    },
+    resolve: {
+        alias: {
+            config$: path.resolve(__dirname, "src/main/js/config/config.js")
+        }
     },
     module: {
         rules: [
