@@ -31,7 +31,7 @@ class LoginViewerComponent extends React.Component {
                 return response.text();
             })
             .then((token) => {
-                localStorage.setItem("jwt": token);
+                localStorage.setItem("jwt", token);
             });
 
         console.log(localStorage.getItem("jwt"));
