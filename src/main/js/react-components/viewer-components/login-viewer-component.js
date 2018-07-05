@@ -56,11 +56,11 @@ class LoginViewerComponent extends React.Component {
 
         return (
 
-            <form name="login-form" id="login-form" onSubmit={this.handleSubmit} >
+            <form name="login-form" id="login-form" className="auth-form" onSubmit={this.handleSubmit} >
 
                 <input type="text" name="username" placeholder="Username" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                <input type="submit" />
+                <input type="submit" value="Login"/>
 
             </form>
 

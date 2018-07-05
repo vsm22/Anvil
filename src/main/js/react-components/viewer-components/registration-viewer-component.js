@@ -58,7 +58,7 @@ class RegistrationViewerComponent extends React.Component {
 
         return (
 
-            <form name="registration-form" id="registration-form" onSubmit={this.handleSubmit} >
+            <form name="registration-form" id="registration-form" className="auth-form" onSubmit={this.handleSubmit} >
 
                 <input type="text" name="username" placeholder="Username" onChange={this.handleChange} />
                 <input type="email" name="email" placeholder="Email" onChange={this.handleChange} />

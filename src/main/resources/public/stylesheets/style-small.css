@@ -305,3 +305,28 @@ header h2 {
 	background-color: hsl(210, 100%, 50%);
 	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }
+
+/* =========================================================================== */
+/* AUTHENTICATION
+/* =========================================================================== */
+
+.auth-form {
+    display: block;
+    width: 90%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.auth-form input {
+   display: block;
+   width: 80%;
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+}
+
+.auth-form input[type="submit"] {
+    max-width: 200px;
+}
