@@ -20,21 +20,24 @@ class LoginViewerComponent extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log("Attempting handle submit");
-
         let query = LOGIN_API_URL
                     + "?username=" + this.state.username
                     + "&password=" + this.state.password;
 
         fetch(query, { method: "POST" })
             .then((response) => {
-                return response.text();
+
+                if (response.status === 200) {
+                    return response.text();
+                } else {
+                    throw "Login not successful.";
+                }
             })
             .then((token) => {
                 localStorage.setItem("jwt", token);
-            });
+                console.log("Current JWT in LocalStorage: " + localStorage.getItem("jwt"));
 
-        console.log(localStorage.getItem("jwt"));
+            });
     }
 
     handleChange(event) {

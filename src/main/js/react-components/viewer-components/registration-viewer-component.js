@@ -22,9 +22,6 @@ class RegistrationViewerComponent extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log("Attempting handle submit");
-        console.log("REGISTRATION_API_URL: " + REGISTRATION_API_URL);
-
         let query = REGISTRATION_API_URL
                     + "?username=" + this.state.username
                     + "&email=" + this.state.email
@@ -32,13 +29,17 @@ class RegistrationViewerComponent extends React.Component {
 
         fetch(query, { method: "POST" })
             .then((response) => {
-                return response.text();
+
+                if(response.status === 200) {
+                    return response.text();
+                } else {
+                    throw "Registration not successful";
+                }
             })
             .then((token) => {
                 localStorage.setItem("jwt", token);
+                console.log("Current JWT in LocalStorage: " + localStorage.getItem("jwt"));
             });
-
-        console.log(localStorage.getItem("jwt"));
     }
 
     handleChange(event) {
