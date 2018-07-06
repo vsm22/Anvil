@@ -1,5 +1,5 @@
 import React from "react";
-import { REGISTRATION_API_URL } from "config"
+import AuthenticationService from "services/authentication-service";
 
 class RegistrationViewerComponent extends React.Component {
 
@@ -22,23 +22,7 @@ class RegistrationViewerComponent extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log("Attempting handle submit");
-        console.log("REGISTRATION_API_URL: " + REGISTRATION_API_URL);
-
-        let query = REGISTRATION_API_URL
-                    + "?username=" + this.state.username
-                    + "&email=" + this.state.email
-                    + "&password=" + this.state.password;
-
-        fetch(query, { method: "POST" })
-            .then((response) => {
-                return response.text();
-            })
-            .then((token) => {
-                localStorage.setItem("jwt": token);
-            });
-
-        console.log(localStorage.getItem("jwt"));
+        AuthenticationService.register(this.state.username, this.state.email, this.state.password);
     }
 
     handleChange(event) {
@@ -57,14 +41,12 @@ class RegistrationViewerComponent extends React.Component {
 
         return (
 
-            <form name="registration-form" id="registration-form" onSubmit={this.handleSubmit} >
-
+            <form name="registration-form" id="registration-form" className="auth-form" onSubmit={this.handleSubmit} >
                 <input type="text" name="username" placeholder="Username" onChange={this.handleChange} />
                 <input type="email" name="email" placeholder="Email" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                 <input type="password" name="confirm-password" placeholder="Confirm Password" onChange={this.handleChange} />
                 <input type="submit" value="Register" />
-
             </form>
 
         );

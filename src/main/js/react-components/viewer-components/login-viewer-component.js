@@ -1,4 +1,5 @@
 import React from "react";
+import AuthenticationService from "services/authentication-service";
 import { LOGIN_API_URL } from "config";
 
 class LoginViewerComponent extends React.Component {
@@ -20,21 +21,7 @@ class LoginViewerComponent extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log("Attempting handle submit");
-
-        let query = LOGIN_API_URL
-                    + "?username=" + this.state.username
-                    + "&password=" + this.state.password;
-
-        fetch(query, { method: "POST" })
-            .then((response) => {
-                return response.text();
-            })
-            .then((token) => {
-                localStorage.setItem("jwt": token);
-            });
-
-        console.log(localStorage.getItem("jwt"));
+        AuthenticationService.login(this.state.username, this.state.password);
     }
 
     handleChange(event) {
@@ -47,18 +34,14 @@ class LoginViewerComponent extends React.Component {
         });
     }
 
-
-
     render() {
 
         return (
 
-            <form name="login-form" id="login-form" onSubmit={this.handleSubmit} >
-
+            <form name="login-form" id="login-form" className="auth-form" onSubmit={this.handleSubmit} >
                 <input type="text" name="username" placeholder="Username" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                <input type="submit" />
-
+                <input type="submit" value="Login"/>
             </form>
 
         );
