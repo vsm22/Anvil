@@ -8,6 +8,7 @@ import DevViewerComponent from "../viewer-components/dev-viewer-component";
 import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graphic-component";
 import LoginViewerComponent from "../viewer-components/login-viewer-component";
 import RegistrationViewerComponent from "../viewer-components/registration-viewer-component";
+import NewUserArtistCollectionCollectionFormComponent from "../viewer-components/new-user-artist-collection-form-component";
 
 const MainViewerComponent = (props) => (
 
@@ -44,6 +45,11 @@ const MainViewerComponent = (props) => (
             }
             }
         />
+
+        <Route path="/newUserArtistCollection"
+            render={() => <NewUserArtistCollectionCollectionFormComponent {...props} /> }
+        />
+
     </div>
 );
 
