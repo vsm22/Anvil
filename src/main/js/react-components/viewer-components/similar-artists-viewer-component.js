@@ -2,31 +2,44 @@ import React from "react";
 import SimilarArtistTileComponent from "../tile-components/similar-artist-tile-component";
 
 class SimilarArtistsViewerComponent extends React.Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
-            hoveredArtist: " "
+            similarArtists: {
+            }
         }
+
+        this.handleHover = this.handleHover.bind(this);
+    }
+
+    handleHover(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
     }
 
     render() {
+
         const _this = this;
-        const props = this.props;
 
-        let similarArtists = props.similarArtists.currentQuery.similarArtists.artistList;
-
-        function setHoveredArtist(artistName) {
-            _this.setState({ hoveredArtist: artistName });
-        }
+        let similarArtists = this.props.similarArtists;
 
         return (
+
             <div id="similar-artists-container">
+
                 <h1> Similar Artists </h1>
+
                 <div className="similar-artist-name-display"> {this.state.hoveredArtist} </div>
+
                 <ul>
                     {
-                        similarArtists.map(artist => {
+                        similarArtists.artistList.map(artist => {
+
                             let curArtistName = artist["name"];
 
                             return (
@@ -37,7 +50,7 @@ class SimilarArtistsViewerComponent extends React.Component {
                                     }
                                     }
                                 >
-                                    <SimilarArtistTileComponent artist={artist} setHoveredArtist={setHoveredArtist} />
+                                    <SimilarArtistTileComponent artist={artist} setHoveredArtist={this.handleHover} />
                                 </li>
                             );
                         })

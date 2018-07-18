@@ -4,7 +4,7 @@ mysql:
   ports:
     - "3306:3306"
   volumes:
-    - data:/var/database_data
+    - model:/var/database_data
   environment:
     - MYSQL_ROOT_PASSWORD=root
     - MYSQL_DATABASE=anvil

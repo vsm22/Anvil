@@ -1,7 +1,8 @@
 import React from "react";
 
 const ArtistSearchResultTileComponent = (props) => {
-    let artistName = props.artistResultJSON["name"];
+
+    console.log(Object.entries(props.artist));
 
     function barExpansionEffect(ev) {
         let barEls = ev.target.parentElement.getElementsByClassName("bar");
@@ -22,8 +23,11 @@ const ArtistSearchResultTileComponent = (props) => {
     }
 
     return (
+
         <div className="artist-search-result-tile">
-            <div className="artist-name">{artistName}</div>
+
+            <div className="artist-name">{props.artist["artistName"]}</div>
+
             <div className="artist-image-wrap">
                 <div className="background-effects">
                     <div className="bar"></div>
@@ -33,7 +37,7 @@ const ArtistSearchResultTileComponent = (props) => {
                     <div className="bar"></div>
                 </div>
                 <img className="artist-image"
-                    src={props.artistResultJSON["imageLargeUrl"]}
+                    src={props.artist["imageLargeUrl"]}
                     onMouseOver={(ev) => barExpansionEffect(ev)}
                     onMouseOut={(ev) => barExpansionEffect(ev)}
                 />

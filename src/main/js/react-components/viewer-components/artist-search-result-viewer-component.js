@@ -1,41 +1,64 @@
 import React from "react";
+import ApiClientService from "services/api-client-service";
 import ArtistSearchResultTileComponent from "../tile-components/artist-search-result-tile-component";
 
 class ArtistSearchResultViewerComponent extends React.Component {
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            artistList: []
+        };
     }
 
-    componentWillMount() {
+    componentDidMount() {
+
         console.log("init search");
+
+        const _this = this;
+
         const queryRegex = /\?artistName=(.*)/;
         const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1];
-        this.props.initArtistSearch(artistName);
+
+        ApiClientService.getArtistSearch(artistName)
+            .then((json) => {
+
+                _this.setState({
+                    artistList: json["artistList"]
+                });
+            });
     }
 
     render() {
+
         const props = this.props;
-        const artistList = props.artistSearchResult.currentQuery.artistList;
 
         return (
             <div id="artist-search-result-container">
                 <ul>
                     {
-                        artistList.map((artistResultJSON) => {
-                            let curArtistName = artistResultJSON["name"];
+
+                        this.state.artistList.map((artist) => {
+
+                            let artistName = artist["artistName"];
 
                             return (
-                                <li key={curArtistName}
+
+                                <li key={artistName}
                                     onClick={(event) => {
                                         event.preventDefault();
-                                        props.redirectLocation("/artistInfo?artistName=" + curArtistName);
-                                    }
-                                    }>
-                                    <ArtistSearchResultTileComponent
-                                        artistResultJSON={artistResultJSON}
-                                    />
+                                        props.redirectLocation("/artistInfo?artistName=" + artistName);
+                                     }
+                                }>
+
+                                        <ArtistSearchResultTileComponent
+                                            artist={artist}
+                                        />
+
                                 </li>
+
                             );
                         })
                     }
