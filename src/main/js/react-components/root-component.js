@@ -15,7 +15,9 @@ const RootComponent = (props) => (
             <SearchBarComponent {...props} />
         } />
 
-        <MainViewerComponent {...props} />
+        <Route path={new RegExp(".*")} render={() =>
+            <MainViewerComponent {...props} />
+        } />
     </div>
 );
 

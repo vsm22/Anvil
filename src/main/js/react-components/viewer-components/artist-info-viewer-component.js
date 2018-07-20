@@ -18,26 +18,27 @@ class ArtistInfoViewerComponent extends React.Component {
                 imageMediumUrl: "",
                 imageLargeUrl: "",
                 bioContent: ""
-            },
-
-            similarArtists: {
-                artistList: [{
-                    artistName: "",
-                    imageSmallUrl: "",
-                    imageMediumUrl: "",
-                    imageLargeUrl: ""
-                }]
-            },
-
-            artistAlbums: {
-                albumList: [{
-
-                }]
             }
         }
+
+        this.getData = this.getData.bind(this);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+
+        if (this.props.location.search !== nextProps.location.search) {
+            this.getData();
+        }
+
+        return true;
+    }
+
+
     componentDidMount() {
+        this.getData();
+    }
+
+    getData() {
 
         const _this = this;
 
@@ -45,33 +46,15 @@ class ArtistInfoViewerComponent extends React.Component {
         const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
+        console.log("componentDidMount: artistName=" + artistName);
+
         ApiClientService.getArtistInfo(artistName)
             .then((json) => {
+
                 _this.setState({
                     artistInfo: json
                 });
             });
-
-        ApiClientService.getSimilarArtists(artistName)
-            .then((json) => {
-
-                console.log("Similar artists json before setstate: " + json);
-
-                _this.setState({
-                    similarArtists: json
-                });
-
-                console.log("Similar artists json after setstate: " + this.state.similarArtists);
-            });
-
-        ApiClientService.getArtistAlbums(artistName)
-            .then((json) => {
-
-                _this.setState({
-                    artistAlbums: json
-                })
-
-            })
     }
 
     render() {
@@ -79,22 +62,24 @@ class ArtistInfoViewerComponent extends React.Component {
         let artistInfo = this.state.artistInfo;
         let similarArtists = this.state.similarArtists;
 
+        console.log("ArtistInfoViewerComponent: location: " + {...this.props.location});
+
         return (
 
             <div className="artist-info-wrap">
 
                 <header>
-                    <h1> {artistInfo["name"]} </h1>
+                    <h1> {artistInfo.artistName} </h1>
                     <div className="artist-image-wrap">
                         <img className="artist-image"
-                            src={artistInfo["imageLargeUrl"]}
-                            alt={artistInfo["name"]}
+                            src={artistInfo.imageLargeUrl}
+                            alt={artistInfo.artistName}
                         />
                     </div>
                 </header>
 
                 <section className="similar-artists">
-                    <SimilarArtistsViewerComponent similarArtists={similarArtists}/>
+                    <SimilarArtistsViewerComponent {...this.props}/>
                 </section>
 
                 <section className="artist-albums">
