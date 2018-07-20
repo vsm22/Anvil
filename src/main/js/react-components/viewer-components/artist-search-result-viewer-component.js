@@ -1,6 +1,7 @@
 import React from "react";
 import ApiClientService from "services/api-client-service";
 import ArtistSearchResultTileComponent from "../tile-components/artist-search-result-tile-component";
+import { Link } from "react-router-dom";
 
 class ArtistSearchResultViewerComponent extends React.Component {
 
@@ -33,32 +34,17 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
     render() {
 
-        const props = this.props;
-
         return (
             <div id="artist-search-result-container">
                 <ul>
                     {
-
                         this.state.artistList.map((artist) => {
-
-                            let artistName = artist["artistName"];
-
                             return (
-
-                                <li key={artistName}
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        props.redirectLocation("/artistInfo?artistName=" + artistName);
-                                     }
-                                }>
-
-                                        <ArtistSearchResultTileComponent
-                                            artist={artist}
-                                        />
-
+                                <li>
+                                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                                        <ArtistSearchResultTileComponent artist={artist} />
+                                    </Link>
                                 </li>
-
                             );
                         })
                     }

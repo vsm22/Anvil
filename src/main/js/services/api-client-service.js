@@ -69,7 +69,7 @@ export default {
     /**
      * Return a promise with the json for the corresponding artist albums search.
      */
-    getSimilarArtists: function getArtistAlbums(artistName) {
+    getArtistAlbums: function getArtistAlbums(artistName) {
 
         let query = ARTIST_ALBUMS_URL
                     + "?query=" + artistName;

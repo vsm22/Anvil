@@ -1,5 +1,7 @@
 import React from "react";
 import SimilarArtistTileComponent from "../tile-components/similar-artist-tile-component";
+import ApiClientService from "services/api-client-service";
+import { Link } from "react-router-dom";
 
 class SimilarArtistsViewerComponent extends React.Component {
 
@@ -8,49 +10,70 @@ class SimilarArtistsViewerComponent extends React.Component {
 
         this.state = {
             similarArtists: {
-            }
+                artistList: [{
+                    artistName: "",
+                    imageSmallUrl: "",
+                    imageMediumUrl: "",
+                    imageLargeUrl: ""
+                }]
+            },
+            hoveredArtistName: "placeholder"
         }
 
-        this.handleHover = this.handleHover.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
-    handleHover(event) {
+    shouldComponentUpdate(nextProps, nextState) {
 
-        event.preventDefault();
-        event.stopPropagation();
+        if (this.props.location.search !== nextProps.location.search) {
+            this.getData();
+        }
 
+        return true;
+    }
 
+    componentDidMount() {
+        this.getData();
+    }
+
+    getData() {
+
+        const _this = this;
+
+        const queryRegex = /\?artistName=(.*)/;
+        const urlParam = this.props.location.search;
+        const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
+
+        console.log("ArtistName: " + artistName);
+
+        ApiClientService.getSimilarArtists(artistName)
+            .then((json) => {
+
+                _this.setState({
+                    similarArtists: json
+                });
+            });
     }
 
     render() {
 
         const _this = this;
 
-        let similarArtists = this.props.similarArtists;
-
         return (
 
             <div id="similar-artists-container">
 
                 <h1> Similar Artists </h1>
-
-                <div className="similar-artist-name-display"> {this.state.hoveredArtist} </div>
+                <div className="similar-artist-name-display"> {this.state.hoveredArtistName} </div>
 
                 <ul>
                     {
-                        similarArtists.artistList.map(artist => {
-
-                            let curArtistName = artist["name"];
-
+                        this.state.similarArtists.artistList.map(artist => {
                             return (
-                                <li key={curArtistName}
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        props.redirectLocation("/artistInfo?artistName=" + curArtistName);
-                                    }
-                                    }
-                                >
-                                    <SimilarArtistTileComponent artist={artist} setHoveredArtist={this.handleHover} />
+                                <li>
+                                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                                        <SimilarArtistTileComponent artist={artist} {..._this.props} />
+                                    </Link>
                                 </li>
                             );
                         })
