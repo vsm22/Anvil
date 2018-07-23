@@ -23,11 +23,11 @@ class MainViewerComponent extends React.Component {
             <div className="wrap main-viewer-component-wrap">
 
                 <Route path="/login"
-                    render={() => <LoginViewerComponent {...props} /> }
+                    render={(routeProps) => <LoginViewerComponent {...Object.assign({}, props, routeProps)} /> }
                 />
 
                 <Route path="/register"
-                    render={() => <RegistrationViewerComponent {...props} /> }
+                    render={(routeProps) => <RegistrationViewerComponent {...Object.assign({}, props, routeProps)} /> }
                 />
 
                 <Route path="/artistSearch"
@@ -55,7 +55,7 @@ class MainViewerComponent extends React.Component {
                 />
 
                 <Route path="/newUserArtistCollection"
-                    render={() => <NewUserArtistCollectionCollectionFormComponent {...props} /> }
+                    render={(routeProps) => <NewUserArtistCollectionCollectionFormComponent {...Object.assign({}, props, routeProps)} /> }
                 />
 
             </div>

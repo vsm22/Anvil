@@ -8,11 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/public/auth")
@@ -30,9 +34,13 @@ public class AuthenticationController {
     BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    String register(@RequestParam("username") final String username,
+    ResponseEntity<String> register(@RequestParam("username") final String username,
                   @RequestParam("email") final String email,
                   @RequestParam("password") final String password) {
+
+        if (users.findByUsername(username).isPresent()) {
+            return new ResponseEntity<String>("Username already exists", HttpStatus.CONFLICT);
+        }
 
         User newUser = User.builder()
                         .username(username)
@@ -42,7 +50,7 @@ public class AuthenticationController {
 
         users.save(newUser);
 
-        return login(username, password);
+        return new ResponseEntity<String>(login(username, password), HttpStatus.OK);
     }
 
     @PostMapping("/login")

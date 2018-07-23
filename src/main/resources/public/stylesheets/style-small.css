@@ -19,6 +19,11 @@ h1 {
 	text-align: center;
 }
 
+.server-response-message {
+    color: red;
+    text-align: center;
+}
+
 /**
  * Header
  */
