@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router";
-import DispatcherActions from "../../flux/flux-dispatcher/dispatcher-actions";
 import ArtistSearchService from "../../services/artist-search-service";
 
 class SearchComponent extends React.Component {

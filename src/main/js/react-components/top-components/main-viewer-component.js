@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
-import ApplicationStateTypes from "../../flux/flux-data/application-state-types";
 import ArtistSearchResultViewerComponent from "../viewer-components/artist-search-result-viewer-component";
 import ArtistInfoViewerComponent from "../viewer-components/artist-info-viewer-component";
 import SpinnerComponent from "../viewer-components/spinner-component";

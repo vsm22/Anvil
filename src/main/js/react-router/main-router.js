@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Redirect, browserHistory } from "react-router";
 import RootComponent from "../react-components/root-component";
-import ApplicationStateTypes from "../flux/flux-data/application-state-types";
 import AuthenticationService from "services/authentication-service";
 
 class MainRouter extends React.Component {
