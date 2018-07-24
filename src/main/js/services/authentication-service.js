@@ -116,8 +116,6 @@ const AuthenticationService = {
      */
     getCurrentUser: function getCurrentUser() {
 
-        console.log("AuthenticationService.getCurrentUser " + localStorage.getItem("username"));
-
         return {
             username: localStorage.getItem("username"),
             jwt: localStorage.getItem("jwt")

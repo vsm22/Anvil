@@ -30,8 +30,6 @@ class MainRouter extends React.Component {
 
         let authentication = AuthenticationService.getCurrentUser();
 
-        console.log("Get current user... | username: " + authentication.username + " | jwt: " + authentication.jwt)
-
         this.setState({
             authentication: {
                 username: authentication.username,
@@ -61,8 +59,6 @@ class MainRouter extends React.Component {
 
         const _this = this;
         let props = this.props;
-
-        console.log("Rerendering main router...");
 
         return (
 
