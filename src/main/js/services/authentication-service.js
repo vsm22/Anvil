@@ -1,8 +1,9 @@
 import {REGISTRATION_API_URL,
         LOGIN_API_URL,
-        CURRENT_USER_API_URL} from "config";
+        CURRENT_USER_API_URL,
+        RENEW_TOKEN_URL} from "config";
 
-export default {
+const AuthenticationService = {
 
     /**
      * Login.
@@ -21,11 +22,12 @@ export default {
                     resolve(response);
 
                     if (response.status === 200) {
-                        return response.text();
+                        return response.json();
                     }
                 })
-                .then((token) => {
-                    localStorage.setItem("jwt", token);
+                .then((json) => {
+                    localStorage.setItem("username", json.username)
+                    localStorage.setItem("jwt", json.token);
                 });
         });
     },
@@ -48,42 +50,62 @@ export default {
                     resolve(response);
 
                     if (response.status === 200) {
-                        return response.text();
+                        return response.json();
                     }
                 })
-                .then((token) => {
-                    console.log("Setting jwt token: " + token);
-                    localStorage.setItem("jwt", token);
+                .then((json) => {
+                    localStorage.setItem("username", json.username);
+                    localStorage.setItem("jwt", json.token);
                 });
         });
 
     },
 
+    logout: function logout() {
+
+        localStorage.removeItem("username");
+        localStorage.removeItem("jwt");
+    },
+
     /**
-     * Retrieve the user info associated with current JWT token.
+     * Retrieve the user info associated with current JWT token and get a new token.
      */
-    retrieveCurrentUser: function retrieveCurrentUser() {
+    renewToken: function renewToken() {
 
-        let jwtToken = localStorage.getItem("jwt");
+        return new Promise((resolve, reject) => {
 
-        fetch(CURRENT_USER_API_URL, {
-                method: "GET",
-                headers: {
-                    "Authorization" : "Bearer " + jwtToken
-                }
-            })
-            .then((response) => {
+                let jwtToken = localStorage.getItem("jwt");
 
-                if (response.status !== 200) {
-                    throw "Server error during token authentication."
+                if (jwtToken === null) {
+                    reject();
                 }
 
-                return response.json();
-            })
-            .then((json) => {
+                fetch(RENEW_TOKEN_URL, {
+                    method: "GET",
+                    headers: {
+                        "Authorization" : "Bearer " + jwtToken
+                    }
+                })
+                .then((response) => {
 
-                console.log(json.username);
+                    if (response.status !== 200) {
 
-            });
+                        reject();
+
+                    } else {
+
+                        return response.json();
+                    }
+                })
+                .then((json) => {
+
+                    localStorage.setItem("username", json.username);
+                    localStorage.setItem("jwt", json.token);
+
+                    resolve(json);
+                });
+        });
     }
 }
+
+export default AuthenticationService

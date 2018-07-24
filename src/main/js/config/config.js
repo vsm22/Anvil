@@ -10,6 +10,7 @@ const ALBUM_INFO_URL = "api/getAlbumInfo";
 const TRACK_INFO_URL = "api/getTrackInfo";
 const SIMILAR_ARTISTS_URL = "api/getSimilarArtists";
 const ARTIST_ALBUMS_URL = "api/getArtistAlbums";
+const RENEW_TOKEN_URL = "api/secured/renewToken"
 
 export {
     REGISTRATION_API_URL,
@@ -23,5 +24,6 @@ export {
     ALBUM_INFO_URL,
     TRACK_INFO_URL,
     SIMILAR_ARTISTS_URL,
-    ARTIST_ALBUMS_URL
+    ARTIST_ALBUMS_URL,
+    RENEW_TOKEN_URL
 }

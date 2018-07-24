@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "flux/utils";
 import DispatcherActions from "./flux-dispatcher/dispatcher-actions";
+import CurrentUserStore from "./flux-data/current-user-store";
 import SearchQueryStore from "./flux-data/search-query-store";
 import ArtistSearchStore from "./flux-data/artist-search-store";
 import ArtistInfoStore from "./flux-data/artist-info-store";
@@ -9,8 +10,10 @@ import ApplicationStateStore from "./flux-data/application-state-store";
 import LocationStore from "./flux-data/location-store";
 import MainRouter from "../react-router/main-router";
 
+
 function getStores() {
     return [
+        CurrentUserStore,
         LocationStore,
         SearchQueryStore,
         ArtistSearchStore,
@@ -22,6 +25,10 @@ function getStores() {
 
 function getState() {
     return {
+
+        getCurrentUser: DispatcherActions.getCurrentUser,
+        currentUser: CurrentUserStore.getState(),
+
         // redirect locations
         redirectLocation: DispatcherActions.redirectLocation,
         location: LocationStore.getState(),

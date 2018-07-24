@@ -3,6 +3,13 @@ import MainDispatcher from "./main-dispatcher";
 import ArtistSearchService from "../../services/artist-search-service";
 
 const DispatcherActions = {
+
+    getCurrentUser() {
+        MainDispatcher.dispatch({
+            type: ActionTypes.GET_CURRENT_USER
+        });
+    },
+
     redirectLocation(url) {
         MainDispatcher.dispatch({
             type: ActionTypes.REDIRECT_LOCATION,
