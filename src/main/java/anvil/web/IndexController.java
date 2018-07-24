@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping({"/", "artistSearch", "artistInfo", "register", "login", "newUserArtistCollection"})
+@RequestMapping({"/", "artistSearch", "artistInfo", "register", "login", "logout", "newUserArtistCollection"})
 public class IndexController {
 
 	@GetMapping

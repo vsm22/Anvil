@@ -19,15 +19,17 @@ const AuthenticationService = {
             fetch(query, { method: "POST" })
                 .then((response) => {
 
-                    resolve(response);
-
                     if (response.status === 200) {
                         return response.json();
+                    } else {
+                        reject(response);
                     }
                 })
                 .then((json) => {
                     localStorage.setItem("username", json.username)
                     localStorage.setItem("jwt", json.token);
+
+                    resolve();
                 });
         });
     },
@@ -47,15 +49,17 @@ const AuthenticationService = {
             fetch(query, { method: "POST" })
                 .then((response) => {
 
-                    resolve(response);
-
                     if (response.status === 200) {
                         return response.json();
+                    } else {
+                        reject(response);
                     }
                 })
                 .then((json) => {
                     localStorage.setItem("username", json.username);
                     localStorage.setItem("jwt", json.token);
+
+                    resolve();
                 });
         });
 
@@ -105,6 +109,19 @@ const AuthenticationService = {
                     resolve(json);
                 });
         });
+    },
+
+    /**
+     * Retrieve the current user from localstorage.
+     */
+    getCurrentUser: function getCurrentUser() {
+
+        console.log("AuthenticationService.getCurrentUser " + localStorage.getItem("username"));
+
+        return {
+            username: localStorage.getItem("username"),
+            jwt: localStorage.getItem("jwt")
+        }
     }
 }
 

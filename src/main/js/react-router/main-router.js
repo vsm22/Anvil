@@ -18,6 +18,7 @@ class MainRouter extends React.Component {
         }
 
         this.renewAuthentication = this.renewAuthentication.bind(this);
+        this.getCurrentUser = this.getCurrentUser.bind(this);
     }
 
     componentDidMount() {
@@ -26,47 +27,52 @@ class MainRouter extends React.Component {
 
     }
 
+    getCurrentUser() {
+
+        let authentication = AuthenticationService.getCurrentUser();
+
+        console.log("Get current user... | username: " + authentication.username + " | jwt: " + authentication.jwt)
+
+        this.setState({
+            authentication: {
+                username: authentication.username,
+                jwt: authentication.jwt
+            }
+        });
+    }
+
     renewAuthentication() {
 
         const _this = this;
 
-        console.log("going to renew authentication...");
-
         AuthenticationService.renewToken()
-            .then(json => {
+            .then(() => {
 
-                console.log("Received new authentication! Username: " + json.username + " , token: " + json.token);
-
-
-                _this.setState({
-                    authentication: {
-                        username: json.username,
-                        jwt: json.token
-                    }
-                });
+                _this.getCurrentUser();
             })
             .catch(() => {
 
                 AuthenticationService.logout();
 
-                _this.setState({
-                    authentication: {
-                        username: null,
-                        jwt: null
-                    }
-                })
+                _this.getCurrentUser();
             });
     }
 
     render() {
 
+        const _this = this;
         let props = this.props;
+
+        console.log("Rerendering main router...");
 
         return (
 
             <BrowserRouter>
                 <div>
-                    <Route path="/" render={() => <RootComponent {...props} />} />
+                    <Route path="/" render={() => <RootComponent {...props}
+                                                   authentication={_this.state.authentication}
+                                                   renewAuthentication={_this.renewAuthentication}
+                                                   getCurrentUser={_this.getCurrentUser} /> } />
                 </div>
             </BrowserRouter>
 

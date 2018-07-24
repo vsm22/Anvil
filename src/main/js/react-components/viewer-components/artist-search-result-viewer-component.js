@@ -15,8 +15,6 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
     componentDidMount() {
 
-        console.log("init search");
-
         const _this = this;
 
         const queryRegex = /\?artistName=(.*)/;

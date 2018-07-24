@@ -18,12 +18,12 @@ class RootComponent extends React.Component {
                 {/* <BackgroundAnimationComponent {...props} /> */}
                 <HeaderComponent {...props} />
 
-                <Route path={new RegExp("^(?:(?!/register|/login)).*$")} render={() =>
-                    <SearchBarComponent {...props} />
+                <Route path={new RegExp("^(?:(?!/register|/login)).*$")} render={(routeProps) =>
+                    <SearchBarComponent {...Object.assign({}, props, routeProps)} />
                 } />
 
-                <Route path={new RegExp(".*")} render={() =>
-                    <MainViewerComponent {...props} />
+                <Route path={new RegExp(".*")} render={(routeProps) =>
+                    <MainViewerComponent {...Object.assign({}, props, routeProps)} />
                 } />
             </div>
         );

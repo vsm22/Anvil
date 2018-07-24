@@ -31,18 +31,19 @@ class RegistrationViewerComponent extends React.Component {
         let form = this.state.registrationForm;
 
         AuthenticationService.register(form.username, form.email, form.password)
-            .then(response => {
+            .then(() => {
 
-                if (response.status === 200) {
-                    _this.props.history.push("/");
-                } else {
-                    response.text()
-                        .then(body => {
-                            _this.setState({
-                                serverResponseBody: body
-                            });
+                _this.props.getCurrentUser();
+                _this.props.history.push("/");
+
+            })
+            .catch(response => {
+                response.text()
+                    .then(body => {
+                        _this.setState({
+                            serverResponseBody: body
                         });
-                }
+                    });
             });
     }
 

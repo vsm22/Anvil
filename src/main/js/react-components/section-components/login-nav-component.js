@@ -5,7 +5,7 @@ class AuthenticationNavComponent extends React.Component {
 
     render() {
 
-        let username = localStorage.getItem("username");
+        let username = this.props.authentication.username;
 
         let isUserLoggedIn = (username === null) ? false : true;
 
@@ -29,7 +29,6 @@ class AuthenticationNavComponent extends React.Component {
                                     </button>
                                 </Link>
                         }
-
                     </li>
 
                     <li>

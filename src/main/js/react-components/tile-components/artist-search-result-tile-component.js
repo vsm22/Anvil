@@ -2,8 +2,6 @@ import React from "react";
 
 const ArtistSearchResultTileComponent = (props) => {
 
-    console.log(Object.entries(props.artist));
-
     function barExpansionEffect(ev) {
         let barEls = ev.target.parentElement.getElementsByClassName("bar");
 

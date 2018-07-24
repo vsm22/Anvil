@@ -28,18 +28,19 @@ class LoginViewerComponent extends React.Component {
         event.stopPropagation();
 
         AuthenticationService.login(this.state.loginForm.username, this.state.loginForm.password)
-            .then((response) => {
+            .then(() => {
 
-                if (response.status === 200) {
-                    _this.props.history.push("/");
-                } else {
-                    response.text()
-                        .then(body => {
-                            _this.setState({
-                                serverResponseBody: body
-                            })
+                _this.props.getCurrentUser();
+                _this.props.history.push("/");
+
+            })
+            .catch(response => {
+                response.text()
+                    .then(body => {
+                        _this.setState({
+                            serverResponseBody: body
                         })
-                }
+                    })
             });
     }
 

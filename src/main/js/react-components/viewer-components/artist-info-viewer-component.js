@@ -46,8 +46,6 @@ class ArtistInfoViewerComponent extends React.Component {
         const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
-        console.log("componentDidMount: artistName=" + artistName);
-
         ApiClientService.getArtistInfo(artistName)
             .then((json) => {
 
@@ -61,8 +59,6 @@ class ArtistInfoViewerComponent extends React.Component {
 
         let artistInfo = this.state.artistInfo;
         let similarArtists = this.state.similarArtists;
-
-        console.log("ArtistInfoViewerComponent: location: " + {...this.props.location});
 
         return (
 

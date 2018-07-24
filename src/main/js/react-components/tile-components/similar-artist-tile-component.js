@@ -4,8 +4,6 @@ class SimilarArtistTileComponent extends React.Component {
 
     render() {
 
-        console.log("TILE RENDERED " + this.props.artist);
-
         return (
 
             <div className="similar-artist-tile">
