@@ -1,5 +1,6 @@
 package anvil.web;
 
+import anvil.domain.model.collection.artist.UserArtistCollection;
 import anvil.domain.services.UserCollectionsService;
 import anvil.security.auth.api.TokenService;
 import anvil.security.auth.api.UserAuthenticationService;
@@ -19,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static lombok.AccessLevel.PACKAGE;
@@ -58,18 +60,30 @@ final class SecuredRestController {
         return new ResponseEntity<String>(json, HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
-    boolean logout(@AuthenticationPrincipal final User user) {
-        authentication.logout(user);
-        return true;
+    @GetMapping("/createArtistCollection")
+    ResponseEntity<String> createArtistCollection(@AuthenticationPrincipal final User user,
+                                                  @RequestParam("query") final String collectionName) {
+
+        try {
+
+            userCollectionsService.createArtistCollection(user, collectionName);
+
+        } catch (IllegalArgumentException e) {
+
+            return new ResponseEntity<String>("Exception: " + e.getMessage(), HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<String>("", HttpStatus.OK);
     }
 
-    @PostMapping("/user/createArtistCollection")
-    boolean createArtistCollection(@AuthenticationPrincipal final User user,
-                                   @RequestParam("collectionName") final String collectionName) {
+    @GetMapping("/getArtistCollections")
+    ResponseEntity<String> getArtistCollections(@AuthenticationPrincipal final User user) throws JsonProcessingException {
 
-        userCollectionsService.createArtistCollection(user, collectionName);
-        return true;
+        List<UserArtistCollection> collections = userCollectionsService.getArtistCollectionsForUser(user);
+
+        String json = new ObjectMapper().writeValueAsString(collections);
+
+        return new ResponseEntity<String>(json, HttpStatus.OK);
     }
 
     @PostMapping("/user/addArtistToArtistCollection")

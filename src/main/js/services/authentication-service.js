@@ -81,7 +81,7 @@ const AuthenticationService = {
                 let jwtToken = localStorage.getItem("jwt");
 
                 if (jwtToken === null) {
-                    reject();
+                    return reject();
                 }
 
                 fetch(RENEW_TOKEN_URL, {
@@ -94,7 +94,7 @@ const AuthenticationService = {
 
                     if (response.status !== 200) {
 
-                        reject();
+                        return reject();
 
                     } else {
 
@@ -106,7 +106,7 @@ const AuthenticationService = {
                     localStorage.setItem("username", json.username);
                     localStorage.setItem("jwt", json.token);
 
-                    resolve(json);
+                    return resolve(json);
                 });
         });
     },

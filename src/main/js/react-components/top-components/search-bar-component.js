@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router";
-import ArtistSearchService from "../../services/artist-search-service";
 
 class SearchComponent extends React.Component {
 

@@ -8,7 +8,8 @@ import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graph
 import LoginViewerComponent from "../viewer-components/login-viewer-component";
 import LogoutViewerComponent from "../viewer-components/logout-viewer-component";
 import RegistrationViewerComponent from "../viewer-components/registration-viewer-component";
-import NewUserArtistCollectionCollectionFormComponent from "../viewer-components/new-user-artist-collection-form-component";
+import CreateArtistCollectionComponent from "../viewer-components/create-artist-collection-component";
+import GetArtistCollectionsComponent from "../viewer-components/get-artist-collections-component";
 
 class MainViewerComponent extends React.Component {
 
@@ -40,8 +41,12 @@ class MainViewerComponent extends React.Component {
                     render={(routeProps) => <ArtistInfoViewerComponent {...Object.assign({}, props, routeProps)} /> }
                 />
 
-                <Route path="/newUserArtistCollection"
-                    render={(routeProps) => <NewUserArtistCollectionCollectionFormComponent {...Object.assign({}, props, routeProps)} /> }
+                <Route path="/createArtistCollection"
+                    render={(routeProps) => <CreateArtistCollectionComponent {...Object.assign({}, props, routeProps)} /> }
+                />
+
+                <Route path="/getArtistCollections"
+                    render={(routeProps) => <GetArtistCollectionsComponent {...Object.assign({}, props, routeProps)} /> }
                 />
 
             </div>
