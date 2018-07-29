@@ -25,7 +25,7 @@ class CreateArtistCollectionComponent extends React.Component {
         });
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
 
         event.preventDefault();
         event.stopPropagation();

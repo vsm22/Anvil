@@ -2,6 +2,7 @@ import React from "react";
 import ApiClientService from "services/api-client-service";
 import ArtistSearchResultTileComponent from "../tile-components/artist-search-result-tile-component";
 import { Link } from "react-router-dom";
+import AddArtistToCollectionWidget from "components/widget-components/add-artist-to-collection-widget";
 
 class ArtistSearchResultViewerComponent extends React.Component {
 
@@ -34,6 +35,9 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
         return (
             <div id="artist-search-result-container">
+
+                <AddArtistToCollectionWidget {...this.props} />
+
                 <ul>
                     {
                         this.state.artistList.map((artist) => {

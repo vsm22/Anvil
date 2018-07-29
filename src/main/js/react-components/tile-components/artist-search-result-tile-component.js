@@ -1,5 +1,6 @@
 import React from "react";
 import TileExpandingBackground from "graphics/tile-expanding-background";
+import AddButton from "components/widget-components/add-button";
 
 class ArtistSearchResultTileComponent extends React.Component {
 
@@ -37,6 +38,8 @@ class ArtistSearchResultTileComponent extends React.Component {
                 <div className="artist-image-wrap">
 
                     <TileExpandingBackground event={this.state.imageMouseEvent} />
+
+                    <AddButton />
 
                     <img className="artist-image" src={this.props.artist["imageLargeUrl"]}
                         onMouseOver={this.handleMouseEvent}
