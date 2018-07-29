@@ -46,8 +46,6 @@ class ArtistAlbumsViewerComponent extends React.Component {
         const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
-        console.log("componentDidMount: artistName=" + artistName);
-
         ApiClientService.getArtistAlbums(artistName)
             .then((json) => {
 

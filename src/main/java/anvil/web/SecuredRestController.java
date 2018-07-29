@@ -1,16 +1,27 @@
 package anvil.web;
 
+import anvil.domain.model.collection.artist.UserArtistCollection;
 import anvil.domain.services.UserCollectionsService;
+import anvil.security.auth.api.TokenService;
 import anvil.security.auth.api.UserAuthenticationService;
 import anvil.security.entities.user.entity.User;
+import anvil.security.entities.user.entity.UserAndToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
@@ -25,30 +36,54 @@ final class SecuredRestController {
     UserAuthenticationService authentication;
 
     @Autowired
+    TokenService tokenService;
+
+    @Autowired
     UserCollectionsService userCollectionsService;
 
-    @GetMapping("/currentUser")
-    String getCurrent(@AuthenticationPrincipal final User user) throws JsonProcessingException {
+    @GetMapping("/renewToken")
+    ResponseEntity<String> renewToken(@AuthenticationPrincipal final User user) throws JsonProcessingException {
 
-        String json = (new ObjectMapper()).writeValueAsString(user);
+        String username = user.getUsername();
 
-        System.out.println(json);
+        String token = tokenService.expiring(ImmutableMap.of("username", username));
 
-        return json;
+        UserAndToken userAndToken = UserAndToken.builder()
+                .username(username)
+                .token(token)
+                .build();
+
+        String json = new ObjectMapper().writeValueAsString(userAndToken);
+
+        System.out.println("Authentication json: " + json);
+
+        return new ResponseEntity<String>(json, HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
-    boolean logout(@AuthenticationPrincipal final User user) {
-        authentication.logout(user);
-        return true;
+    @GetMapping("/createArtistCollection")
+    ResponseEntity<String> createArtistCollection(@AuthenticationPrincipal final User user,
+                                                  @RequestParam("query") final String collectionName) {
+
+        try {
+
+            userCollectionsService.createArtistCollection(user, collectionName);
+
+        } catch (IllegalArgumentException e) {
+
+            return new ResponseEntity<String>("Exception: " + e.getMessage(), HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<String>("", HttpStatus.OK);
     }
 
-    @PostMapping("/user/createArtistCollection")
-    boolean createArtistCollection(@AuthenticationPrincipal final User user,
-                                   @RequestParam("collectionName") final String collectionName) {
+    @GetMapping("/getArtistCollections")
+    ResponseEntity<String> getArtistCollections(@AuthenticationPrincipal final User user) throws JsonProcessingException {
 
-        userCollectionsService.createArtistCollection(user, collectionName);
-        return true;
+        List<UserArtistCollection> collections = userCollectionsService.getArtistCollectionsForUser(user);
+
+        String json = new ObjectMapper().writeValueAsString(collections);
+
+        return new ResponseEntity<String>(json, HttpStatus.OK);
     }
 
     @PostMapping("/user/addArtistToArtistCollection")

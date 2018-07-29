@@ -1,37 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AuthenticationNavComponent = (props) => {
+class AuthenticationNavComponent extends React.Component {
 
-    // TODO: set this from the store
-    let isUserLoggedIn = false;
+    render() {
 
-    return (
+        let username = this.props.authentication.username;
 
-        <nav class="authentication-nav">
-            <ul>
+        let isUserLoggedIn = (username === null) ? false : true;
 
-                <li>
-                    <Link to="/login">
-                        <button>
-                            {(isUserLoggedIn === false) ? <div> Log in </div> : <div> Log out </div>}
-                        </button>
-                    </Link>
-                </li>
+        return (
 
-                <li>
-                    <Link to="/register">
-                        <button>
-                            {(isUserLoggedIn === false) ? <div> Register </div> : ""}
-                        </button>
-                    </Link>
-                </li>
+            <nav class="authentication-nav">
+                <ul>
 
-            </ul>
-        </nav>
+                    <li>
+                        {
+                            (isUserLoggedIn === false)
+                                ? <Link to="/login">
+                                    <button>
+                                        Log in
+                                    </button>
+                                </Link>
 
-    );
+                                : <Link to="/logout">
+                                    <button>
+                                        Log out
+                                    </button>
+                                </Link>
+                        }
+                    </li>
 
-};
+                    <li>
+                        {
+                            (isUserLoggedIn === false)
+                                ? <Link to="/register">
+                                    <button>
+                                        Register
+                                    </button>
+                                </Link>
+                                : ""
+                        }
+                    </li>
+
+                </ul>
+
+                <div className="current-user">
+                    {(isUserLoggedIn === true) ? "Logged in as " + username : ""}
+                </div>
+            </nav>
+
+        );
+    }
+}
 
 export default AuthenticationNavComponent

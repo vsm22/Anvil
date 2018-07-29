@@ -5,7 +5,10 @@ import { ARTIST_SEARCH_URL,
          ALBUM_INFO_URL,
          TRACK_INFO_URL,
          SIMILAR_ARTISTS_URL,
-         ARTIST_ALBUMS_URL } from "config";
+         ARTIST_ALBUMS_URL,
+         CREATE_ARTIST_COLLECTION_URL,
+         GET_ARTIST_COLLECTIONS_URL } from "config";
+import AuthenticationService from "services/authentication-service";
 
 export default {
 
@@ -83,5 +86,55 @@ export default {
 
                 return response.json();
             });
+    },
+
+    /**
+     * Create a new artist collection.
+     */
+    createArtistCollection: function createArtistCollection(collectionName) {
+
+        return new Promise((resolve, reject) => {
+
+            let query = CREATE_ARTIST_COLLECTION_URL
+                        + "?query=" + collectionName;
+
+            fetch(query, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + AuthenticationService.getCurrentUser().jwt
+                }
+            }).then(response => {
+
+                if (response.status !== 200) {
+                    return reject(response);
+                } else {
+                    return resolve(response);
+                }
+            });
+        });
+    },
+
+    /**
+     * Get a list of artist collections for the current user.
+     */
+    getArtistCollections: function getArtistCollections() {
+
+        return new Promise((resolve, reject) => {
+
+            fetch(GET_ARTIST_COLLECTIONS_URL, {
+                method: "GET",
+                headers: {
+                   "Authorization": "Bearer " + AuthenticationService.getCurrentUser().jwt
+                }
+            }).then(response => {
+
+                if (response.status === 200) {
+                    return resolve(response);
+                } else {
+                    return reject(response);
+                }
+            });
+
+        })
     }
 }

@@ -1,49 +1,54 @@
 import React from "react";
+import TileExpandingBackground from "graphics/tile-expanding-background";
+import AddButton from "components/widget-components/add-button";
 
-const ArtistSearchResultTileComponent = (props) => {
+class ArtistSearchResultTileComponent extends React.Component {
 
-    console.log(Object.entries(props.artist));
+    constructor(props) {
+        super(props);
 
-    function barExpansionEffect(ev) {
-        let barEls = ev.target.parentElement.getElementsByClassName("bar");
+        this.state = {
+            imageMouseEvent: {}
+        }
 
-        for (let i = 0; i < barEls.length; ++i) {
-            if (ev.type === "mouseover") {
-                let newWidth = Math.floor(Math.random() * 500) + 320;
-                let newLightness = Math.floor(Math.random() * 100);
-                let newColor = "hsl(210, 100%, " + newLightness + "%)";
+        this.handleMouseEvent = this.handleMouseEvent.bind(this);
+    }
 
-                barEls[i].style.transition = "width 0.3s";
-                barEls[i].style.backgroundColor = newColor;
-                barEls[i].style.width = newWidth + "px";
-            } else {
-                barEls[i].style.width = "0px";
-            }
+    handleMouseEvent(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (event.type === "mouseover" || event.type === "mouseout") {
+
+            this.setState({
+                imageMouseEvent: Object.assign({}, event)
+            });
         }
     }
 
-    return (
+    render() {
 
-        <div className="artist-search-result-tile">
+        return (
 
-            <div className="artist-name">{props.artist["artistName"]}</div>
+            <div className="artist-search-result-tile">
 
-            <div className="artist-image-wrap">
-                <div className="background-effects">
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
+                <div className="artist-name">{this.props.artist["artistName"]}</div>
+
+                <div className="artist-image-wrap">
+
+                    <TileExpandingBackground event={this.state.imageMouseEvent} />
+
+                    <AddButton />
+
+                    <img className="artist-image" src={this.props.artist["imageLargeUrl"]}
+                        onMouseOver={this.handleMouseEvent}
+                        onMouseOut={this.handleMouseEvent}
+                    />
                 </div>
-                <img className="artist-image"
-                    src={props.artist["imageLargeUrl"]}
-                    onMouseOver={(ev) => barExpansionEffect(ev)}
-                    onMouseOut={(ev) => barExpansionEffect(ev)}
-                />
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default ArtistSearchResultTileComponent

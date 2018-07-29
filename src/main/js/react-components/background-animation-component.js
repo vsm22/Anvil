@@ -1,6 +1,5 @@
 import React from "react";
 import BarsWaveGraphic from "../graphics/bars-wave-graphic";
-import ApplicationStateTypes from "../flux/flux-data/application-state-types";
 
 class BackgroundAnimationComponent extends React.Component {
 

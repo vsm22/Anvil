@@ -44,8 +44,6 @@ class SimilarArtistsViewerComponent extends React.Component {
         const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
-        console.log("ArtistName: " + artistName);
-
         ApiClientService.getSimilarArtists(artistName)
             .then((json) => {
 
