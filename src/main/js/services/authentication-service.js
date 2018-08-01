@@ -1,7 +1,8 @@
 import {REGISTRATION_API_URL,
         LOGIN_API_URL,
         CURRENT_USER_API_URL,
-        RENEW_TOKEN_URL} from "config";
+        RENEW_TOKEN_URL,
+        GET_GUEST_TOKEN_URL } from "config";
 
 const AuthenticationService = {
 
@@ -65,61 +66,148 @@ const AuthenticationService = {
 
     },
 
+    saveAuthorization: function saveAuthorization(user) {
+
+        if (user.username !== null && user.jwt !== null) {
+
+            if (user.username === "guest") {
+
+                sessionStorage.setItem("username", "guest");
+                sessionStorage.setItem("jwt", user.jwt);
+
+            } else {
+
+                localStorage.setItem("username", user.username);
+                localStorage.setItem("jwt", user.jwt);
+            }
+        }
+    },
+
     logout: function logout() {
 
         localStorage.removeItem("username");
         localStorage.removeItem("jwt");
     },
 
+    clearGuestSession: function clearGuestSession() {
+
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("jwt");
+    },
+
     /**
      * Retrieve the user info associated with current JWT token and get a new token.
      */
-    renewToken: function renewToken() {
+    renewToken: function renewToken(token) {
 
         return new Promise((resolve, reject) => {
-
-                let jwtToken = localStorage.getItem("jwt");
-
-                if (jwtToken === null) {
-                    return reject();
-                }
 
                 fetch(RENEW_TOKEN_URL, {
                     method: "GET",
                     headers: {
-                        "Authorization" : "Bearer " + jwtToken
+                        "Authorization" : "Bearer " + token
                     }
                 })
-                .then((response) => {
+                .then(response => {
 
                     if (response.status !== 200) {
 
-                        return reject();
+                        return reject(response);
 
                     } else {
 
                         return response.json();
                     }
                 })
-                .then((json) => {
-
-                    localStorage.setItem("username", json.username);
-                    localStorage.setItem("jwt", json.token);
+                .then(json => {
 
                     return resolve(json);
+                })
+                .catch(response => {
+
+                    reject(response);
                 });
         });
     },
 
     /**
-     * Retrieve the current user from localstorage.
+     * Get a temporary (per-session) guest token.
+     */
+    getGuestToken: function getGuestToken() {
+
+        return new Promise((resolve, reject) => {
+
+            fetch(GET_GUEST_TOKEN_URL)
+                .then(response => {
+
+                    if (response.status !== 200) {
+
+                        return reject(repsonse);
+
+                    } else {
+
+                        return response.json();
+                    }
+                })
+                .then(json => {
+
+                    sessionStorage.setItem("username", "guest");
+                    sessionStorage.setItem("jwt", json.token);
+
+                    return resolve({
+                        username: "guest",
+                        jwt: jason.token
+                    });
+                })
+                .catch(response => {
+
+                    return reject(response);
+                })
+
+        });
+    },
+
+    /**
+     * Retrieve the current user from local storage (or sessionstorage for guest user)
+     * and attempt to renew authentication on the server.
      */
     getCurrentUser: function getCurrentUser() {
 
-        return {
-            username: localStorage.getItem("username"),
-            jwt: localStorage.getItem("jwt")
-        }
+        return new Promise((resolve, reject) => {
+
+            if (localStorage.getItem("jwt") !== null) {
+
+                return resolve({
+                    username: localStorage.getItem("username"),
+                    jwt: localStorage.getItem("jwt")
+                });
+
+            } else if (sessionStorage.getItem("jwt") !== null) {
+
+                return resolve({
+                    username: sessionStorage.getItem("username"),
+                    jwt: sessionStorage.getItem("jwt")
+                });
+
+            } else {
+
+                AuthenticationService.getGuestToken()
+                    .then(user => {
+
+                        return resolve({
+                            username: user.username,
+                            jwt: user.jwt
+                        })
+                    })
+                    .catch(response => {
+
+                       return reject({
+                           username: null,
+                           jwt: null
+                       });
+                    });
+            }
+        });
     }
 }
 

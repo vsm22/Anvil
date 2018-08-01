@@ -18,51 +18,48 @@ class MainRouter extends React.Component {
             artistCollections: [{}]
         }
 
-        this.renewAuthentication = this.renewAuthentication.bind(this);
         this.getCurrentUser = this.getCurrentUser.bind(this);
         this.getArtistCollections = this.getArtistCollections.bind(this);
     }
 
     componentDidMount() {
 
-        this.renewAuthentication();
-        this.getArtistCollections();
+        this.getCurrentUser();
     }
 
     getCurrentUser() {
 
-        let authentication = AuthenticationService.getCurrentUser();
+        return new Promise((resolve, reject) => {
 
-        this.setState({
-            authentication: {
-                username: authentication.username,
-                jwt: authentication.jwt
-            }
+            AuthenticationService.getCurrentUser()
+                .then(user => {
+
+                    this.setState({
+                        authentication: {
+                            username: user.username,
+                            jwt: user.jwt
+                        }
+                    });
+
+                    return resolve(user);
+                })
+                .catch(user => {
+
+                    this.setState({
+                        authentication: {
+                            username: null,
+                            jwt: null
+                        }
+                    });
+
+                    return reject(user);
+                });
         });
-    }
-
-    renewAuthentication() {
-
-        AuthenticationService.renewToken()
-            .then(() => {
-
-                this.getCurrentUser();
-                this.getArtistCollections();
-            })
-            .catch(() => {
-
-                AuthenticationService.logout();
-
-                this.getCurrentUser();
-            });
     }
 
     getArtistCollections() {
 
         ApiClientService.getArtistCollections()
-            .catch(response => {
-
-            })
             .then(response => {
                 return response.json();
             })
@@ -70,6 +67,7 @@ class MainRouter extends React.Component {
                 this.setState({
                     artistCollections: json
                 });
+            }).catch(response => {
             });
     }
 
@@ -84,7 +82,8 @@ class MainRouter extends React.Component {
                                                    renewAuthentication={this.renewAuthentication}
                                                    getCurrentUser={this.getCurrentUser}
                                                    artistCollections={this.state.artistCollections}
-                                                   getArtistCollections={this.getArtistCollections} /> } />
+                                                   getArtistCollections={this.getArtistCollections}
+                                                   ensureAuthentication={this.ensureAuthentication} /> } />
                 </div>
             </BrowserRouter>
 

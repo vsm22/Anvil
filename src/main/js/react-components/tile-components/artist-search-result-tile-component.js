@@ -1,6 +1,8 @@
 import React from "react";
 import TileExpandingBackground from "graphics/tile-expanding-background";
 import AddButton from "components/widget-components/add-button";
+import AddArtistToCollectionWidget from "components/widget-components/add-artist-to-collection-widget";
+import { Link } from "react-router-dom";
 
 class ArtistSearchResultTileComponent extends React.Component {
 
@@ -11,10 +13,12 @@ class ArtistSearchResultTileComponent extends React.Component {
             imageMouseEvent: {}
         }
 
-        this.handleMouseEvent = this.handleMouseEvent.bind(this);
+        this.handleArtistImageMouseEvent = this.handleArtistImageMouseEvent.bind(this);
+
+        this.componentRef = React.createRef();
     }
 
-    handleMouseEvent(event) {
+    handleArtistImageMouseEvent(event) {
 
         event.preventDefault();
         event.stopPropagation();
@@ -29,23 +33,27 @@ class ArtistSearchResultTileComponent extends React.Component {
 
     render() {
 
+        let artist = this.props.artist;
+
         return (
 
-            <div className="artist-search-result-tile">
+            <div className="artist-search-result-tile" ref={this.componentRef}>
 
-                <div className="artist-name">{this.props.artist["artistName"]}</div>
+                <div className="artist-name">{artist["artistName"]}</div>
 
-                <div className="artist-image-wrap">
+                <AddArtistToCollectionWidget {...this.props} />
 
-                    <TileExpandingBackground event={this.state.imageMouseEvent} />
+                <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                    <div className="artist-image-wrap">
 
-                    <AddButton />
+                        <TileExpandingBackground event={this.state.imageMouseEvent} />
 
-                    <img className="artist-image" src={this.props.artist["imageLargeUrl"]}
-                        onMouseOver={this.handleMouseEvent}
-                        onMouseOut={this.handleMouseEvent}
-                    />
-                </div>
+                        <img className="artist-image" src={artist["imageLargeUrl"]}
+                            onMouseOver={this.handleArtistImageMouseEvent}
+                            onMouseOut={this.handleArtistImageMouseEvent}
+                        />
+                    </div>
+                </Link>
             </div>
         );
     }

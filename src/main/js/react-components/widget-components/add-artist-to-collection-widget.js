@@ -1,58 +1,50 @@
 import React from "react";
-import ApiClientService from "services/api-client-service";
+import AddArtistToCollectionDialog from "components/widget-components/add-artist-to-collection-dialog";
+import AddButton from "components/widget-components/add-button";
 
 class AddArtistToCollectionWidget extends React.Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            collectionName: "",
-            serverMessage: ""
+        this.handleAddButtonFocus = this.handleAddButtonFocus.bind(this);
+        this.handleAddButtonSubmit = this.handleAddButtonSubmit.bind(this);
+
+        this.componentRef = React.createRef();
+    }
+
+    handleAddButtonSubmit(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        console.log("handleAddButtonSubmit");
+        console.log(event.type);
+
+        let dialog = this.componentRef.current.querySelector(".add-artist-to-collection-dialog");
+
+        dialog.classList.remove("hidden");
+        dialog.classList.toggle("visible");
+    }
+
+    handleAddButtonFocus(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        let label = this.componentRef.current.querySelector(".add-artist-to-collection-label");
+
+        if (event.type === "mouseover" || event.type === "focus") {
+
+            label.classList.remove("hidden");
+            label.classList.add("visible");
+
+        } else if (event.type === "mouseout" || event.type === "blur") {
+
+            label.classList.remove("visible");
+            label.classList.add("hidden");
+
         }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.createCollection = this.createCollection.bind(this);
-    }
-
-    handleChange(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.setState({
-            collectionName: document.querySelector("form[name='new-collection-form']").elements["collection-name"].value
-        });
-    }
-
-    handleSubmit(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.createCollection(this.state.collectionName);
-    }
-
-    createCollection(collectionName) {
-
-        ApiClientService.createArtistCollection(collectionName)
-            .then(() => {
-
-                this.setState({ serverMessage: "" });
-
-                this.props.getArtistCollections();
-            })
-            .catch(response => {
-
-                if (response.status === 409) {
-                    this.setState({
-                        serverMessage: "Collection with this name already exists"
-                    });
-                } else {
-                    this.setState({ serverMessage: "" });
-                }
-            });
     }
 
     render() {
@@ -62,24 +54,20 @@ class AddArtistToCollectionWidget extends React.Component {
 
         return (
 
-            <div>
-                <form name="new-collection-form" onSubmit={this.handleSubmit} >
-                    <input type="text" name="collection-name" onChange={this.handleChange} />
-                    <input type="submit" />
-                </form>
+            <div ref={this.componentRef}>
 
-                <ul>
-                    {
-                        artistCollections.map(collection => {
+                <AddButton
+                    onSubmit={(event) => this.handleAddButtonSubmit(event)}
+                    onMouseOver={this.handleAddButtonFocus}
+                    onMouseOut={this.handleAddButtonFocus}
+                    onFocus={this.handleAddButtonFocus}
+                    onBlur={this.handleAddButtonFocus} />
 
-                            return (
-                                <li>
-                                    { collection.collectionName }
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
+                <div className="add-artist-to-collection-label hidden">
+                    add to collection
+                </div>
+
+                <AddArtistToCollectionDialog {...this.props} />
 
             </div>
         );
