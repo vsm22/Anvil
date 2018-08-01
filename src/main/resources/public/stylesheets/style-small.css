@@ -19,6 +19,14 @@ h1 {
 	text-align: center;
 }
 
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .server-response-message {
     color: red;
     text-align: center;
@@ -346,4 +354,14 @@ header h2 {
 
 .auth-form input[type="submit"] {
     max-width: 200px;
+}
+
+/* ============================================================================== */
+/* ADD ARTIST TO COLLECTION WIDGET
+/* ============================================================================== */
+
+.add-artist-to-collection-label {
+}
+
+.add-artist-to-collection-dialog {
 }

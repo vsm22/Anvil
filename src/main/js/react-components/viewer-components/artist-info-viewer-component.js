@@ -40,19 +40,21 @@ class ArtistInfoViewerComponent extends React.Component {
 
     getData() {
 
-        const _this = this;
-
         const queryRegex = /\?artistName=(.*)/;
         const urlParam = this.props.location.search;
-        const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
-        ApiClientService.getArtistInfo(artistName)
-            .then((json) => {
+        if (urlParam !== null && urlParam !== undefined && urlParam !== "") {
 
-                _this.setState({
-                    artistInfo: json
+            const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
+
+            ApiClientService.getArtistInfo(artistName)
+                .then((json) => {
+
+                    this.setState({
+                        artistInfo: json
+                    });
                 });
-            });
+        }
     }
 
     render() {

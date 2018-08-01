@@ -1,8 +1,6 @@
 import React from "react";
 import ApiClientService from "services/api-client-service";
 import ArtistSearchResultTileComponent from "../tile-components/artist-search-result-tile-component";
-import { Link } from "react-router-dom";
-import AddArtistToCollectionWidget from "components/widget-components/add-artist-to-collection-widget";
 
 class ArtistSearchResultViewerComponent extends React.Component {
 
@@ -12,23 +10,41 @@ class ArtistSearchResultViewerComponent extends React.Component {
         this.state = {
             artistList: []
         };
+
+        this.getData = this.getData.bind(this);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+        if (this.props.location.search !== nextProps.location.search) {
+            this.getData();
+        }
+
+        return true;
     }
 
     componentDidMount() {
 
-        const _this = this;
+        this.getData();
+    }
+
+    getData() {
 
         const queryRegex = /\?artistName=(.*)/;
         const urlParam = this.props.location.search;
-        const artistName = queryRegex.exec(urlParam)[1];
 
-        ApiClientService.getArtistSearch(artistName)
-            .then((json) => {
+        if (urlParam !== null && urlParam !== undefined && urlParam !== "") {
 
-                _this.setState({
-                    artistList: json["artistList"]
+            const artistName = queryRegex.exec(urlParam)[1];
+
+            ApiClientService.getArtistSearch(artistName)
+                .then((json) => {
+
+                    this.setState({
+                        artistList: json["artistList"]
+                    });
                 });
-            });
+        }
     }
 
     render() {
@@ -36,16 +52,16 @@ class ArtistSearchResultViewerComponent extends React.Component {
         return (
             <div id="artist-search-result-container">
 
-                <AddArtistToCollectionWidget {...this.props} />
-
                 <ul>
                     {
                         this.state.artistList.map((artist) => {
+
                             return (
+
                                 <li>
-                                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                                        <ArtistSearchResultTileComponent artist={artist} />
-                                    </Link>
+                                    <ArtistSearchResultTileComponent {...this.props}
+                                        key={artist.id}
+                                        artist={artist} />
                                 </li>
                             );
                         })

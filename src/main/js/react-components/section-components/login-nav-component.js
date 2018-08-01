@@ -16,7 +16,7 @@ class AuthenticationNavComponent extends React.Component {
 
                     <li>
                         {
-                            (isUserLoggedIn === false)
+                            (username === null || username === "guest" || username === undefined)
                                 ? <Link to="/login">
                                     <button>
                                         Log in
@@ -33,7 +33,7 @@ class AuthenticationNavComponent extends React.Component {
 
                     <li>
                         {
-                            (isUserLoggedIn === false)
+                            (username === null || username === "guest" || username === undefined)
                                 ? <Link to="/register">
                                     <button>
                                         Register
@@ -46,7 +46,13 @@ class AuthenticationNavComponent extends React.Component {
                 </ul>
 
                 <div className="current-user">
-                    {(isUserLoggedIn === true) ? "Logged in as " + username : ""}
+                    {
+                        (username !== null && username !== undefined && username !== "")
+                            ? (username === "guest")
+                                ? "Using as guest. Please register to save your profile"
+                                : "Logged in as " + username
+                            : ""
+                    }
                 </div>
             </nav>
 

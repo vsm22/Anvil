@@ -93,25 +93,35 @@ export default {
      */
     createArtistCollection: function createArtistCollection(collectionName) {
 
-        return new Promise((resolve, reject) => {
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
 
-            let query = CREATE_ARTIST_COLLECTION_URL
-                        + "?query=" + collectionName;
+                return new Promise((resolve, reject) => {
 
-            fetch(query, {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + AuthenticationService.getCurrentUser().jwt
-                }
-            }).then(response => {
+                    let query = CREATE_ARTIST_COLLECTION_URL
+                                + "?query=" + collectionName;
 
-                if (response.status !== 200) {
-                    return reject(response);
-                } else {
-                    return resolve(response);
-                }
+                    fetch(query, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + user.jwt
+                        }
+                    }).then(response => {
+
+                        let authorization = JSON.parse(response.headers.get('Authorization'));
+                        AuthenticationService.saveAuthorization({
+                            username: authorization.username,
+                            jwt: authorization.token
+                        });
+
+                        if (response.status !== 200) {
+                            return reject(response);
+                        } else {
+                            return resolve(response);
+                        }
+                    });
+                });
             });
-        });
     },
 
     /**
@@ -119,22 +129,27 @@ export default {
      */
     getArtistCollections: function getArtistCollections() {
 
-        return new Promise((resolve, reject) => {
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
 
-            fetch(GET_ARTIST_COLLECTIONS_URL, {
-                method: "GET",
-                headers: {
-                   "Authorization": "Bearer " + AuthenticationService.getCurrentUser().jwt
-                }
-            }).then(response => {
+                return new Promise((resolve, reject) => {
 
-                if (response.status === 200) {
-                    return resolve(response);
-                } else {
-                    return reject(response);
-                }
+                    fetch(GET_ARTIST_COLLECTIONS_URL, {
+                        method: "GET",
+                        headers: {
+                           "Authorization": "Bearer " + user.jwt
+                        }
+                    }).then(response => {
+
+                        if (response.status === 200) {
+                            return resolve(response);
+                        } else {
+                            return reject(response);
+                        }
+                    }).catch(() => {
+                        return reject();
+                    });
+                });
             });
-
-        })
     }
 }
