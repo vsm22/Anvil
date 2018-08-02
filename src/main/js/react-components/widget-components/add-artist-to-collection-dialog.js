@@ -37,11 +37,11 @@ class AddArtistToCollectionDialog extends React.Component {
     createCollection(collectionName) {
 
         ApiClientService.createArtistCollection(collectionName)
-            .then(() => {
+            .then((response) => {
 
                 this.setState({ serverMessage: "" });
 
-                this.props.getArtistCollections();
+                response.json().then(json => this.props.setArtistCollections(json));
             })
             .catch(response => {
 

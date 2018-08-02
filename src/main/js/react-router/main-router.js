@@ -20,6 +20,7 @@ class MainRouter extends React.Component {
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
         this.getArtistCollections = this.getArtistCollections.bind(this);
+        this.setArtistCollections = this.setArtistCollections.bind(this);
     }
 
     componentDidMount() {
@@ -27,6 +28,12 @@ class MainRouter extends React.Component {
         this.getCurrentUser();
     }
 
+    /**
+     * Get the current user (username and token).
+     * Attempt to get logged-in (registered) user info from localStorage.
+     * If unavailable, attempt to get guest user info from sessionStorage.
+     * If unavailable, get a guest token from the server and store it in sessionStorage.
+     */
     getCurrentUser() {
 
         return new Promise((resolve, reject) => {
@@ -57,6 +64,9 @@ class MainRouter extends React.Component {
         });
     }
 
+    /**
+     * Get artist collections via call to the api service.
+     */
     getArtistCollections() {
 
         ApiClientService.getArtistCollections()
@@ -64,11 +74,21 @@ class MainRouter extends React.Component {
                 return response.json();
             })
             .then(json => {
-                this.setState({
-                    artistCollections: json
-                });
+
+                this.setArtistCollections(json);
+
             }).catch(response => {
             });
+    }
+
+    /**
+     * Set artist collections in the root component state.
+     */
+    setArtistCollections(json) {
+
+        this.setState({
+            artistCollections: json
+        });
     }
 
     render() {
@@ -83,7 +103,8 @@ class MainRouter extends React.Component {
                                                    getCurrentUser={this.getCurrentUser}
                                                    artistCollections={this.state.artistCollections}
                                                    getArtistCollections={this.getArtistCollections}
-                                                   ensureAuthentication={this.ensureAuthentication} /> } />
+                                                   ensureAuthentication={this.ensureAuthentication}
+                                                   setArtistCollections={this.setArtistCollections} /> } />
                 </div>
             </BrowserRouter>
 
