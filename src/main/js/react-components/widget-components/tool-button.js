@@ -1,12 +1,14 @@
 import React from "react";
 
-class AddButton extends React.Component {
+class ToolButton extends React.Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
+
+        let toolIconClassName = this.props.toolIconClassName;
 
         let onSubmit = this.props.onSubmit;
         let onMouseOver = this.props.onMouseOver;
@@ -16,18 +18,17 @@ class AddButton extends React.Component {
 
         return (
 
-            <form name="add-button-form" onSubmit={onSubmit}>
-                <button type="submit" className="add-button"
+            <form name="tool-button-form" className="tool-button-form" onSubmit={onSubmit}>
+                <button type="submit" className="tool-button"
                     onMouseOver={onMouseOver}
                     onMouseOut={onMouseOut}
                     onFocus={onFocus}
                     onBlur={onBlur} >
-                    <i className="fa fa-plus-square"></i>
+                        <i className={toolIconClassName}></i>
                 </button>
             </form>
         );
     }
-
 }
 
-export default AddButton
+export default ToolButton

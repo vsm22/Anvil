@@ -62,7 +62,7 @@ class AddArtistToCollectionDialog extends React.Component {
 
         return (
 
-            <div className="add-artist-to-collection-dialog hidden">
+            <div className="add-artist-to-collection-dialog display-none">
 
                 <form name="new-collection-form" onSubmit={this.handleSubmit} >
                     <input type="text" name="collection-name" onChange={this.handleChange} />
@@ -74,7 +74,7 @@ class AddArtistToCollectionDialog extends React.Component {
                         artistCollections.map(collection => {
 
                             return (
-                                <li>
+                                <li class="menu-item">
                                     { collection.collectionName }
                                 </li>
                             );

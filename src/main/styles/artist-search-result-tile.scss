@@ -1,0 +1,55 @@
+.artist-search-result-tile-wrap {
+    display: inline-block;
+}
+
+.artist-search-result-tile {
+	position: relative;
+	display: block;
+	margin: 5px;
+	width: 400px;
+	height: 400px;
+	border: 1px solid hsl(0, 0, 80%);
+
+    .item-tools-nav-wrap {
+        display: block;
+    }
+
+	.artist-name {
+    	position: relative;
+    	display: block;
+    	padding-top: 1em;
+    	padding-bottom: 1em;
+    	width: 100%;
+    	font-size: 1.5em;
+
+    	* {
+    	    text-decoration: none;
+    	}
+    }
+
+    .artist-image-wrap {
+    	position: relative;
+    	height: 320px;
+    	margin-left: auto;
+    	margin-right: auto;
+    	overflow: visible;
+
+    	.image-circular-background {
+        	width: 320px;
+        	height: 320px;
+        }
+    }
+
+    .artist-image {
+    	min-height: 320px;
+    	min-width: 320px;
+    	filter: grayscale(100%);
+    	border-radius: 50%;
+    	background-color: hsl(210, 100%, 20%);
+
+    	&:hover {
+            cursor: pointer;
+            filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
+         }
+    }
+}
