@@ -1,0 +1,65 @@
+/* =================================== */
+/* BREAK POINTS
+/* =================================== */
+
+$break-medium: 640px;
+$break-large: 980px;
+
+/* =================================== */
+/* COLORS
+/* =================================== */
+
+$color1: #FFFFFF;
+$color2: #55C2F5;
+$color3: #2591DB;
+$color4: #004290;
+$color5: #0A56BD;
+
+/* =================================== */
+/* DEFAULTS
+/* =================================== */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: hsl(0, 100%, 100%);
+}
+
+ul {
+	list-style-type: none;
+}
+
+button {
+	transform: translateY(-2px);
+}
+
+h1 {
+	text-align: center;
+}
+
+/* =================================== */
+/* UTILITY CLASSES
+/* =================================== */
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.server-response-message {
+    color: red;
+    text-align: center;
+}

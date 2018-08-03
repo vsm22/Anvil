@@ -58,10 +58,12 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
                             return (
 
-                                <li>
+                                <li className="artist-search-result-tile-wrap">
+
                                     <ArtistSearchResultTileComponent {...this.props}
                                         key={artist.id}
                                         artist={artist} />
+
                                 </li>
                             );
                         })

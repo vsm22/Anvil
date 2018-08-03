@@ -1,5 +1,6 @@
 const path = require("path");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = [{
 
@@ -27,13 +28,28 @@ module.exports = [{
 
     module: {
         rules: [
-            { test: /\.js$/, use: "babel-loader" }
+            { test: /\.js$/, use: "babel-loader" },
+
+            {
+                test: /\.scss$/,
+                use: [
+                    // process.env.NODE_ENV !== 'production' ? 'style-loader' :
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
+                ]
+            }
+
         ]
     },
 
     plugins: [
 //        new UglifyJsPlugin({
 //            test: /\.js$/
-//        })
+//        }),
+
+        new MiniCssExtractPlugin({
+            filename: "stylesheets/anvil-stylesheet.css"
+        })
     ]
 }]

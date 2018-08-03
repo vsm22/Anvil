@@ -49,7 +49,7 @@ class SearchComponent extends React.Component {
                     />
 
                     <button type="submit" id="main-search-form-submit-button">
-                        <i className="fa fa-search"></i>
+                        <i className="fas fa-search"></i>
                     </button>
                 </div>
             </form>

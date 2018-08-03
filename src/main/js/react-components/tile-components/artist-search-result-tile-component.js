@@ -1,7 +1,6 @@
 import React from "react";
 import TileExpandingBackground from "graphics/tile-expanding-background";
-import AddButton from "components/widget-components/add-button";
-import AddArtistToCollectionWidget from "components/widget-components/add-artist-to-collection-widget";
+import ItemToolsNav from "components/widget-components/item-tools-nav";
 import { Link } from "react-router-dom";
 
 class ArtistSearchResultTileComponent extends React.Component {
@@ -39,21 +38,28 @@ class ArtistSearchResultTileComponent extends React.Component {
 
             <div className="artist-search-result-tile" ref={this.componentRef}>
 
-                <div className="artist-name">{artist["artistName"]}</div>
+                <div className="artist-name">
+                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                        { artist.artistName }
+                    </Link>
+                </div>
 
-                <AddArtistToCollectionWidget {...this.props} />
+                <div className="item-tools-nav-wrap">
+                    <ItemToolsNav {...this.props} />
+                </div>
 
-                <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                    <div className="artist-image-wrap">
+                <div className="artist-image-wrap">
 
-                        <TileExpandingBackground event={this.state.imageMouseEvent} />
+                    <TileExpandingBackground event={this.state.imageMouseEvent} />
 
+                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
                         <img className="artist-image" src={artist["imageLargeUrl"]}
                             onMouseOver={this.handleArtistImageMouseEvent}
                             onMouseOut={this.handleArtistImageMouseEvent}
                         />
-                    </div>
-                </Link>
+                    </Link>
+                </div>
+
             </div>
         );
     }
