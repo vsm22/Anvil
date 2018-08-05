@@ -1,6 +1,7 @@
 @import 'globals';
 @import 'item-tools-nav';
 @import 'artist-search-result-tile';
+@import 'authentication';
 
 /* ==================================================================================== */
 /* COMPONENTS
@@ -128,7 +129,7 @@ header h2 {
 .artist-info-wrap .artist-image-wrap {
 	position: relative;
 	width: 100%;
-	height: 320px;
+	height: 50%;
 }
 
 .artist-info-wrap .artist-image-wrap .background-effects .bar {
@@ -136,8 +137,8 @@ header h2 {
 }
 
 .artist-info-wrap .artist-image {
-	width: 320px;
-	height: 320px;
+	width: 50%;
+	height: 50%;
 	border-radius: 50%;
 	z-index: 100;
 	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
@@ -262,29 +263,4 @@ header h2 {
 	height: 160px;
 	background-color: hsl(210, 100%, 50%);
 	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
-}
-
-/* =========================================================================== */
-/* AUTHENTICATION
-/* =========================================================================== */
-
-.auth-form {
-    display: block;
-    width: 90%;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.auth-form input {
-   display: block;
-   width: 80%;
-   margin-left: auto;
-   margin-right: auto;
-   text-align: center;
-}
-
-.auth-form input[type="submit"] {
-    max-width: 200px;
 }

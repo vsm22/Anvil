@@ -12,6 +12,17 @@ class AuthenticationNavComponent extends React.Component {
         return (
 
             <nav class="authentication-nav">
+
+                <label className="current-user-label">
+                    {
+                        (username !== null && username !== undefined && username !== "")
+                            ? (username === "guest")
+                                ? "Using as guest. Please register to save your profile"
+                                : "Logged in as " + username
+                            : ""
+                    }
+                </label>
+
                 <ul>
 
                     <li>
@@ -44,16 +55,6 @@ class AuthenticationNavComponent extends React.Component {
                     </li>
 
                 </ul>
-
-                <div className="current-user">
-                    {
-                        (username !== null && username !== undefined && username !== "")
-                            ? (username === "guest")
-                                ? "Using as guest. Please register to save your profile"
-                                : "Logged in as " + username
-                            : ""
-                    }
-                </div>
             </nav>
 
         );

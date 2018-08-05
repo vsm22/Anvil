@@ -44,10 +44,6 @@ class ArtistSearchResultTileComponent extends React.Component {
                     </Link>
                 </div>
 
-                <div className="item-tools-nav-wrap">
-                    <ItemToolsNav {...this.props} />
-                </div>
-
                 <div className="artist-image-wrap">
 
                     <TileExpandingBackground event={this.state.imageMouseEvent} />
@@ -58,6 +54,10 @@ class ArtistSearchResultTileComponent extends React.Component {
                             onMouseOut={this.handleArtistImageMouseEvent}
                         />
                     </Link>
+                </div>
+
+                <div className="item-tools-nav-wrap">
+                    <ItemToolsNav {...this.props} />
                 </div>
 
             </div>

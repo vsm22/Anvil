@@ -1,14 +1,15 @@
 .artist-search-result-tile-wrap {
     display: inline-block;
+    margin: 0.6em;
 }
 
 .artist-search-result-tile {
 	position: relative;
 	display: block;
-	margin: 5px;
-	width: 400px;
-	height: 400px;
-	border: 1px solid hsl(0, 0, 80%);
+    width: 300px;
+    height: 340px;
+	border: 1px solid hsl(0, 0, 90%);
+	box-shadow: 1px 1px 1px 0px hsl(0, 0, 80%);
 
     .item-tools-nav-wrap {
         display: block;
@@ -17,10 +18,11 @@
 	.artist-name {
     	position: relative;
     	display: block;
-    	padding-top: 1em;
-    	padding-bottom: 1em;
-    	width: 100%;
-    	font-size: 1.5em;
+    	padding-top: 0.4em;
+    	padding-bottom: 0.2em;
+    	height: 80px;
+    	overflow: hidden;
+    	font-size: 1.1em;
 
     	* {
     	    text-decoration: none;
@@ -29,20 +31,24 @@
 
     .artist-image-wrap {
     	position: relative;
-    	height: 320px;
+        display: inline-block;
+        width: 60%;
     	margin-left: auto;
     	margin-right: auto;
-    	overflow: visible;
+    	overflow: hidden;
 
     	.image-circular-background {
-        	width: 320px;
-        	height: 320px;
+        	width: 100%;
+        	height: 100%;
         }
     }
 
     .artist-image {
-    	min-height: 320px;
-    	min-width: 320px;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    	min-height: 50px;
+    	min-width: 50px;
     	filter: grayscale(100%);
     	border-radius: 50%;
     	background-color: hsl(210, 100%, 20%);

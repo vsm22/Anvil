@@ -1,0 +1,52 @@
+/* =========================================================================== */
+/* AUTHENTICATION
+/* =========================================================================== */
+
+.authentication-nav {
+    display: inline-block;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid $light-grey;
+
+    .current-user-label {
+        color: $dark-grey;
+        font-size: 1.1rem;
+        padding-bottom: 1rem;
+    }
+
+    ul {
+        text-align: justify;
+    }
+
+    li {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    button {
+        display: inline-block;
+        width: 120px;
+        font-size: 0.9rem;
+    }
+}
+
+.auth-form {
+    display: block;
+    width: 90%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.auth-form input {
+   display: block;
+   width: 80%;
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+}
+
+.auth-form input[type="submit"] {
+    max-width: 200px;
+}
