@@ -16,6 +16,7 @@ $color4: #004290;
 $color5: #0A56BD;
 
 $light-grey: #ccc;
+$medium-grey: #777;
 $dark-grey: #424242;
 
 /* =================================== */
@@ -35,7 +36,12 @@ ul {
 }
 
 button {
-	transform: translateY(-2px);
+
+	&:hover {
+        background-color: $color3;
+        color: $color1;
+        transition: background-color 0.1s;
+	}
 }
 
 h1 {

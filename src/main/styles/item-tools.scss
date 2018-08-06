@@ -1,0 +1,170 @@
+/* ===================== */
+/* ITEM TOOLS
+/* ===================== */
+
+.item-tools-nav-wrap {
+    display: inline-block;
+}
+
+.item-tools-nav {
+    display: block;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    ul>li {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+}
+
+.tool-widget {
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: auto;
+    height: 10px;
+}
+
+.tool-button-form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.tool-label {
+    font-size: 11px;
+}
+
+.tool-button {
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1em;
+
+    i {
+        color: $color2;
+    }
+
+    &:hover {
+        color: $color1;
+        background-color: $color3;
+        transition: background-color 0.1s;
+
+        i {
+            color: $color1;
+        }
+    }
+}
+
+.tool-dialog {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    padding: 30px;
+    transform: translateX(-50%);
+    background-color: $color1;
+    border: 1px solid $light-grey;
+    box-shadow: 4px 4px 2px 0px hsla(0, 0%, 50%, 0.5);
+    z-index: 100;
+
+    h1 {
+        display: block;
+        margin: 0 0 10px 0;
+        font-size: 2rem;
+        color: $dark-grey;
+    }
+
+    h2 {
+        display: block;
+        font-size: 1.4rem;
+        color: $medium-grey;
+    }
+
+    header {
+        display: block;
+
+        .close-dialog-form {
+            display: block;
+
+            button {
+                position: absolute;
+                padding: 0;
+                margin: 0;
+                width: 30px;
+                height: 30px;
+                border: 0;
+                border-radius: 50%;
+                right: 10px;
+                top: 10px;
+                text-align: center;
+                line-height: 20px;
+
+                i {
+                    position: relative;
+                    padding: 0;
+                    margin: 0;
+
+                }
+            }
+        }
+    }
+
+    .new-collection-form {
+        display: block;
+        padding: 10px;
+        margin: 0;
+        line-height: 20px;
+
+        .collection-name {
+            display: inline-block;
+            width: 60%;
+            min-width: 120px;
+            height: 30px;
+        }
+
+        .submit {
+            display: inline-block;
+            height: 30px;
+            margin: 0 0 0 10px;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 100%;
+        }
+    }
+
+    .menu-item {
+        display: block;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        color: $dark-grey;
+        background-color: transparent;
+        text-align: left;
+
+        &:hover {
+            cursor: pointer;
+            color: white;
+            background-color: $color3;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .collection-name {
+            display: inline-block;
+        }
+
+        i {
+            display: inline-block;
+            float: right;
+        }
+    }
+}

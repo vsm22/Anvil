@@ -7,7 +7,9 @@ import { ARTIST_SEARCH_URL,
          SIMILAR_ARTISTS_URL,
          ARTIST_ALBUMS_URL,
          CREATE_ARTIST_COLLECTION_URL,
-         GET_ARTIST_COLLECTIONS_URL } from "config";
+         GET_ARTIST_COLLECTIONS_URL,
+         ADD_ARTIST_TO_COLLECTION_URL } from "config";
+
 import AuthenticationService from "services/authentication-service";
 
 export default {
@@ -151,5 +153,31 @@ export default {
                     });
                 });
             });
+    },
+
+    /**
+     * Add artist to a collection.
+     */
+    addArtistToCollection: function addArtistToCollection(artist, collection) {
+
+        return new Promise((resolve, reject) => {
+
+            let query = ADD_ARTIST_TO_COLLECTION_URL
+                        + "?collectionName=" + collection.collectionName;
+
+            fetch(query, {
+                method: "POST",
+                body: JSON.stringify(artist)
+            }).then(response => {
+
+                 if (response.status === 200) {
+                     return resolve(response);
+                 } else {
+                     return reject(response);
+                 }
+             }).catch(() => {
+                 return reject();
+             });
+        });
     }
 }

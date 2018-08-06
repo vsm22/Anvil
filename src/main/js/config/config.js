@@ -13,6 +13,7 @@ const RENEW_TOKEN_URL = "api/secured/renewToken";
 const CREATE_ARTIST_COLLECTION_URL = "api/secured/createArtistCollection";
 const GET_ARTIST_COLLECTIONS_URL = "api/secured/getArtistCollections";
 const GET_GUEST_TOKEN_URL = "api/public/auth/getGuestToken";
+const ADD_ARTIST_TO_COLLECTION_URL = "api/secured/addArtistToCollection";
 
 export {
     REGISTRATION_API_URL,
@@ -29,5 +30,6 @@ export {
     RENEW_TOKEN_URL,
     CREATE_ARTIST_COLLECTION_URL,
     GET_ARTIST_COLLECTIONS_URL,
-    GET_GUEST_TOKEN_URL
+    GET_GUEST_TOKEN_URL,
+    ADD_ARTIST_TO_COLLECTION_URL
 }
