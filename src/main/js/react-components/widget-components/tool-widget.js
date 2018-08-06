@@ -12,58 +12,17 @@ class ToolWidget extends React.Component {
             isDialogOpen: false
         }
 
-        this.handleAddButtonFocus = this.handleAddButtonFocus.bind(this);
-        this.handleAddButtonSubmit = this.handleAddButtonSubmit.bind(this);
+        this.handleButtonFocus = this.handleButtonFocus.bind(this);
+        this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
 
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.closeDialogOnOutsideClick = this.closeDialogOnOutsideClick.bind(this);
 
         this.componentRef = React.createRef();
     }
 
-    handleAddButtonSubmit(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log("submit fired " + this.state.isDialogOpen);
-
-        if (this.state.isDialogOpen === false) {
-            this.openDialog(event);
-        } else {
-            this.closeDialog(event);
-        }
-
-        return false;
-    }
-
-    openDialog(event) {
-
-        let dialog = this.componentRef.current.querySelector(".tool-dialog");
-
-        dialog.classList.remove("display-none");
-        dialog.classList.add("display-inline-block");
-        this.setState({ isDialogOpen: true });
-
-        document.body.addEventListener("click", this.closeDialog);
-    }
-
-    closeDialog(event) {
-
-        let dialog = this.componentRef.current.querySelector(".tool-dialog");
-
-        if (event.target !== dialog) {
-            console.log("DEBUG: Wrong event fired!");
-
-            dialog.classList.remove("display-inline-block");
-            dialog.classList.add("display-none");
-            this.setState({ isDialogOpen: false });
-
-            document.body.removeEventListener("click", this.closeDialog)
-        }
-    }
-
-    handleAddButtonFocus(event) {
+    handleButtonFocus(event) {
 
         event.preventDefault();
         event.stopPropagation();
@@ -85,6 +44,51 @@ class ToolWidget extends React.Component {
         return false;
     }
 
+    handleButtonSubmit(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (this.state.isDialogOpen === false) {
+            this.openDialog(event);
+        } else {
+            this.closeDialog(event);
+        }
+
+        return false;
+    }
+
+    openDialog(event) {
+
+        const dialog = this.componentRef.current.querySelector(".tool-dialog");
+
+        dialog.classList.remove("display-none");
+        dialog.classList.add("display-inline-block");
+        this.setState({ isDialogOpen: true });
+
+        document.body.addEventListener("click", this.closeDialogOnOutsideClick);
+    }
+
+    closeDialogOnOutsideClick(event) {
+
+        const dialog = this.componentRef.current.querySelector(".tool-dialog");
+
+        if (!dialog.contains(event.target)) {
+            this.closeDialog();
+        }
+    }
+
+    closeDialog(event) {
+
+        const dialog = this.componentRef.current.querySelector(".tool-dialog");
+
+        dialog.classList.remove("display-inline-block");
+        dialog.classList.add("display-none");
+        this.setState({ isDialogOpen: false });
+
+        document.body.removeEventListener("click", this.closeDialogOnOutsideClick)
+    }
+
     render() {
 
         let toolLabel = this.props.toolLabel;
@@ -100,18 +104,20 @@ class ToolWidget extends React.Component {
 
                 <ToolButton
                     toolIconClassName={toolIconClassName}
-                    onSubmit={this.handleAddButtonSubmit}
-                    onMouseOver={this.handleAddButtonFocus}
-                    onMouseOut={this.handleAddButtonFocus}
-                    onFocus={this.handleAddButtonFocus}
-                    onBlur={this.handleAddButtonFocus} />
+                    onSubmit={this.handleButtonSubmit}
+                    onMouseOver={this.handleButtonFocus}
+                    onMouseOut={this.handleButtonFocus}
+                    onFocus={this.handleButtonFocus}
+                    onBlur={this.handleButtonFocus} />
 
                 <div className="tool-label hidden">
                     { toolLabel }
                 </div>
 
                 <ToolDialog {...this.props}
-                    toolDialogComponent={toolDialogComponent} />
+                    toolDialogComponent={toolDialogComponent}
+                    openDialog={this.openDialog}
+                    closeDialog={this.closeDialog} />
 
             </div>
         );

@@ -11,9 +11,21 @@ class AddArtistToCollectionDialog extends React.Component {
             serverMessage: ""
         }
 
+        this.handleCloseDialogSubmit = this.handleCloseDialogSubmit.bind(this);
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.createCollection = this.createCollection.bind(this);
+        this.handleMenuItemSubmit = this.handleMenuItemSubmit.bind(this);
+
+        this.componentRef = React.createRef();
+    }
+
+    handleCloseDialogSubmit(event) {
+
+        event.preventDefault();
+
+        this.props.closeDialog(event);
     }
 
     handleChange(event) {
@@ -32,6 +44,11 @@ class AddArtistToCollectionDialog extends React.Component {
         event.stopPropagation();
 
         this.createCollection(this.state.collectionName);
+    }
+
+    handleMenuItemSubmit(event, artist, collection) {
+
+        ApiClientService.addArtistToCollection(artist, collection);
     }
 
     createCollection(collectionName) {
@@ -55,6 +72,11 @@ class AddArtistToCollectionDialog extends React.Component {
             });
     }
 
+    componentDidMount() {
+
+        this.props.getArtistCollections();
+    }
+
     render() {
 
         let artist = this.props.artist;
@@ -62,25 +84,56 @@ class AddArtistToCollectionDialog extends React.Component {
 
         return (
 
-            <div className="add-artist-to-collection-dialog display-none">
+            <div ref={this.componentRef} className="add-artist-to-collection-dialog">
 
-                <form name="new-collection-form" onSubmit={this.handleSubmit} >
-                    <input type="text" name="collection-name" onChange={this.handleChange} />
-                    <input type="submit" />
+                <header>
+
+                    <form name="close-dialog-form" className="close-dialog-form" onSubmit={this.handleCloseDialogSubmit}>
+                        <button type="submit" className="submit">
+                            <i className="fas fa-times"></i>
+                        </button>
+                    </form>
+
+                    <h1>
+                        Add <b>{artist.artistName}</b> to Collection
+                    </h1>
+
+                </header>
+
+                <h2>
+                    Add to new collection:
+                </h2>
+
+                <form name="new-collection-form" className="new-collection-form" onSubmit={this.handleSubmit} >
+                    <input type="text" name="collection-name" className="collection-name" placeholder="Collection Name" onChange={this.handleChange} />
+                    <button type="submit" className="submit">
+                        <i className="fas fa-plus"></i>
+                    </button>
                 </form>
 
-                <ul>
-                    {
-                        artistCollections.map(collection => {
+                <h2>
+                    Add to existing collection:
+                </h2>
 
-                            return (
-                                <li class="menu-item">
-                                    { collection.collectionName }
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
+                <nav>
+                    <ul>
+                        {
+                            artistCollections.map(collection => {
+
+                                return (
+                                    <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, artist, collection); }}>
+
+                                        <div className="collection-name">
+                                            { collection.collectionName }
+                                        </div>
+
+                                        <i className="fas fa-plus"></i>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </nav>
 
             </div>
         );
