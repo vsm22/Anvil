@@ -46,8 +46,6 @@ class ArtistSearchResultTileComponent extends React.Component {
 
                 <div className="artist-image-wrap">
 
-                    <TileExpandingBackground event={this.state.imageMouseEvent} />
-
                     <Link to={"/artistInfo?artistName=" + artist.artistName} >
                         <img className="artist-image" src={artist["imageLargeUrl"]}
                             onMouseOver={this.handleArtistImageMouseEvent}

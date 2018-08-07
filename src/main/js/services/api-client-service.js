@@ -12,7 +12,7 @@ import { ARTIST_SEARCH_URL,
 
 import AuthenticationService from "services/authentication-service";
 
-export default {
+const ApiClientService = {
 
     /**
      * Return a promise with the json for the corresponding search.
@@ -90,6 +90,10 @@ export default {
             });
     },
 
+    /* =====================================================================
+     * AUTHENTICATED API METHODS
+     * ===================================================================== /
+
     /**
      * Create a new artist collection.
      */
@@ -110,15 +114,27 @@ export default {
                         }
                     }).then(response => {
 
-                        let authorization = JSON.parse(response.headers.get('Authorization'));
-                        AuthenticationService.saveAuthorization({
-                            username: authorization.username,
-                            jwt: authorization.token
-                        });
-
                         if (response.status !== 200) {
-                            return reject(response);
+
+                            if (response.status === 401) {
+
+                                AuthenticationService.getGuestToken()
+                                    .then(user => {
+                                        return ApiClientService.createArtistCollection(collectionName);
+                                    });
+
+                            } else {
+
+                                return reject(response);
+                            }
                         } else {
+
+                            let authorization = JSON.parse(response.headers.get('Authorization'));
+                            AuthenticationService.saveAuthorization({
+                                username: authorization.username,
+                                jwt: authorization.token
+                            });
+
                             return resolve(response);
                         }
                     });
@@ -143,10 +159,28 @@ export default {
                         }
                     }).then(response => {
 
-                        if (response.status === 200) {
-                            return resolve(response);
+                        if (response.status !== 200) {
+
+                            if (response.status === 401) {
+
+                                AuthenticationService.getGuestToken()
+                                    .then(user => {
+                                        return ApiClientService.getArtistCollections();
+                                    });
+
+                            } else {
+
+                                return reject(response);
+                            }
                         } else {
-                            return reject(response);
+
+                            let authorization = JSON.parse(response.headers.get('Authorization'));
+                            AuthenticationService.saveAuthorization({
+                                username: authorization.username,
+                                jwt: authorization.token
+                            });
+
+                            return resolve(response);
                         }
                     }).catch(() => {
                         return reject();
@@ -160,24 +194,51 @@ export default {
      */
     addArtistToCollection: function addArtistToCollection(artist, collection) {
 
-        return new Promise((resolve, reject) => {
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
 
-            let query = ADD_ARTIST_TO_COLLECTION_URL
-                        + "?collectionName=" + collection.collectionName;
+                return new Promise((resolve, reject) => {
 
-            fetch(query, {
-                method: "POST",
-                body: JSON.stringify(artist)
-            }).then(response => {
+                    let query = ADD_ARTIST_TO_COLLECTION_URL
+                                + "?collectionName=" + collection.collectionName;
 
-                 if (response.status === 200) {
-                     return resolve(response);
-                 } else {
-                     return reject(response);
-                 }
-             }).catch(() => {
-                 return reject();
-             });
-        });
+                    fetch(query, {
+                        method: "POST",
+                        headers: {
+                            "Authorization" : "Bearer " + user.jwt
+                        },
+                        body: JSON.stringify(artist)
+                    }).then(response => {
+
+                        if (response.status !== 200) {
+
+                            if (response.status === 401) {
+
+                                AuthenticationService.getGuestToken()
+                                    .then(user => {
+                                        return ApiClientService.addArtistToCollection(artist, collection);
+                                    });
+
+                            } else {
+
+                                return reject(response);
+                            }
+                        } else {
+
+                            let authorization = JSON.parse(response.headers.get('Authorization'));
+                            AuthenticationService.saveAuthorization({
+                                username: authorization.username,
+                                jwt: authorization.token
+                            });
+
+                            return resolve(response);
+                        }
+                     }).catch(() => {
+                         return reject();
+                     });
+                });
+            });
     }
 }
+
+export default ApiClientService

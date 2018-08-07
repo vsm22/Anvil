@@ -8,7 +8,7 @@ class ToolDialog extends React.Component {
 
         return (
 
-            <div className="tool-dialog display-none">
+            <div className="tool-dialog">
                 <ToolDialogComponent {...this.props} />
             </div>
         );

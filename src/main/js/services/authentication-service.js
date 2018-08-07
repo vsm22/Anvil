@@ -151,19 +151,21 @@ const AuthenticationService = {
                 })
                 .then(json => {
 
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt");
+
                     sessionStorage.setItem("username", "guest");
                     sessionStorage.setItem("jwt", json.token);
 
                     return resolve({
                         username: "guest",
-                        jwt: jason.token
+                        jwt: json.token
                     });
                 })
                 .catch(response => {
 
                     return reject(response);
-                })
-
+                });
         });
     },
 
