@@ -15,7 +15,7 @@ class SearchComponent extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
 
         event.preventDefault();
         event.stopPropagation();
