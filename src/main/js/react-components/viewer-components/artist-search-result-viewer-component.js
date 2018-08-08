@@ -17,7 +17,7 @@ class ArtistSearchResultViewerComponent extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
 
         if (this.props.location.search !== nextProps.location.search) {
-            this.getData();
+            this.getData(nextProps.location.search);
         }
 
         return true;
@@ -25,13 +25,12 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
     componentDidMount() {
 
-        this.getData();
+        this.getData(this.props.location.search);
     }
 
-    getData() {
+    getData(urlParam) {
 
         const queryRegex = /\?artistName=(.*)/;
-        const urlParam = this.props.location.search;
 
         if (urlParam !== null && urlParam !== undefined && urlParam !== "") {
 

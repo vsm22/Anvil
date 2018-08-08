@@ -26,22 +26,21 @@ class SimilarArtistsViewerComponent extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
 
         if (this.props.location.search !== nextProps.location.search) {
-            this.getData();
+            this.getData(nextProps.location.search);
         }
 
         return true;
     }
 
     componentDidMount() {
-        this.getData();
+        this.getData(this.props.location.search);
     }
 
-    getData() {
+    getData(urlParam) {
 
         const _this = this;
 
         const queryRegex = /\?artistName=(.*)/;
-        const urlParam = this.props.location.search;
         const artistName = queryRegex.exec(urlParam)[1].replace("%20", " ");
 
         ApiClientService.getSimilarArtists(artistName)

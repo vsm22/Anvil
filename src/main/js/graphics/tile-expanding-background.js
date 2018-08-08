@@ -10,13 +10,9 @@ class TileExpandingBackground extends React.Component {
 
     animate(event) {
 
-        console.log("animate event " + event);
-
         if (event.type === "mouseover" || event.type === "mouseout") {
 
             let barEls = event.target.parentElement.getElementsByClassName("bar");
-
-            console.log(barEls);
 
             for (let i = 0; i < barEls.length; ++i) {
                 if (event.type === "mouseover") {

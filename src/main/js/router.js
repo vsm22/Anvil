@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Redirect, browserHistory } from "react-router";
-import RootComponent from "../react-components/root-component";
+import RootComponent from "components/root-component";
 import AuthenticationService from "services/authentication-service";
 import ApiClientService from "services/api-client-service";
 

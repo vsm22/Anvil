@@ -62,8 +62,6 @@ class ToolWidget extends React.Component {
 
         const dialog = this.componentRef.current.querySelector(".tool-dialog");
 
-        dialog.classList.remove("display-none");
-        dialog.classList.add("display-inline-block");
         this.setState({ isDialogOpen: true });
 
         document.body.addEventListener("click", this.closeDialogOnOutsideClick);
@@ -82,8 +80,6 @@ class ToolWidget extends React.Component {
 
         const dialog = this.componentRef.current.querySelector(".tool-dialog");
 
-        dialog.classList.remove("display-inline-block");
-        dialog.classList.add("display-none");
         this.setState({ isDialogOpen: false });
 
         document.body.removeEventListener("click", this.closeDialogOnOutsideClick)
@@ -114,10 +110,14 @@ class ToolWidget extends React.Component {
                     { toolLabel }
                 </div>
 
-                <ToolDialog {...this.props}
-                    toolDialogComponent={toolDialogComponent}
-                    openDialog={this.openDialog}
-                    closeDialog={this.closeDialog} />
+                {
+                    (this.state.isDialogOpen)
+                        ? <ToolDialog {...this.props}
+                            toolDialogComponent={toolDialogComponent}
+                            openDialog={this.openDialog}
+                            closeDialog={this.closeDialog} />
+                        : ""
+                }
 
             </div>
         );

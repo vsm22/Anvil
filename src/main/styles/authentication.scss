@@ -6,27 +6,33 @@
     display: inline-block;
     width: 300px;
     padding: 10px;
-    border: 1px solid $light-grey;
+    text-align: center;
+    border: 0;
 
     .current-user-label {
-        color: $dark-grey;
+        color: $medium-grey;
         font-size: 1.1rem;
-        padding-bottom: 1rem;
+        padding: 1rem;
     }
 
     ul {
+        display: block;
         text-align: justify;
+        margin-bottom: 0;
     }
 
     li {
-        display: inline-block;
-        margin-left: 10px;
+        display: block;
+        width: 120px;
+        margin: auto;
+        text-align: center;
     }
 
     button {
         display: inline-block;
-        width: 120px;
+        width: 100%;
         font-size: 0.9rem;
+        margin: 0;
     }
 }
 

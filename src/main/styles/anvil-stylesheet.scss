@@ -2,6 +2,7 @@
 @import 'item-tools';
 @import 'artist-search-result-tile';
 @import 'authentication';
+@import 'main-nav';
 
 /* ==================================================================================== */
 /* COMPONENTS
@@ -131,7 +132,6 @@ header h2 {
 	height: 50%;
 	border-radius: 50%;
 	z-index: 100;
-	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }
 
 .artist-info-wrap .artist-image-wrap .background-effects .bar {
@@ -252,5 +252,4 @@ header h2 {
 	width: 160px;
 	height: 160px;
 	background-color: hsl(210, 100%, 50%);
-	filter: grayscale(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }
