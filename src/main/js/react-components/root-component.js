@@ -28,7 +28,6 @@ class RootComponent extends React.Component {
             </div>
         );
     }
-
 }
 
 export default RootComponent
