@@ -1,15 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
+import ViewerRoutes from "router/viewer-routes";
 
 class MainViewerComponent extends React.Component {
 
     render() {
 
-        const props = this.props;
-
         return (
             <div className="wrap main-viewer-component-wrap">
-                { this.props.viewerRoutes }
+                <ViewerRoutes {...this.props} />
             </div>
         );
     }

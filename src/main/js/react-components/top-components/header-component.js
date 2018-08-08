@@ -12,8 +12,13 @@ const HeaderComponent = (props) => (
             <h2> a tool for music exploration </h2>
         </div>
 
-        <MainNavComponent {...props} />
-        <LoginNavComponent {...props} />
+        <div>
+            <LoginNavComponent {...props} />
+        </div>
+
+        <div>
+            <MainNavComponent {...props} />
+        </div>
 
     </header>
 );

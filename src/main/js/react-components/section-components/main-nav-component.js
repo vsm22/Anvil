@@ -1,9 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MainNavComponent = (props) => {
-
-    // TODO: set this from the store
-    let isUserLoggedIn = false;
 
     return (
 
@@ -11,21 +9,27 @@ const MainNavComponent = (props) => {
             <ul>
 
                 <li>
-                    <a href="">
-                        Top Artists
-                    </a>
+                    <Link to="/">
+                        Home
+                    </Link>
                 </li>
 
                 <li>
-                    <a href="">
-                        My Collections
-                    </a>
+                    <Link to="/collections">
+                        Collections
+                    </Link>
                 </li>
 
                 <li>
-                    <a href="">
-                        My Playlists
-                    </a>
+                    <Link to="/favorites">
+                        Favorites
+                    </Link>
+                </li>
+
+                <li>
+                    <Link to="/friends">
+                        Friends
+                    </Link>
                 </li>
 
             </ul>
