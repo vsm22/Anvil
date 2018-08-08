@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
-import ViewerRoutes from "router/viewer-routes";
+import ViewerRoutes from "routes/viewer-routes";
 
 class MainViewerComponent extends React.Component {
 

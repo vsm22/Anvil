@@ -23,7 +23,7 @@ module.exports = [{
             services: path.resolve(__dirname, "src/main/js/services"),
             graphics: path.resolve(__dirname, "src/main/js/graphics"),
             components: path.resolve(__dirname, "src/main/js/react-components"),
-            router: path.resolve(__dirname, "src/main/js/react-router")
+            routes: path.resolve(__dirname, "src/main/js/routes")
         }
     },
 
