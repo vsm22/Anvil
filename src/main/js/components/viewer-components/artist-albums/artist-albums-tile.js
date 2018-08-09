@@ -1,6 +1,6 @@
 import React from "react";
 
-class ArtistAlbumsTileComponent extends React.Component {
+class ArtistAlbumsTile extends React.Component {
 
     render() {
 
@@ -19,4 +19,4 @@ class ArtistAlbumsTileComponent extends React.Component {
     }
 }
 
-export default ArtistAlbumsTileComponent
+export default ArtistAlbumsTile

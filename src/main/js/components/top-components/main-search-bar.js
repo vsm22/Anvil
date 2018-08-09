@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
 
-class SearchComponent extends React.Component {
+class MainSearchBar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -58,4 +58,4 @@ class SearchComponent extends React.Component {
     }
 }
 
-export default SearchComponent
+export default MainSearchBar

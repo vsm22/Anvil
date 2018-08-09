@@ -2,11 +2,9 @@ import React from "react";
 import { Route, Redirect } from "react-router";
 import ViewerRoutes from "routes/viewer-routes";
 
-class MainViewerComponent extends React.Component {
+class MainViewer extends React.Component {
 
     render() {
-
-        console.log(this.props.history);
 
         return (
             <div className="wrap main-viewer-component-wrap">
@@ -17,4 +15,4 @@ class MainViewerComponent extends React.Component {
 }
 
 
-export default MainViewerComponent
+export default MainViewer

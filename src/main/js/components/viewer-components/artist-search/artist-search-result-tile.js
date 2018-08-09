@@ -1,9 +1,8 @@
 import React from "react";
-import TileExpandingBackground from "graphics/tile-expanding-background";
 import ItemToolsNav from "components/widget-components/item-tools-nav";
 import { Link } from "react-router-dom";
 
-class ArtistSearchResultTileComponent extends React.Component {
+class ArtistSearchResultTile extends React.Component {
 
     constructor(props) {
         super(props);
@@ -63,4 +62,4 @@ class ArtistSearchResultTileComponent extends React.Component {
     }
 }
 
-export default ArtistSearchResultTileComponent
+export default ArtistSearchResultTile

@@ -1,7 +1,7 @@
 import React from "react";
-import BarsWaveGraphic from "../graphics/bars-wave-graphic";
+import BarsWaveGraphic from "../../graphics/bars-wave-graphic";
 
-class BackgroundAnimationComponent extends React.Component {
+class MainBackground extends React.Component {
 
     constructor(props) {
         super(props);
@@ -66,4 +66,4 @@ class BackgroundAnimationComponent extends React.Component {
     }
 }
 
-export default BackgroundAnimationComponent
+export default MainBackground

@@ -1,7 +1,7 @@
 import React from "react";
 import AuthenticationService from "services/authentication-service";
 
-class LogoutViewerComponent extends React.Component {
+class LogoutViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -21,4 +21,4 @@ class LogoutViewerComponent extends React.Component {
     }
 }
 
-export default LogoutViewerComponent
+export default LogoutViewer

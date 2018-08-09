@@ -1,11 +1,10 @@
 import React from "react";
-import ArticleParserService from "../../services/article-parser-service";
-import SimilarArtistsViewerComponent from "./similar-artists-viewer-component";
-import ArtistAlbumsViewerComponent from "./artist-albums-viewer-component";
-import BackgroundBarsGraphicComponent from "../../graphics/background-bars-graphic-component";
+import ArticleParserService from "services/article-parser-service";
+import SimilarArtistsViewer from "components/viewer-components/similar-artists/similar-artists-viewer";
+import ArtistAlbumsViewer from "components/viewer-components/artist-albums/artist-albums-viewer";
 import ApiClientService from "services/api-client-service";
 
-class ArtistInfoViewerComponent extends React.Component {
+class ArtistInfoViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -76,11 +75,11 @@ class ArtistInfoViewerComponent extends React.Component {
                 </header>
 
                 <section className="similar-artists">
-                    <SimilarArtistsViewerComponent {...this.props}/>
+                    <SimilarArtistsViewer {...this.props}/>
                 </section>
 
                 <section className="artist-albums">
-                    <ArtistAlbumsViewerComponent {...this.props} />
+                    <ArtistAlbumsViewer {...this.props} />
                 </section>
 
                 <section className="artist-bio">
@@ -92,4 +91,4 @@ class ArtistInfoViewerComponent extends React.Component {
     }
 }
 
-export default ArtistInfoViewerComponent
+export default ArtistInfoViewer

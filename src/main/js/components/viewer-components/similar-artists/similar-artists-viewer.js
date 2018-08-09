@@ -1,9 +1,9 @@
 import React from "react";
-import SimilarArtistTileComponent from "../tile-components/similar-artist-tile-component";
+import SimilarArtistTile from "./similar-artist-tile";
 import ApiClientService from "services/api-client-service";
 import { Link } from "react-router-dom";
 
-class SimilarArtistsViewerComponent extends React.Component {
+class SimilarArtistsViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -69,7 +69,7 @@ class SimilarArtistsViewerComponent extends React.Component {
                             return (
                                 <li>
                                     <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                                        <SimilarArtistTileComponent artist={artist} {..._this.props} />
+                                        <SimilarArtistTile artist={artist} {..._this.props} />
                                     </Link>
                                 </li>
                             );
@@ -81,4 +81,4 @@ class SimilarArtistsViewerComponent extends React.Component {
     }
 }
 
-export default SimilarArtistsViewerComponent
+export default SimilarArtistsViewer

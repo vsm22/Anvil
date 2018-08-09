@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MainNavComponent = (props) => {
+const MainNav = (props) => {
 
     return (
 
@@ -38,4 +38,4 @@ const MainNavComponent = (props) => {
     );
 }
 
-export default MainNavComponent
+export default MainNav

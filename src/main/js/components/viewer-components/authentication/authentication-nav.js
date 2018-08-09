@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class AuthenticationNavComponent extends React.Component {
+class AuthenticationNav extends React.Component {
 
     render() {
 
@@ -63,4 +63,4 @@ class AuthenticationNavComponent extends React.Component {
     }
 }
 
-export default AuthenticationNavComponent
+export default AuthenticationNav

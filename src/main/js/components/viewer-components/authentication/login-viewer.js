@@ -1,8 +1,7 @@
 import React from "react";
 import AuthenticationService from "services/authentication-service";
-import { LOGIN_API_URL } from "config";
 
-class LoginViewerComponent extends React.Component {
+class LoginViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -77,4 +76,4 @@ class LoginViewerComponent extends React.Component {
     }
 }
 
-export default LoginViewerComponent
+export default LoginViewer

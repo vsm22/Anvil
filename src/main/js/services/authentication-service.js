@@ -1,8 +1,4 @@
-import {REGISTRATION_API_URL,
-        LOGIN_API_URL,
-        CURRENT_USER_API_URL,
-        RENEW_TOKEN_URL,
-        GET_GUEST_TOKEN_URL } from "config";
+import ApiUrls from "config/api-urls";
 
 const AuthenticationService = {
 
@@ -13,7 +9,7 @@ const AuthenticationService = {
 
         return new Promise((resolve, reject) => {
 
-            let query = LOGIN_API_URL
+            let query = ApiUrls.LOGIN_API_URL
                         + "?username=" + username
                         + "&password=" + password;
 
@@ -42,7 +38,7 @@ const AuthenticationService = {
 
         return new Promise((resolve, reject) => {
 
-            let query = REGISTRATION_API_URL
+            let query = ApiUrls.REGISTRATION_API_URL
                         + "?username=" + username
                         + "&email=" + email
                         + "&password=" + password;
@@ -137,7 +133,7 @@ const AuthenticationService = {
 
         return new Promise((resolve, reject) => {
 
-            fetch(GET_GUEST_TOKEN_URL)
+            fetch(ApiUrls.GET_GUEST_TOKEN_URL)
                 .then(response => {
 
                     if (response.status !== 200) {

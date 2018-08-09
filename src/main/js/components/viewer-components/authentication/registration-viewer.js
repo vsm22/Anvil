@@ -1,7 +1,7 @@
 import React from "react";
 import AuthenticationService from "services/authentication-service";
 
-class RegistrationViewerComponent extends React.Component {
+class RegistrationViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -84,4 +84,4 @@ class RegistrationViewerComponent extends React.Component {
     }
 }
 
-export default RegistrationViewerComponent
+export default RegistrationViewer

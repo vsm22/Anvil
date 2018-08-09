@@ -1,6 +1,6 @@
 import React from "react";
 
-class SimilarArtistTileComponent extends React.Component {
+class SimilarArtistTile extends React.Component {
 
     render() {
 
@@ -15,4 +15,4 @@ class SimilarArtistTileComponent extends React.Component {
     }
 }
 
-export default SimilarArtistTileComponent
+export default SimilarArtistTile

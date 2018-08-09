@@ -1,8 +1,8 @@
 import React from "react";
-import ArtistAlbumsTileComponent from "../tile-components/artist-albums-tile-component";
+import ArtistAlbumsTile from "./artist-albums-tile";
 import ApiClientService from "services/api-client-service";
 
-class ArtistAlbumsViewerComponent extends React.Component {
+class ArtistAlbumsViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -64,7 +64,7 @@ class ArtistAlbumsViewerComponent extends React.Component {
                         this.state.artistAlbums.albumList.map(album => {
                             return (
                                 <li>
-                                    <ArtistAlbumsTileComponent album={album} />
+                                    <ArtistAlbumsTile album={album} />
                                 </li>
                             );
                         })
@@ -75,4 +75,4 @@ class ArtistAlbumsViewerComponent extends React.Component {
     }
 }
 
-export default ArtistAlbumsViewerComponent
+export default ArtistAlbumsViewer

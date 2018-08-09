@@ -1,15 +1,4 @@
-import { ARTIST_SEARCH_URL,
-         ALBUM_SEARCH_URL,
-         TRACK_SEARCH_URL,
-         ARTIST_INFO_URL,
-         ALBUM_INFO_URL,
-         TRACK_INFO_URL,
-         SIMILAR_ARTISTS_URL,
-         ARTIST_ALBUMS_URL,
-         CREATE_ARTIST_COLLECTION_URL,
-         GET_ARTIST_COLLECTIONS_URL,
-         ADD_ARTIST_TO_COLLECTION_URL } from "config";
-
+import ApiUrls from "config/api-urls";
 import AuthenticationService from "services/authentication-service";
 
 const ApiClientService = {
@@ -19,7 +8,7 @@ const ApiClientService = {
      */
     getArtistSearch: function getArtistSearch(artistName) {
 
-        let query = ARTIST_SEARCH_URL
+        let query = ApiUrls.ARTIST_SEARCH_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -38,7 +27,7 @@ const ApiClientService = {
      */
     getArtistInfo: function getArtistSearch(artistName) {
 
-        let query = ARTIST_INFO_URL
+        let query = ApiUrls.ARTIST_INFO_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -57,7 +46,7 @@ const ApiClientService = {
      */
     getSimilarArtists: function getSimilarArtists(artistName) {
 
-        let query = SIMILAR_ARTISTS_URL
+        let query = ApiUrls.SIMILAR_ARTISTS_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -76,7 +65,7 @@ const ApiClientService = {
      */
     getArtistAlbums: function getArtistAlbums(artistName) {
 
-        let query = ARTIST_ALBUMS_URL
+        let query = ApiUrls.ARTIST_ALBUMS_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -104,7 +93,7 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    let query = CREATE_ARTIST_COLLECTION_URL
+                    let query = ApiUrls.CREATE_ARTIST_COLLECTION_URL
                                 + "?query=" + collectionName;
 
                     fetch(query, {
@@ -152,7 +141,7 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(GET_ARTIST_COLLECTIONS_URL, {
+                    fetch(ApiUrls.GET_ARTIST_COLLECTIONS_URL, {
                         method: "GET",
                         headers: {
                            "Authorization": "Bearer " + user.jwt
@@ -199,7 +188,7 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    let query = ADD_ARTIST_TO_COLLECTION_URL
+                    let query = ApiUrls.ADD_ARTIST_TO_COLLECTION_URL
                                 + "?collectionName=" + collection.collectionName;
 
                     fetch(query, {

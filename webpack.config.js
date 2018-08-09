@@ -19,11 +19,11 @@ module.exports = [{
 
     resolve: {
         alias: {
-            config$: path.resolve(__dirname, "src/main/js/config/config.js"),
+            config: path.resolve(__dirname, "src/main/js/config"),
+            components: path.resolve(__dirname, "src/main/js/components"),
             services: path.resolve(__dirname, "src/main/js/services"),
-            graphics: path.resolve(__dirname, "src/main/js/graphics"),
-            components: path.resolve(__dirname, "src/main/js/react-components"),
-            routes: path.resolve(__dirname, "src/main/js/routes")
+            routes: path.resolve(__dirname, "src/main/js/routes"),
+            graphics: path.resolve(__dirname, "src/main/js/graphics")
         }
     },
 

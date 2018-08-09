@@ -1,8 +1,8 @@
 import React from "react";
 import ApiClientService from "services/api-client-service";
-import ArtistSearchResultTileComponent from "../tile-components/artist-search-result-tile-component";
+import ArtistSearchResultTile from "./artist-search-result-tile";
 
-class ArtistSearchResultViewerComponent extends React.Component {
+class ArtistSearchResultViewer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ class ArtistSearchResultViewerComponent extends React.Component {
 
                                 <li className="artist-search-result-tile-wrap">
 
-                                    <ArtistSearchResultTileComponent {...this.props}
+                                    <ArtistSearchResultTile {...this.props}
                                         key={artist.id}
                                         artist={artist} />
 
@@ -73,4 +73,4 @@ class ArtistSearchResultViewerComponent extends React.Component {
     }
 }
 
-export default ArtistSearchResultViewerComponent
+export default ArtistSearchResultViewer
