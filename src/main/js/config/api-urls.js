@@ -17,7 +17,8 @@ const ApiUrls = {
     ADD_ARTIST_TO_COLLECTION_URL: "api/secured/addArtistToCollection",
     USER_SEARCH_URL: "api/getUserSearch",
     ADD_USER_TO_FRIENDS_URL: "api/secured/addUserToFriends",
-    GET_FRIENDS_URL: "api/secured/getFriends"
+    GET_FRIENDS_URL: "api/secured/getFriends",
+    GET_RECOMMENDATIONS_URL: "api/secured/getRecommendations"
 }
 
 export default ApiUrls

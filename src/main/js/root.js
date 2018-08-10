@@ -14,7 +14,8 @@ class Root extends React.Component {
                 jwt: null
             },
             artistCollections: [{}],
-            friends: []
+            friends: [],
+            recommendations: []
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -23,6 +24,9 @@ class Root extends React.Component {
 
         this.getFriends = this.getFriends.bind(this);
         this.setFriends = this.setFriends.bind(this);
+
+        this.getRecommendations = this.getRecommendations.bind(this);
+        this.setRecommendations = this.setRecommendations.bind(this);
     }
 
     componentDidMount() {
@@ -113,6 +117,24 @@ class Root extends React.Component {
 
         this.setState({
             friends: friends
+        });
+    }
+
+    getRecommendations() {
+
+        ApiClientService.getRecommendations()
+            .then(recommendations => {
+
+                this.setRecommendations(recommendations);
+            })
+            .catch(() => {
+            });
+    }
+
+    setRecommendations(recommendations) {
+
+        this.setState({
+            recommendations: recommendations
         });
     }
 

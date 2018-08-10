@@ -320,8 +320,40 @@ const ApiClientService = {
                         });
                 });
             });
-    }
+    },
 
+    /**
+     * Get a list of current user's recommendations
+     */
+    getRecommendations: function getRecommendations() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_RECOMMENDATIONS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    }
 }
 
 export default ApiClientService

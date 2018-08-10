@@ -6,6 +6,7 @@ import LoginViewer from "components/viewer-components/authentication/login-viewe
 import LogoutViewer from "components/viewer-components/authentication/logout-viewer";
 import RegistrationViewer from "components/viewer-components/authentication/registration-viewer";
 import FriendsViewer from "components/viewer-components/friends/friends-viewer";
+import RecommendationsViewer from "components/viewer-components/recommendations/recommendations-viewer";
 
 const ViewerRoutes = (props) => {
 
@@ -43,6 +44,10 @@ const ViewerRoutes = (props) => {
 
             <Route path="/friends"
                 render={(routeProps) => <FriendsViewer {...Object.assign({}, props, routeProps)} /> }
+            />
+
+            <Route path="/recommendations"
+                render={(routeProps) => <RecommendationsViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
         </div>

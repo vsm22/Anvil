@@ -27,6 +27,12 @@ const MainNav = (props) => {
                 </li>
 
                 <li>
+                    <Link to="/recommendations">
+                        Recommendations
+                    </Link
+                </li>
+
+                <li>
                     <Link to="/friends">
                         Friends
                     </Link>
