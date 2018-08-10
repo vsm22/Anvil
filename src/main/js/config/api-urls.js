@@ -14,7 +14,10 @@ const ApiUrls = {
     CREATE_ARTIST_COLLECTION_URL: "api/secured/createArtistCollection",
     GET_ARTIST_COLLECTIONS_URL: "api/secured/getArtistCollections",
     GET_GUEST_TOKEN_URL: "api/public/auth/getGuestToken",
-    ADD_ARTIST_TO_COLLECTION_URL: "api/secured/addArtistToCollection"
+    ADD_ARTIST_TO_COLLECTION_URL: "api/secured/addArtistToCollection",
+    USER_SEARCH_URL: "api/getUserSearch",
+    ADD_USER_TO_FRIENDS_URL: "api/secured/addUserToFriends",
+    GET_FRIENDS_URL: "api/secured/getFriends"
 }
 
 export default ApiUrls

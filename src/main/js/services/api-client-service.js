@@ -227,7 +227,101 @@ const ApiClientService = {
                      });
                 });
             });
+    },
+
+    /**
+     * Search for a user based on query. Return a list of users.
+     */
+    getUserSearch: function getUserSearch(query) {
+
+        return new Promise((resolve, reject) => {
+
+            fetch(ApiUrls.USER_SEARCH_URL + "?query=" + query)
+                .then(response => {
+
+                    if (response.status !== 200) {
+                        return reject(response);
+                    }
+                    else {
+
+                        response.json().then(json => {
+                            return resolve(json);
+                        });
+                    }
+                })
+                .catch(() => {
+                    return reject();
+                });
+        });
+    },
+
+    /**
+     * Add a user to friends list.
+     */
+    addUserToFriends: function addUserToFriends(username) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.ADD_USER_TO_FRIENDS_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: username
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Get a list of current user's friends.
+     */
+    getFriends: function getFriends() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FRIENDS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
     }
+
 }
 
 export default ApiClientService

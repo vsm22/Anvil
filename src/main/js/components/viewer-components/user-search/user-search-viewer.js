@@ -1,21 +1,52 @@
 import React from "react";
+import UserSearchForm from "./user-search-form";
+import UserSearchTile from "./user-search-tile";
 
 class UserSearchViewer extends React.Component {
 
-    constructor() {
+    constructor(props) {
+        super(props);
 
-        this.handleUserSearchFormSubmit = this.handleUserSearchFormSubmit.bind(this);
+        this.state = {
+            userList: []
+        };
+
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
+    handleSearch(json) {
 
+        this.setState({
+            userList: json
+        });
+    }
 
     render() {
 
         return (
 
-            <form name="user-search-form" className="user-search-form" onSubmit={this.handleUserSearchFormSubmit}>
-            </form>
+            <div className="user-search-viewer">
+
+                <UserSearchForm {...this.props}
+                    handleSearch={this.handleSearch} />
+
+
+                {
+                    (this.state.userList !== null && this.state.userList.length > 0)
+                        ?
+                            this.state.userList.map(user => {
+
+                                return <UserSearchTile {...this.props}
+                                            user={user} />
+
+                            })
+                        : ""
+                }
+
+            </div>
 
         );
     }
 }
+
+export default UserSearchViewer

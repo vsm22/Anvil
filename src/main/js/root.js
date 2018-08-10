@@ -13,12 +13,16 @@ class Root extends React.Component {
                 username: null,
                 jwt: null
             },
-            artistCollections: [{}]
+            artistCollections: [{}],
+            friends: []
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
         this.getArtistCollections = this.getArtistCollections.bind(this);
         this.setArtistCollections = this.setArtistCollections.bind(this);
+
+        this.getFriends = this.getFriends.bind(this);
+        this.setFriends = this.setFriends.bind(this);
     }
 
     componentDidMount() {
@@ -89,18 +93,46 @@ class Root extends React.Component {
         });
     }
 
+    /**
+     * Get list of friends from api.
+     */
+    getFriends() {
+
+        ApiClientService.getFriends()
+            .then(json => {
+                this.setFriends(JSON.parse(json));
+            })
+            .catch(response => {
+            });
+    }
+
+    /**
+     * Set list of friends.
+     */
+    setFriends(friends) {
+
+        this.setState({
+            friends: friends
+        });
+    }
+
     render() {
 
         return (
 
             <Router {...this.props}
+
                authentication={this.state.authentication}
                renewAuthentication={this.renewAuthentication}
                getCurrentUser={this.getCurrentUser}
+
                artistCollections={this.state.artistCollections}
                getArtistCollections={this.getArtistCollections}
-               ensureAuthentication={this.ensureAuthentication}
-               setArtistCollections={this.setArtistCollections} />
+               setArtistCollections={this.setArtistCollections}
+
+               friends={this.state.friends}
+               getFriends={this.getFriends}
+               setFriends={this.setFriends} />
         );
     }
 }

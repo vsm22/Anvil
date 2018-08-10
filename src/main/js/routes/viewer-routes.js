@@ -5,6 +5,7 @@ import ArtistInfoViewer from "components/viewer-components/artist-info/artist-in
 import LoginViewer from "components/viewer-components/authentication/login-viewer";
 import LogoutViewer from "components/viewer-components/authentication/logout-viewer";
 import RegistrationViewer from "components/viewer-components/authentication/registration-viewer";
+import FriendsViewer from "components/viewer-components/friends/friends-viewer";
 
 const ViewerRoutes = (props) => {
 
