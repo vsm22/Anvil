@@ -19,6 +19,7 @@ class Root extends React.Component {
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
+
         this.getArtistCollections = this.getArtistCollections.bind(this);
         this.setArtistCollections = this.setArtistCollections.bind(this);
 
@@ -104,7 +105,7 @@ class Root extends React.Component {
 
         ApiClientService.getFriends()
             .then(json => {
-                this.setFriends(JSON.parse(json));
+                this.setFriends(json);
             })
             .catch(response => {
             });
@@ -154,7 +155,11 @@ class Root extends React.Component {
 
                friends={this.state.friends}
                getFriends={this.getFriends}
-               setFriends={this.setFriends} />
+               setFriends={this.setFriends}
+
+               recommendations={this.state.recommendations}
+               getRecommendations={this.getRecommendations}
+               setRecommendations={this.setRecommendations} />
         );
     }
 }

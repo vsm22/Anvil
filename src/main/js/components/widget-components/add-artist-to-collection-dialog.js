@@ -79,8 +79,8 @@ class AddArtistToCollectionDialog extends React.Component {
 
     render() {
 
-        let artist = this.props.artist;
-        let artistCollections = this.props.artistCollections;
+        const artist = this.props.artist;
+        const artistCollections = this.props.artistCollections;
 
         return (
 

@@ -7,13 +7,28 @@ class RecommendationsViewer extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+
+        this.props.getRecommendations();
+    }
+
     render() {
 
         return(
 
             <div className="recommendations-viewer">
-                RecommendationsViewer
+                {
+                    (this.props.recommendations !== null && this.props.recommendations !== undefined && this.props.recommendations.length > 0)
+                        ?
+                            this.props.recommendations.map(recommendation => {
+                                return <RecommendationTile {...this.props}
+                                    recommendation={recommendation} />
+                            })
+                        : ""
+                }
             </div>
         );
     }
 }
+
+export default RecommendationsViewer

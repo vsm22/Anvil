@@ -7,6 +7,8 @@ import LogoutViewer from "components/viewer-components/authentication/logout-vie
 import RegistrationViewer from "components/viewer-components/authentication/registration-viewer";
 import FriendsViewer from "components/viewer-components/friends/friends-viewer";
 import RecommendationsViewer from "components/viewer-components/recommendations/recommendations-viewer";
+import CollectionsViewer from "components/viewer-components/collections/collections-viewer";
+import CollectionViewer from "components/viewer-components/collections/collection-viewer";
 
 const ViewerRoutes = (props) => {
 
@@ -36,6 +38,10 @@ const ViewerRoutes = (props) => {
 
             <Route path="/collections"
                 render={(routeProps) => <CollectionsViewer {...Object.assign({}, props, routeProps)} /> }
+            />
+
+            <Route path="/collection"
+                render={(routeProps) => <CollectionViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/favorites"

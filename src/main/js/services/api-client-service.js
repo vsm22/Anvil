@@ -179,6 +179,39 @@ const ApiClientService = {
     },
 
     /**
+     * Get the entries for a collection.
+     */
+    getArtistCollection: function getArtistCollection(username, collectionName) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_ARTIST_COLLECTION_URL + "?username=" + username + "&collectionName=" + collectionName, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
      * Add artist to a collection.
      */
     addArtistToCollection: function addArtistToCollection(artist, collection) {
@@ -337,6 +370,43 @@ const ApiClientService = {
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
                             }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Recommend artist to a friend.
+     */
+    recommendArtist: function recommendArtist(artist, friend) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.RECOMMEND_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify({
+                                "recommendToUser": friend.username,
+                                "artist": artist
+                            })
                         })
                         .then(response => {
 

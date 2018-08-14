@@ -29,7 +29,7 @@ const MainNav = (props) => {
                 <li>
                     <Link to="/recommendations">
                         Recommendations
-                    </Link
+                    </Link>
                 </li>
 
                 <li>

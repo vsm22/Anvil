@@ -1,6 +1,7 @@
 import React from "react";
 import ToolWidget from "components/widget-components/tool-widget";
 import AddArtistToCollectionDialog from "components/widget-components/add-artist-to-collection-dialog";
+import RecommmendArtistToFriendDialog from "components/widget-components/recommend-artist-to-friend-dialog";
 
 class ItemToolsNav extends React.Component {
 
@@ -33,7 +34,7 @@ class ItemToolsNav extends React.Component {
                         <ToolWidget {...this.props}
                             toolLabel="Recommend to a friend"
                             toolIconClassName="fas fa-user"
-                            toolDialogComponent={AddArtistToCollectionDialog} />
+                            toolDialogComponent={RecommmendArtistToFriendDialog} />
                     </li>
 
                 </ul>
