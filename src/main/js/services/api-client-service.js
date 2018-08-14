@@ -214,7 +214,7 @@ const ApiClientService = {
     /**
      * Add artist to a collection.
      */
-    addArtistToCollection: function addArtistToCollection(artist, collection) {
+    addArtistToCollection: function addArtistToCollection(artist, collectionName) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
@@ -222,7 +222,7 @@ const ApiClientService = {
                 return new Promise((resolve, reject) => {
 
                     let query = ApiUrls.ADD_ARTIST_TO_COLLECTION_URL
-                                + "?collectionName=" + collection.collectionName;
+                                + "?collectionName=" + collectionName;
 
                     fetch(query, {
                         method: "POST",

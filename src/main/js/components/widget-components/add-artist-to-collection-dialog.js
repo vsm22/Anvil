@@ -7,6 +7,7 @@ class AddArtistToCollectionDialog extends React.Component {
         super(props);
 
         this.state = {
+            artist: this.props.artist,
             collectionName: "",
             serverMessage: ""
         }
@@ -43,33 +44,44 @@ class AddArtistToCollectionDialog extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        this.createCollection(this.state.collectionName);
+        this.createCollection(this.state.collectionName)
+            .then(() => {
+                ApiClientService.addArtistToCollection(this.state.artist, this.state.collectionName);
+            });
     }
 
-    handleMenuItemSubmit(event, artist, collection) {
+    handleMenuItemSubmit(event, collectionName) {
 
-        ApiClientService.addArtistToCollection(artist, collection);
+        ApiClientService.addArtistToCollection(this.state.artist, collectionName);
     }
 
     createCollection(collectionName) {
 
-        ApiClientService.createArtistCollection(collectionName)
-            .then((response) => {
+        return new Promise((resolve, reject) => {
 
-                this.setState({ serverMessage: "" });
+            ApiClientService.createArtistCollection(collectionName)
+                .then((response) => {
 
-                response.json().then(json => this.props.setArtistCollections(json));
-            })
-            .catch(response => {
-
-                if (response.status === 409) {
-                    this.setState({
-                        serverMessage: "Collection with this name already exists"
-                    });
-                } else {
                     this.setState({ serverMessage: "" });
-                }
-            });
+
+                    response.json().then(json => {
+                        this.props.setArtistCollections(json);
+                        return resolve(json);
+                    });
+                })
+                .catch(response => {
+
+                    if (response.status === 409) {
+                        this.setState({
+                            serverMessage: "Collection with this name already exists"
+                        });
+                        return reject(response);
+                    } else {
+                        this.setState({ serverMessage: "" });
+                        return reject(response);
+                    }
+                });
+        });
     }
 
     componentDidMount() {
@@ -79,7 +91,7 @@ class AddArtistToCollectionDialog extends React.Component {
 
     render() {
 
-        const artist = this.props.artist;
+        const artist = this.state.artist;
         const artistCollections = this.props.artistCollections;
 
         return (
@@ -104,7 +116,7 @@ class AddArtistToCollectionDialog extends React.Component {
                     Add to new collection:
                 </h2>
 
-                <form name="new-collection-form" className="new-collection-form" onSubmit={this.handleSubmit} >
+                <form name="new-collection-form" className="new-collection-form" onSubmit={(event) => { this.handleSubmit(event, artist); }} >
                     <input type="text" name="collection-name" className="collection-name" placeholder="Collection Name" onChange={this.handleChange} />
                     <button type="submit" className="submit">
                         <i className="fas fa-plus"></i>
@@ -121,7 +133,7 @@ class AddArtistToCollectionDialog extends React.Component {
                             artistCollections.map(collection => {
 
                                 return (
-                                    <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, artist, collection); }}>
+                                    <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, collection.collectionName); }}>
 
                                         <div className="collection-name">
                                             { collection.collectionName }
