@@ -14,7 +14,6 @@ class UserSearchForm extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSearch = this.props.handleSearch;
 
         this.componentRef = React.createRef();
     }
@@ -35,11 +34,7 @@ class UserSearchForm extends React.Component {
 
         event.preventDefault();
 
-        ApiClientService.getUserSearch(this.state.query)
-            .then(json => {
-
-                return this.handleSearch(json);
-            });
+        this.props.history.push("friends?username=" + this.state.query);
     }
 
     render() {

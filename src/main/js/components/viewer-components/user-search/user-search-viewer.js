@@ -1,6 +1,7 @@
 import React from "react";
 import UserSearchForm from "./user-search-form";
 import UserSearchTile from "./user-search-tile";
+import ApiClientService from "services/api-client-service";
 
 class UserSearchViewer extends React.Component {
 
@@ -11,14 +12,39 @@ class UserSearchViewer extends React.Component {
             userList: []
         };
 
-        this.handleSearch = this.handleSearch.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
-    handleSearch(json) {
+   shouldComponentUpdate(nextProps, nextState) {
 
-        this.setState({
-            userList: json
-        });
+        if (this.props.location.search !== nextProps.location.search) {
+            this.getData(nextProps.location.search);
+        }
+
+        return true;
+    }
+
+    componentDidMount() {
+
+        this.getData(this.props.location.search);
+    }
+
+    getData(urlParam) {
+
+        const queryRegex = /\?username=(.*)/;
+
+        if (urlParam !== null && urlParam !== undefined && urlParam !== "") {
+
+            const username = queryRegex.exec(urlParam)[1];
+
+            ApiClientService.getUserSearch(username)
+                .then((json) => {
+
+                    this.setState({
+                        userList: json
+                    });
+                });
+        }
     }
 
     render() {
@@ -27,9 +53,7 @@ class UserSearchViewer extends React.Component {
 
             <div className="user-search-viewer">
 
-                <UserSearchForm {...this.props}
-                    handleSearch={this.handleSearch} />
-
+                <UserSearchForm {...this.props} />
 
                 {
                     (this.state.userList !== null && this.state.userList.length > 0)
