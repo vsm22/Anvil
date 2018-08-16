@@ -19,6 +19,7 @@ class Root extends React.Component {
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.getCurrentUserAndRenew = this.getCurrentUserAndRenew.bind(this);
 
         this.getArtistCollections = this.getArtistCollections.bind(this);
         this.setArtistCollections = this.setArtistCollections.bind(this);
@@ -32,7 +33,40 @@ class Root extends React.Component {
 
     componentDidMount() {
 
-        this.getCurrentUser();
+        this.getCurrentUserAndRenew();
+    }
+
+    /**
+     * Get the current user (username and token) and attempt to renew the authentication.
+     */
+    getCurrentUserAndRenew() {
+
+        return new Promise((resolve, reject) => {
+
+            AuthenticationService.getCurrentUserAndRenew()
+                .then(user => {
+
+                    this.setState({
+                        authentication: {
+                            username: user.username,
+                            jwt: user.jwt
+                        }
+                    });
+
+                    return resolve(user);
+                })
+                .catch(user => {
+
+                    this.setState({
+                        authentication: {
+                            username: null,
+                            jwt: null
+                        }
+                    });
+
+                    return reject(user);
+                });
+        });
     }
 
     /**
@@ -83,6 +117,7 @@ class Root extends React.Component {
             .then(json => {
 
                 this.setArtistCollections(json);
+
 
             }).catch(response => {
             });

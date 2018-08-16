@@ -68,10 +68,16 @@ const AuthenticationService = {
 
             if (user.username === "guest") {
 
+                localStorage.removeItem("username");
+                localStorage.removeItem("jwt");
+
                 sessionStorage.setItem("username", "guest");
                 sessionStorage.setItem("jwt", user.jwt);
 
             } else {
+
+                sessionStorage.removeItem("username");
+                sessionStorage.removeItem("jwt");
 
                 localStorage.setItem("username", user.username);
                 localStorage.setItem("jwt", user.jwt);
@@ -92,7 +98,7 @@ const AuthenticationService = {
     },
 
     /**
-     * Retrieve the user info associated with current JWT token and get a new token.
+     * Renew the authentication token.
      */
     renewToken: function renewToken(token) {
 
@@ -112,12 +118,14 @@ const AuthenticationService = {
 
                     } else {
 
-                        return response.json();
+                        return response.json()
+                                   .then(json => {
+                                       return resolve({
+                                            username: json.username,
+                                            jwt: json.token
+                                       });
+                                   });
                     }
-                })
-                .then(json => {
-
-                    return resolve(json);
                 })
                 .catch(response => {
 
@@ -147,12 +155,6 @@ const AuthenticationService = {
                 })
                 .then(json => {
 
-                    localStorage.removeItem("username");
-                    localStorage.removeItem("jwt");
-
-                    sessionStorage.setItem("username", "guest");
-                    sessionStorage.setItem("jwt", json.token);
-
                     return resolve({
                         username: "guest",
                         jwt: json.token
@@ -166,45 +168,105 @@ const AuthenticationService = {
     },
 
     /**
-     * Retrieve the current user from local storage (or sessionstorage for guest user)
-     * and attempt to renew authentication on the server.
+     * Retrieve the current user from local storage (or sessionstorage for guest user).
+     * Do not attempt to renew the token (as opposed to the method getCurrentUserAndRenew).
+     * This method is to be called to retrieve credentials before each API request.
+     * If successful, the API call should return renewed credentials in the response header.
      */
     getCurrentUser: function getCurrentUser() {
 
         return new Promise((resolve, reject) => {
 
-            if (localStorage.getItem("jwt") !== null) {
+                if (localStorage.getItem("jwt") !== null) {
 
-                return resolve({
-                    username: localStorage.getItem("username"),
-                    jwt: localStorage.getItem("jwt")
-                });
-
-            } else if (sessionStorage.getItem("jwt") !== null) {
-
-                return resolve({
-                    username: sessionStorage.getItem("username"),
-                    jwt: sessionStorage.getItem("jwt")
-                });
-
-            } else {
-
-                AuthenticationService.getGuestToken()
-                    .then(user => {
-
-                        return resolve({
-                            username: user.username,
-                            jwt: user.jwt
-                        })
-                    })
-                    .catch(response => {
-
-                       return reject({
-                           username: null,
-                           jwt: null
-                       });
+                    return resolve({
+                        username: localStorage.getItem("username"),
+                        jwt: localStorage.getItem("jwt")
                     });
-            }
+
+                } else if (sessionStorage.getItem("jwt") !== null) {
+
+                    return resolve({
+                        username: sessionStorage.getItem("username"),
+                        jwt: sessionStorage.getItem("jwt")
+                    });
+
+                } else {
+
+                    AuthenticationService.getGuestToken()
+                        .then(user => {
+
+                            AuthenticationService.saveAuthorization(user);
+
+                            return resolve(user);
+                        })
+                        .catch(response => {
+
+                           return reject({
+                               username: null,
+                               jwt: null
+                           });
+                        });
+                }
+            });
+    },
+
+    /**
+     * Retrieve the current user from local storage (or session storage for guest user)
+     * and attempt to renew authentication token. This method is to be called when the
+     * root component first mounts. At that point the browser may still have credentials
+     * stored, so we need to renew them to make sure they are valid.
+     */
+    getCurrentUserAndRenew: function getCurrentUserAndRenew() {
+
+        return new Promise((resolve, reject) => {
+
+                if (localStorage.getItem("jwt") !== null) {
+
+                    AuthenticationService.renewToken(localStorage.getItem("jwt"))
+                        .then(user => {
+
+                            AuthenticationService.saveAuthorization(user);
+                            return resolve(user);
+
+                        })
+                        .catch(response => {
+
+                            AuthenticationService.logout();
+                            return AuthenticationService.getCurrentUserAndRenew();
+                        });
+
+                } else if (sessionStorage.getItem("jwt") !== null) {
+
+                    AuthenticationService.renewToken(sessionStorage.getItem("jwt"))
+                        .then(user => {
+
+                            AuthenticationService.saveAuthorization(user);
+                            return resolve(user);
+
+                        })
+                        .catch(response => {
+
+                            AuthenticationService.clearGuestSession();
+                            return AuthenticationService.getCurrentUserAndRenew();
+                        });
+
+                } else {
+
+                    AuthenticationService.getGuestToken()
+                        .then(user => {
+
+                            AuthenticationService.saveAuthorization(user);
+                            return resolve(user);
+                        })
+                        .catch(response => {
+
+                           return reject({
+                               username: null,
+                               jwt: null
+                           });
+                        });
+                }
         });
     }
 }

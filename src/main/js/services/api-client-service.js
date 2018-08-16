@@ -81,7 +81,7 @@ const ApiClientService = {
 
     /* =====================================================================
      * AUTHENTICATED API METHODS
-     * ===================================================================== /
+     * ===================================================================== */
 
     /**
      * Create a new artist collection.
@@ -407,6 +407,39 @@ const ApiClientService = {
                                 "recommendToUser": friend.username,
                                 "artist": artist
                             })
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Get a list of usernames artist was already recommended to.
+     */
+    getFriendsArtistWasRecommendedTo(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL + "?artistMbid=" + artist.mbid, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
                         })
                         .then(response => {
 
