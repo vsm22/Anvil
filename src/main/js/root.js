@@ -16,7 +16,7 @@ class Root extends React.Component {
             artistCollections: [{}],
             friends: [],
             recommendations: [],
-            favoriteArtistMbidList: []
+            likedArtists: []
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -31,14 +31,14 @@ class Root extends React.Component {
         this.getRecommendations = this.getRecommendations.bind(this);
         this.setRecommendations = this.setRecommendations.bind(this);
 
-        this.getFavoriteArtistMbidList = this.getFavoriteArtistMbidList.bind(this);
-        this.setFavoriteArtistMbidList = this.setFavoriteArtistMbidList.bind(this);
+        this.getLikedArtists = this.getLikedArtists.bind(this);
+        this.setLikedArtists = this.setLikedArtists.bind(this);
     }
 
     componentDidMount() {
 
         this.getCurrentUserAndRenew();
-        this.getFavoriteArtistMbidList();
+        this.getLikedArtists();
     }
 
     /**
@@ -179,23 +179,23 @@ class Root extends React.Component {
         });
     }
 
-    getFavoriteArtistMbidList() {
+    getLikedArtists() {
 
-        ApiClientService.getFavoriteArtistMbidList()
+        ApiClientService.getLikedArtists()
             .then(json => {
 
                 this.setState({
-                    favoriteArtistMbidList: json
-                })
+                    likedArtists: json
+                });
             })
             .catch(() => {
             });
     }
 
-    setFavoriteArtistMbidList(mbidList) {
+    setLikedArtists(likedArtists) {
 
         this.setState({
-            favoriteArtistMbidList: mbidList
+            likedArtists: likedArtists
         });
     }
 
@@ -221,9 +221,9 @@ class Root extends React.Component {
                getRecommendations={this.getRecommendations}
                setRecommendations={this.setRecommendations}
 
-               favoriteArtistMbidList={this.state.favoriteArtistMbidList}
-               getFavoriteArtistMbidList={this.state.getFavoriteArtistMbidList}
-               setFavoriteArtistMbidList={this.state.setFavoriteArtistMbidList} />
+               likedArtists={this.state.likedArtists}
+               getLikedArtists={this.getLikedArtists}
+               setLikedArtists={this.setLikedArtists} />
         );
     }
 }

@@ -2,8 +2,7 @@ import React from "react";
 import ToolWidget from "components/widget-components/tool-widget";
 import AddArtistToCollectionDialog from "components/widget-components/add-artist-to-collection-dialog";
 import RecommmendArtistToFriendDialog from "components/widget-components/recommend-artist-to-friend-dialog";
-import AddArtistToFavoritesDialog from "components/widget-components/add-artist-to-favorites-dialog";
-import RemoveArtistFromFavoritesDialog from "components/widget-components/remove-artist-from-favorites-dialog";
+import LikeArtistButton from "components/widget-components/like-artist-button";
 
 class ItemToolsNav extends React.Component {
 
@@ -13,8 +12,7 @@ class ItemToolsNav extends React.Component {
 
     render() {
 
-        let artist = this.props.artist;
-        let isArtistInFavorites = (this.props.favoriteArtistMbidList.includes(artist.mbid)) ? true : false;
+        console.log("Liked artists in nav: " + this.props.likedArtists);
 
         return (
 
@@ -29,19 +27,7 @@ class ItemToolsNav extends React.Component {
                     </li>
 
                     <li>
-                    {
-                        (isArtistInFavorites)
-                        ?
-                            <ToolWidget {...this.props}
-                                toolLabel="Save to favorites"
-                                toolIconClassName="fas fa-heart red"
-                                toolDialogComponent={RemoveArtistFromFavoritesDialog} />
-                        :
-                            <ToolWidget {...this.props}
-                                toolLabel="Save to favorites"
-                                toolIconClassName="fas fa-heart"
-                                toolDialogComponent={AddArtistToFavoritesDialog} />
-                    }
+                        <LikeArtistButton {...this.props} bob={this.props.likedArtists} />
                     </li>
 
                     <li>

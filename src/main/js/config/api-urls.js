@@ -22,10 +22,10 @@ const ApiUrls = {
     GET_RECOMMENDATIONS_URL: "api/secured/getRecommendations",
     RECOMMEND_ARTIST_URL: "api/secured/recommendArtist",
     GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL: "api/secured/getFriendsArtistWasRecommendedTo",
-    GET_FAVORITE_ARTISTS_URL: "api/secured/getFavoriteArtists",
-    ADD_FAVORITE_ARTIST_URL: "api/secured/addFavoriteArtist",
-    GET_FAVORITE_ARTIST_MBID_LIST_URL: "api/secured/getFavoriteArtistMbidList",
-    REMOVE_FAVORITE_ARTIST_URL: "api/secured/removeFavoriteArtist"
+    GET_LIKED_ARTISTS_URL: "api/secured/getLikedArtists",
+    ADD_LIKED_ARTIST_URL: "api/secured/addLikedArtist",
+    GET_LIKED_ARTIST_MBID_LIST_URL: "api/secured/getLikedArtistMbidList",
+    REMOVE_LIKED_ARTIST_URL: "api/secured/removeLikedArtist"
 }
 
 export default ApiUrls

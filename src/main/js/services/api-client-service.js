@@ -458,14 +458,14 @@ const ApiClientService = {
             });
     },
 
-    getFavoriteArtists() {
+    getLikedArtists() {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.GET_FAVORITE_ARTISTS_URL, {
+                    fetch(ApiUrls.GET_LIKED_ARTISTS_URL, {
                             method: "GET",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
@@ -488,14 +488,14 @@ const ApiClientService = {
             });
     },
 
-    getFavoriteArtistMbidList() {
+    getLikedArtistMbidList() {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.GET_FAVORITE_ARTIST_MBID_LIST_URL, {
+                    fetch(ApiUrls.GET_LIKED_ARTIST_MBID_LIST_URL, {
                             method: "GET",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
@@ -518,14 +518,14 @@ const ApiClientService = {
             });
     },
 
-    addFavoriteArtist(artist) {
+    addLikedArtist(artist) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.ADD_FAVORITE_ARTIST_URL, {
+                    fetch(ApiUrls.ADD_LIKED_ARTIST_URL, {
                             method: "POST",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
@@ -549,14 +549,14 @@ const ApiClientService = {
             });
     },
 
-    removeFavoriteArtist(artist) {
+    removeLikedArtist(artist) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.REMOVE_FAVORITE_ARTIST_URL, {
+                    fetch(ApiUrls.REMOVE_LIKED_ARTIST_URL, {
                             method: "POST",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
