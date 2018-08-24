@@ -11,7 +11,7 @@ class TopLayout extends React.Component {
 
         return (
 
-            <div className="wrap root-component-wrap" id="root-component-wrap">
+            <div>
 
                 {/* FIXME: <MainBackground {...this.props} /> */}
 

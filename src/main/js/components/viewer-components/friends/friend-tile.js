@@ -8,8 +8,23 @@ class FriendTile extends React.Component {
 
         return (
 
-            <div className="friend-tile">
-                {friend.username}
+            <div className="user-tile friend-tile">
+
+                <div className="user-info">
+
+                    <div className="icon-wrap">
+                        <i className="fas fa-user"></i>
+                    </div>
+
+                    <div className="username">
+                        {friend.username}
+                    </div>
+
+                    <div>
+                    </div>
+
+                </div>
+
             </div>
         );
     }

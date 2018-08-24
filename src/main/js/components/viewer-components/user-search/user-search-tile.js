@@ -26,7 +26,10 @@ class UserSearchTile extends React.Component {
                 this.setState({ serverResponse: "" });
             })
             .catch(response => {
-                this.setState({ serverResponse: response });
+
+                response.text().then(text => {
+                    this.setState({ serverResponse: text });
+                });
             })
     }
 
@@ -34,16 +37,37 @@ class UserSearchTile extends React.Component {
 
         return (
 
-            <div className="user-search-tile">
+            <div className="user-tile">
 
-                {this.user.username}
+                <div className="user-info">
 
-                <form name="add-user-to-friends-form" className="add-user-to-friends-form" onSubmit={this.handleAddUserToFriendsFormSubmit}>
-                    <button type="submit">
-                        <i className="fas fa-plus"></i>
-                        <span>add to friends</span>
-                    </button>
-                </form>
+                    <div className="icon-wrap">
+                        <i className="fas fa-user"></i>
+                    </div>
+
+                    <div className="username">
+                        {this.user.username}
+                    </div>
+
+                    {
+                        (this.props.isFriend === false)
+                            ?
+                                <form name="add-user-to-friends-form" className="add-user-to-friends-form" onSubmit={this.handleAddUserToFriendsFormSubmit}>
+                                    <button type="submit">
+                                        <i className="fas fa-plus"></i>
+                                    </button>
+                                </form>
+                            :
+                                <div>
+                                    <i className="fas fa-check"></i>
+                                </div>
+                    }
+
+                </div>
+
+                <div className="server-response-message">
+                    { this.state.serverResponse }
+                </div>
 
             </div>
         );

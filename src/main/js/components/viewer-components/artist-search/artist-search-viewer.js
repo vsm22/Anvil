@@ -8,6 +8,7 @@ class ArtistSearchResultViewer extends React.Component {
         super(props);
 
         this.state = {
+            artistName: "",
             artistList: []
         };
 
@@ -40,6 +41,7 @@ class ArtistSearchResultViewer extends React.Component {
                 .then((json) => {
 
                     this.setState({
+                        artistName: artistName,
                         artistList: json["artistList"]
                     });
                 });
@@ -49,25 +51,39 @@ class ArtistSearchResultViewer extends React.Component {
     render() {
 
         return (
-            <div id="artist-search-result-container">
 
-                <ul>
-                    {
-                        this.state.artistList.map((artist) => {
+            <div className="viewer artist-search-result-viewer">
 
-                            return (
+                <div className="panel">
 
-                                <li className="artist-search-result-tile-wrap">
+                    <h1>
+                        <span>
+                            <i className="fas fa-headphones"></i>
+                        </span>
+                        <span>
+                            Search for { this.state.artistName }
+                        </span>
+                    </h1>
 
-                                    <ArtistSearchResultTile {...this.props}
-                                        key={artist.id}
-                                        artist={artist} />
+                    <ul>
+                        {
+                            this.state.artistList.map((artist) => {
 
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
+                                return (
+
+                                    <li className="item-card-wrap artist-search-result-tile-wrap">
+
+                                        <ArtistSearchResultTile {...this.props}
+                                            key={artist.id}
+                                            artist={artist} />
+
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+
+                </div>
             </div>
         );
     }

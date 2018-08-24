@@ -112,7 +112,7 @@ CREATE TABLE `artists` (
   `mbid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_mr75wex5qomg8m4gnf7r8biuh` (`artist_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `artists` (
 
 LOCK TABLES `artists` WRITE;
 /*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES (1,'Björk',NULL,NULL,'https://lastfm-img2.akamaized.net/i/u/300x300/1e45bbeae33f4968b4474fbbb3c6bc84.png','https://lastfm-img2.akamaized.net/i/u/64s/1e45bbeae33f4968b4474fbbb3c6bc84.png','https://lastfm-img2.akamaized.net/i/u/34s/1e45bbeae33f4968b4474fbbb3c6bc84.png','87c5dedd-371d-4a53-9f7f-80522fb7f3cb');
+INSERT INTO `artists` VALUES (1,'Björk',NULL,NULL,'https://lastfm-img2.akamaized.net/i/u/300x300/1e45bbeae33f4968b4474fbbb3c6bc84.png','https://lastfm-img2.akamaized.net/i/u/64s/1e45bbeae33f4968b4474fbbb3c6bc84.png','https://lastfm-img2.akamaized.net/i/u/34s/1e45bbeae33f4968b4474fbbb3c6bc84.png','87c5dedd-371d-4a53-9f7f-80522fb7f3cb'),(2,'The Beatles',NULL,NULL,'https://lastfm-img2.akamaized.net/i/u/300x300/13c69ff28f1940c8a74fb94e5f5e25b9.png','https://lastfm-img2.akamaized.net/i/u/64s/13c69ff28f1940c8a74fb94e5f5e25b9.png','https://lastfm-img2.akamaized.net/i/u/34s/13c69ff28f1940c8a74fb94e5f5e25b9.png','b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d');
 /*!40000 ALTER TABLE `artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `recommendations` (
   KEY `FK1o1cpesfts70lhfaq5e4q3rmr` (`artist_id`),
   KEY `FKd21fv2vdw2meknx2svjn9smpx` (`recommender_user_public_info_id`),
   KEY `FKopk4ytgpeewoa4nsjgirqgkq2` (`user_public_info_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `recommendations` (
 
 LOCK TABLES `recommendations` WRITE;
 /*!40000 ALTER TABLE `recommendations` DISABLE KEYS */;
-INSERT INTO `recommendations` VALUES (1,'2018-08-13 15:54:21',1,1,2);
+INSERT INTO `recommendations` VALUES (1,'2018-08-13 15:54:21',1,1,2),(2,'2018-08-15 09:52:04',2,2,1),(3,'2018-08-15 09:53:17',2,2,1);
 /*!40000 ALTER TABLE `recommendations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +250,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +259,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'asdf@asfd.com','\0','2018-08-14 12:09:07','$2a$10$EeWvC.fVDaATqaAnNdOHpOoLXoZ0j57uO1b8tChq9QORqZ/vxFBDO','user1'),(2,'asdf@asfd.com','\0','2018-08-13 16:04:11','$2a$10$zfaQHzJXzJD6scY6Hkm05ebKoara6cs5VldrsZNcdQIR4wrEpyJKK','user2');
+INSERT INTO `user` VALUES (1,'asdf@asfd.com','\0','2018-08-15 09:57:49','$2a$10$EeWvC.fVDaATqaAnNdOHpOoLXoZ0j57uO1b8tChq9QORqZ/vxFBDO','user1'),(2,'asdf@asfd.com','\0','2018-08-15 09:57:38','$2a$10$zfaQHzJXzJD6scY6Hkm05ebKoara6cs5VldrsZNcdQIR4wrEpyJKK','user2'),(3,NULL,'','2018-08-15 09:50:55','$2a$10$gK9IaBSHpnjJBhPR//Z7i.Pz055tY/8tZNjvaRYv3KfIAcJPCpFWK','guest_642ba94f-4808-4183-b98e-3409acbb456e'),(4,'mark@gmail.com','\0','2018-08-15 15:15:37','$2a$10$q950gZamf2y93IFnCPBWkeDYcCiLtAcm9GwqCwarwB6ApITSgL7i6','mark'),(5,'mark@gmail.com','\0','2018-08-15 15:15:54','$2a$10$CWYer/Q2Lo/8nxuksGadvuwh0ESz4KK2lnx9L3zmHJcKZD2jNrEQq','john'),(6,'mary@gmail.com','\0','2018-08-15 15:16:05','$2a$10$IcLuDuZ22aYOLxN.jRt3p.0Frdhy/XJpQD0fT43UR28atBjtvBw6a','mary'),(7,'elisa@gmail.com','\0','2018-08-15 15:16:18','$2a$10$cOqMuBe6I1JA6fY79WlSUuI8VKBl.Jtw6lVTIfTDZI0BKk0t/fUhG','elisa');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +331,7 @@ CREATE TABLE `user_info` (
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKn8pl63y4abe7n0ls6topbqjh2` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +340,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES (1,NULL,NULL,'user1',1),(2,NULL,NULL,'user2',2);
+INSERT INTO `user_info` VALUES (1,NULL,NULL,'user1',1),(2,NULL,NULL,'user2',2),(3,NULL,NULL,'mark',4),(4,NULL,NULL,'john',5),(5,NULL,NULL,'mary',6),(6,NULL,NULL,'elisa',7);
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -353,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-14 12:09:56
+-- Dump completed on 2018-08-15 15:16:30

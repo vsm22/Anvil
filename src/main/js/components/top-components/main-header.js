@@ -4,14 +4,14 @@ import AuthenticationNav from "components/viewer-components/authentication/authe
 
 const MainHeader = (props) => (
 
-    <header>
+    <header className="main-header">
 
         <div>
             <h1> anvil </h1>
             <h2> a tool for music exploration </h2>
         </div>
 
-        <div>
+        <div className="authentication-nav-wrap">
             <AuthenticationNav {...props} />
         </div>
 

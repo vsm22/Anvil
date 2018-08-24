@@ -104,7 +104,7 @@ const AuthenticationService = {
 
         return new Promise((resolve, reject) => {
 
-                fetch(RENEW_TOKEN_URL, {
+                fetch(ApiUrls.RENEW_TOKEN_URL, {
                     method: "GET",
                     headers: {
                         "Authorization" : "Bearer " + token

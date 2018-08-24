@@ -49,23 +49,33 @@ class UserSearchViewer extends React.Component {
 
     render() {
 
+        let friendUsernames = this.props.friends.map(friend => friend.username);
+
         return (
 
-            <div className="user-search-viewer">
+            <div className="viewer user-search-viewer">
 
                 <UserSearchForm {...this.props} />
 
+                <ul className="user-list user-search-results">
                 {
                     (this.state.userList !== null && this.state.userList.length > 0)
                         ?
                             this.state.userList.map(user => {
 
-                                return <UserSearchTile {...this.props}
-                                            user={user} />
+                                let isFriend = friendUsernames.includes(user.username);
 
+                                return (
+                                            <li className="user-tile-wrap">
+                                                <UserSearchTile {...this.props}
+                                                    user={user}
+                                                    isFriend={isFriend} />
+                                            </li>
+                                       );
                             })
                         : ""
                 }
+                </ul>
 
             </div>
 

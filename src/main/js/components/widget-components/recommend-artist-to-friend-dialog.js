@@ -7,11 +7,13 @@ class RecommendArtistToFriendDialog extends React.Component {
         super(props);
 
         this.state = {
-            serverResponse: ""
+            serverResponse: "",
+            friendsArtistWasRecommendedTo: []
         }
 
         this.handleCloseDialogSubmit = this.handleCloseDialogSubmit.bind(this);
         this.handleMenuItemSubmit = this.handleMenuItemSubmit.bind(this);
+        this.getFriendsArtistWasRecommendedTo = this.getFriendsArtistWasRecommendedTo.bind(this);
 
         this.componentRef = React.createRef();
     }
@@ -27,21 +29,42 @@ class RecommendArtistToFriendDialog extends React.Component {
 
         ApiClientService.recommendArtist(artist, friend)
             .then(response => {
+
+                this.setState((prevState, props) => {
+                    friendsArtistWasRecommendedTo: prevState.friendsArtistWasRecommendedTo.concat(friend.username)
+                });
+
                 this.setState({ serverResponse: "" });
             })
             .catch(response => {
-                this.setState({ serverResponse: response});
+                response.text()
+                    .then(text => { this.setState({ serverResponse: text }); });
             })
+    }
+
+    getFriendsArtistWasRecommendedTo(artist) {
+
+        ApiClientService.getFriendsArtistWasRecommendedTo(artist)
+            .then(usernames => {
+
+                this.setState({
+                    friendsArtistWasRecommendedTo: usernames
+                });
+            })
+            .catch(response => {
+            });
     }
 
     componentDidMount() {
         this.props.getFriends();
+        this.getFriendsArtistWasRecommendedTo(this.props.artist);
     }
 
     render() {
 
         const artist = this.props.artist;
         const friends = this.props.friends;
+        const friendsArtistWasRecommendedTo = this.state.friendsArtistWasRecommendedTo;
 
         return (
 
@@ -70,20 +93,43 @@ class RecommendArtistToFriendDialog extends React.Component {
                         {
                             friends.map(friend => {
 
-                                return (
-                                    <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, artist, friend); }}>
+                                // If friend has already received a recommendation for this artist from current user
+                                if (friendsArtistWasRecommendedTo.includes(friend.username)) {
 
-                                        <div className="label friend-name">
-                                            { friend.username }
-                                        </div>
+                                    return (
 
-                                        <i className="fas fa-plus"></i>
-                                    </li>
-                                );
+                                        <li className="menu-item">
+
+                                            <div className="label friend-name">
+                                                { friend.username }
+                                            </div>
+
+                                            <i className="fas fa-check green"></i>
+                                        </li>
+                                    );
+
+                                } else {
+
+                                    return (
+
+                                        <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, artist, friend); }}>
+
+                                            <div className="label friend-name">
+                                                { friend.username }
+                                            </div>
+
+                                            <i className="fas fa-plus"></i>
+                                        </li>
+                                    );
+                                }
                             })
                         }
                     </ul>
                 </nav>
+
+                <div className="server-response-message">
+                    { this.state.serverResponse }
+                </div>
 
             </div>
         );

@@ -4,6 +4,7 @@
 
 .item-tools-nav-wrap {
     display: inline-block;
+    margin-top: 1rem;
 }
 
 .item-tools-nav {
@@ -19,28 +20,35 @@
         display: inline-block;
         margin: 0;
         padding: 0;
+        width: auto;
+        height: auto;
         border: 0;
     }
 }
 
 .tool-widget {
+    position: relative;
     display: inline-block;
     margin: 0;
     border: 0;
     padding: 0;
     width: auto;
     height: 10px;
+    text-align: center;
 }
 
 .tool-button-form {
     display: inline-block;
     margin: 0;
-    padding: 0;
+    padding: 0px;
     border-radius: 50%;
+    border: 0;
+    text-align: center;
 }
 
 .tool-label {
     font-size: 11px;
+    text-align: center;
 }
 
 .tool-button {
@@ -68,15 +76,16 @@
 }
 
 .tool-dialog {
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    padding: 30px;
-    transform: translateX(-50%);
-    background-color: $color1;
+    position: absolute;
+    display: block;
+    top: -2rem; left: 2rem;
+    padding: 1.5rem;
+    background-color: white;
+    box-shadow: -2px -2px 7px 0px hsla(0, 0%, 30%, 0.4);
+    opacity: 0.95;
+    border-radius: 5px;
     border: 1px solid $light-grey;
-    box-shadow: 4px 4px 2px 0px hsla(0, 0%, 50%, 0.5);
-    z-index: 100;
+    z-index: 1000;
 
     h1 {
         display: block;
@@ -91,80 +100,58 @@
         color: $medium-grey;
     }
 
-    header {
-        display: block;
-
-        .close-dialog-form {
-            display: block;
-
-            button {
-                position: absolute;
-                padding: 0;
-                margin: 0;
-                width: 30px;
-                height: 30px;
-                border: 0;
-                border-radius: 50%;
-                right: 10px;
-                top: 10px;
-                text-align: center;
-                line-height: 20px;
-
-                i {
-                    position: relative;
-                    padding: 0;
-                    margin: 0;
-
-                }
-            }
-        }
-    }
-
-    .new-collection-form {
+    form {
         display: block;
         padding: 10px;
         margin: 0;
+        padding: 0;
         line-height: 20px;
+        min-width: 300px;
 
-        .collection-name {
-            display: inline-block;
-            width: 60%;
-            min-width: 120px;
-            height: 30px;
+        fieldset {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
-        .submit {
+        label {
+            margin-left: 1.5rem;
+            text-align: left;
+            color: $dark-grey;
+            font-weight: regular;
+        }
+
+        input, select {
+            display: inline-block;
+            width: 80%;
+            height: 30px;
+            margin-bottom: 0.5rem;
+            background-color: white;
+            color: $dark-grey;
+            border: 1px solid $light-grey;
+
+            &::placeholder {
+                color: $dark-grey;
+            }
+        }
+
+        option {
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            color: $dark-grey;
+        }
+
+        button {
             display: inline-block;
             height: 30px;
-            margin: 0 0 0 10px;
+            margin-left: 0.5rem;
             padding: 10px;
             text-align: center;
             vertical-align: middle;
             line-height: 100%;
-        }
-    }
-
-    .menu-item {
-        display: block;
-        padding: 0.5rem 1rem 0.5rem 1rem;
-        color: $dark-grey;
-        background-color: transparent;
-        text-align: left;
-
-        &:hover {
-            cursor: pointer;
-            color: white;
-            background-color: $color3;
-            transition: background-color 0.2s, color 0.2s;
-        }
-
-        .collection-name {
-            display: inline-block;
-        }
-
-        i {
-            display: inline-block;
-            float: right;
+            border: 0;
+            border-radius: 50%;
         }
     }
 }

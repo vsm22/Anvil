@@ -15,7 +15,8 @@ class Root extends React.Component {
             },
             artistCollections: [{}],
             friends: [],
-            recommendations: []
+            recommendations: [],
+            favoriteArtistMbidList: []
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -29,11 +30,15 @@ class Root extends React.Component {
 
         this.getRecommendations = this.getRecommendations.bind(this);
         this.setRecommendations = this.setRecommendations.bind(this);
+
+        this.getFavoriteArtistMbidList = this.getFavoriteArtistMbidList.bind(this);
+        this.setFavoriteArtistMbidList = this.setFavoriteArtistMbidList.bind(this);
     }
 
     componentDidMount() {
 
         this.getCurrentUserAndRenew();
+        this.getFavoriteArtistMbidList();
     }
 
     /**
@@ -174,6 +179,26 @@ class Root extends React.Component {
         });
     }
 
+    getFavoriteArtistMbidList() {
+
+        ApiClientService.getFavoriteArtistMbidList()
+            .then(json => {
+
+                this.setState({
+                    favoriteArtistMbidList: json
+                })
+            })
+            .catch(() => {
+            });
+    }
+
+    setFavoriteArtistMbidList(mbidList) {
+
+        this.setState({
+            favoriteArtistMbidList: mbidList
+        });
+    }
+
     render() {
 
         return (
@@ -194,7 +219,11 @@ class Root extends React.Component {
 
                recommendations={this.state.recommendations}
                getRecommendations={this.getRecommendations}
-               setRecommendations={this.setRecommendations} />
+               setRecommendations={this.setRecommendations}
+
+               favoriteArtistMbidList={this.state.favoriteArtistMbidList}
+               getFavoriteArtistMbidList={this.state.getFavoriteArtistMbidList}
+               setFavoriteArtistMbidList={this.state.setFavoriteArtistMbidList} />
         );
     }
 }

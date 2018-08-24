@@ -9,11 +9,24 @@ class FriendsViewer extends React.Component {
 
         return (
 
-            <div className="friends-viewer">
+            <div className="viewer friends-viewer">
 
-                <UserSearchViewer {...this.props}/>
+                <div className="panel">
 
-                <MyFriendsViewer {...this.props} />
+                    <h1>
+                        <span>
+                            <i className="fas fa-users"></i>
+                        </span>
+                        <span>
+                            Friends
+                        </span>
+                    </h1>
+
+                    <UserSearchViewer {...this.props}/>
+
+                    <MyFriendsViewer {...this.props} />
+
+                </div>
 
             </div>
         );

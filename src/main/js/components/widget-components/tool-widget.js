@@ -110,6 +110,7 @@ class ToolWidget extends React.Component {
                     { toolLabel }
                 </div>
 
+                <div>
                 {
                     (this.state.isDialogOpen)
                         ? <ToolDialog {...this.props}
@@ -118,6 +119,7 @@ class ToolWidget extends React.Component {
                             closeDialog={this.closeDialog} />
                         : ""
                 }
+                </div>
 
             </div>
         );

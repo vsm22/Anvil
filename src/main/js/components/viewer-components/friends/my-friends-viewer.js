@@ -22,12 +22,24 @@ class MyFriendsViewer extends React.Component {
         return (
             <div className="my-friends-viewer">
 
-                <ul className="my-friends-list">
+                <ul className="user-list">
 
                     {
                         (this.props.friends !== null && this.props.friends.length > 0)
                             ?
-                                this.props.friends.map(friend => <FriendTile {...this.props} friend={friend} /> )
+                                <div>
+                                    <h1> My friends: </h1>
+                                    {
+                                        this.props.friends.map(friend => {
+                                            return (
+                                                        <li className="user-tile-wrap">
+                                                            <FriendTile {...this.props} friend={friend} />
+                                                        </li>
+                                                   );
+                                            })
+                                    }
+                                </div>
+
                             : ""
                     }
 

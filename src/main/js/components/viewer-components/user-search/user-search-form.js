@@ -43,7 +43,7 @@ class UserSearchForm extends React.Component {
 
             <form name="user-search-form" className="user-search-form" onSubmit={this.handleSubmit} ref={this.componentRef}>
 
-                <input type="text" name="user-search-query" className="user-search-query" onChange={this.handleChange} />
+                <input type="text" name="user-search-query" className="user-search-query" placeholder="Search for users" onChange={this.handleChange} />
                 <button type="submit">
                     <i className="fas fa-search"></i>
                 </button>

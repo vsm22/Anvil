@@ -456,6 +456,128 @@ const ApiClientService = {
                         });
                 });
             });
+    },
+
+    getFavoriteArtists() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FAVORITE_ARTISTS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    getFavoriteArtistMbidList() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FAVORITE_ARTIST_MBID_LIST_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    addFavoriteArtist(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.ADD_FAVORITE_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify(artist)
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    removeFavoriteArtist(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.REMOVE_FAVORITE_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify(artist)
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
     }
 }
 

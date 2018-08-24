@@ -7,26 +7,7 @@ class ArtistSearchResultTile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            imageMouseEvent: {}
-        }
-
-        this.handleArtistImageMouseEvent = this.handleArtistImageMouseEvent.bind(this);
-
         this.componentRef = React.createRef();
-    }
-
-    handleArtistImageMouseEvent(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (event.type === "mouseover" || event.type === "mouseout") {
-
-            this.setState({
-                imageMouseEvent: Object.assign({}, event)
-            });
-        }
     }
 
     render() {
@@ -35,26 +16,28 @@ class ArtistSearchResultTile extends React.Component {
 
         return (
 
-            <div className="artist-search-result-tile" ref={this.componentRef}>
+            <div className="item-card artist-search-result-tile" ref={this.componentRef}>
 
-                <div className="artist-name">
-                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                        { artist.artistName }
-                    </Link>
+                <div className="avatar-wrap">
+                    <div className="image-wrap">
+                        <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                            <img className="image" src={ artist.imageLargeUrl } />
+                        </Link>
+                    </div>
                 </div>
 
-                <div className="artist-image-wrap">
+                <div className="card-content-wrap">
 
-                    <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                        <img className="artist-image" src={artist["imageLargeUrl"]}
-                            onMouseOver={this.handleArtistImageMouseEvent}
-                            onMouseOut={this.handleArtistImageMouseEvent}
-                        />
-                    </Link>
-                </div>
+                    <div className="title">
+                        <Link to={"/artistInfo?artistName=" + artist.artistName} >
+                            { artist.artistName }
+                        </Link>
+                    </div>
 
-                <div className="item-tools-nav-wrap">
-                    <ItemToolsNav {...this.props} />
+                    <div className="item-tools-nav-wrap">
+                        <ItemToolsNav {...this.props} />
+                    </div>
+
                 </div>
 
             </div>

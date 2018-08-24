@@ -7,17 +7,21 @@ class AddArtistToCollectionDialog extends React.Component {
         super(props);
 
         this.state = {
-            artist: this.props.artist,
-            collectionName: "",
+            newCollectionName: "",
+            existingCollectionName: "",
             serverMessage: ""
         }
 
-        this.handleCloseDialogSubmit = this.handleCloseDialogSubmit.bind(this);
+        this.handleExistingCollectionChange = this.handleExistingCollectionChange.bind(this);
+        this.handleExistingCollectionSubmit = this.handleExistingCollectionSubmit.bind(this);
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNewCollectionChange = this.handleNewCollectionChange.bind(this);
+        this.handleNewCollectionSubmit = this.handleNewCollectionSubmit.bind(this);
+
+        this.setNewCollectionSuccess = this.setNewCollectionSuccess.bind(this);
+        this.setExistingCollectionSuccess = this.setExistingCollectionSuccess.bind(this);
+
         this.createCollection = this.createCollection.bind(this);
-        this.handleMenuItemSubmit = this.handleMenuItemSubmit.bind(this);
 
         this.componentRef = React.createRef();
     }
@@ -29,30 +33,30 @@ class AddArtistToCollectionDialog extends React.Component {
         this.props.closeDialog(event);
     }
 
-    handleChange(event) {
+    handleNewCollectionChange(event) {
 
         event.preventDefault();
         event.stopPropagation();
 
+        const form = this.componentRef.current.querySelector("form[name='new-collection-form']");
+
         this.setState({
-            collectionName: document.querySelector("form[name='new-collection-form']").elements["collection-name"].value
+            newCollectionName: form.elements["new-collection-name"].value
         });
     }
 
-    handleSubmit(event) {
+    handleNewCollectionSubmit(event) {
 
         event.preventDefault();
         event.stopPropagation();
 
-        this.createCollection(this.state.collectionName)
+        this.createCollection(this.state.newCollectionName)
             .then(() => {
-                ApiClientService.addArtistToCollection(this.state.artist, this.state.collectionName);
+                ApiClientService.addArtistToCollection(this.props.artist, this.state.newCollectionName)
+                    .then(() => {
+                        this.setNewCollectionSuccess();
+                    });
             });
-    }
-
-    handleMenuItemSubmit(event, collectionName) {
-
-        ApiClientService.addArtistToCollection(this.state.artist, collectionName);
     }
 
     createCollection(collectionName) {
@@ -84,6 +88,73 @@ class AddArtistToCollectionDialog extends React.Component {
         });
     }
 
+    handleExistingCollectionChange(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = this.componentRef.current.querySelector("form[name='existing-collection-form']");
+
+        this.setState({
+            existingCollectionName: form.elements["existing-collection-name"].value
+        });
+    }
+
+    handleExistingCollectionSubmit(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        ApiClientService.addArtistToCollection(this.props.artist, this.state.existingCollectionName)
+            .then(() => {
+                this.setExistingCollectionSuccess();
+            })
+            .catch(response => {
+
+                if (response.status === 409) {
+                    this.setState({
+                        serverMessage: "Artist is already in collection"
+                    })
+                } else {
+                   response.text().then(text => {
+                        this.setState({ serverMessage: text });
+                    });
+                }
+            });
+    }
+
+    setNewCollectionSuccess() {
+
+        const form = this.componentRef.current.querySelector("form[name='new-collection-form'");
+        const button = form.querySelector(".submit");
+        const icon = button.querySelector("i");
+
+        icon.classList.replace("fa-plus", "fa-check");
+        icon.classList.add("white");
+        button.classList.add("green-background");
+        button.setAttribute("disabled", "true");
+
+        this.setState({
+            serverMessage: ""
+        });
+    }
+
+    setExistingCollectionSuccess() {
+
+        const form = this.componentRef.current.querySelector("form[name='existing-collection-form'");
+        const button = form.querySelector(".submit");
+        const icon = button.querySelector("i");
+
+        icon.classList.replace("fa-plus", "fa-check");
+        icon.classList.add("white");
+        button.classList.add("green-background");
+        button.setAttribute("disabled", "true");
+
+        this.setState({
+            serverMessage: ""
+        });
+    }
+
     componentDidMount() {
 
         this.props.getArtistCollections();
@@ -98,55 +169,46 @@ class AddArtistToCollectionDialog extends React.Component {
 
             <div ref={this.componentRef} className="add-artist-to-collection-dialog">
 
-                <header>
+                <form name="new-collection-form" className="new-collection-form" onSubmit={this.handleNewCollectionSubmit} >
 
-                    <form name="close-dialog-form" className="close-dialog-form" onSubmit={this.handleCloseDialogSubmit}>
+                    <fieldset>
+                        <input type="text" name="new-collection-name" className="new-collection-name" placeholder="create new" onChange={this.handleNewCollectionChange} />
+
                         <button type="submit" className="submit">
-                            <i className="fas fa-times"></i>
+                            <i className="fas fa-plus"></i>
                         </button>
-                    </form>
+                    </fieldset>
 
-                    <h1>
-                        Add <b>{artist.artistName}</b> to Collection
-                    </h1>
-
-                </header>
-
-                <h2>
-                    Add to new collection:
-                </h2>
-
-                <form name="new-collection-form" className="new-collection-form" onSubmit={(event) => { this.handleSubmit(event, artist); }} >
-                    <input type="text" name="collection-name" className="collection-name" placeholder="Collection Name" onChange={this.handleChange} />
-                    <button type="submit" className="submit">
-                        <i className="fas fa-plus"></i>
-                    </button>
                 </form>
 
-                <h2>
-                    Add to existing collection:
-                </h2>
+                <form name="existing-collection-form" className="existing-collection-form" onSubmit={this.handleExistingCollectionSubmit} >
+                    <fieldset>
 
-                <nav>
-                    <ul>
-                        {
-                            artistCollections.map(collection => {
+                        <select name="existing-collection-name" onChange={this.handleExistingCollectionChange} >
+                            <option value="" selected disabled hidden> select existing </option>
 
-                                return (
-                                    <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, collection.collectionName); }}>
+                            {
+                                artistCollections.map(collection => {
 
-                                        <div className="collection-name">
-                                            { collection.collectionName }
-                                        </div>
+                                    return (
+                                        <option value={collection.collectionName}>
+                                            {collection.collectionName}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
 
-                                        <i className="fas fa-plus"></i>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                </nav>
+                        <button type="submit" className="submit">
+                            <i className="fas fa-plus"></i>
+                        </button>
+                    </fieldset>
 
+                </form>
+
+                <div className="server-response-message">
+                    { this.state.serverMessage }
+                </div>
             </div>
         );
     }

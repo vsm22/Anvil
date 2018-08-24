@@ -28,7 +28,7 @@ $dark-grey: #424242;
 }
 
 body {
-	background-color: hsl(0, 100%, 100%);
+    background-color: white;
 }
 
 ul {
@@ -39,6 +39,7 @@ a {
     text-decoration: none;
     color: $dark-grey;
     padding: 0.5rem;
+    border-radius: 5px;
 
     &:hover {
         background-color: $color3;
@@ -83,4 +84,24 @@ h1 {
 .server-response-message {
     color: red;
     text-align: center;
+}
+
+.white {
+    color: white;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.green-background {
+    background-color: green;
+}
+
+.red-background {
+    background-color: red;
 }

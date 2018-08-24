@@ -20,7 +20,12 @@ const ApiUrls = {
     ADD_USER_TO_FRIENDS_URL: "api/secured/addUserToFriends",
     GET_FRIENDS_URL: "api/secured/getFriends",
     GET_RECOMMENDATIONS_URL: "api/secured/getRecommendations",
-    RECOMMEND_ARTIST_URL: "api/secured/recommendArtist"
+    RECOMMEND_ARTIST_URL: "api/secured/recommendArtist",
+    GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL: "api/secured/getFriendsArtistWasRecommendedTo",
+    GET_FAVORITE_ARTISTS_URL: "api/secured/getFavoriteArtists",
+    ADD_FAVORITE_ARTIST_URL: "api/secured/addFavoriteArtist",
+    GET_FAVORITE_ARTIST_MBID_LIST_URL: "api/secured/getFavoriteArtistMbidList",
+    REMOVE_FAVORITE_ARTIST_URL: "api/secured/removeFavoriteArtist"
 }
 
 export default ApiUrls

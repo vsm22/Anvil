@@ -56,30 +56,34 @@ class CollectionViewer extends React.Component {
 
         return (
 
-            <div className="collection-viewer">
+            <div className="viewer collection-viewer">
 
-                <h1> { this.state.collectionName } </h1>
+                <div className="panel">
 
-                <ul>
+                    <h1> { this.state.collectionName } </h1>
 
-                    {
+                    <ul>
 
-                        (this.state.collectionEntries !== null && this.state.collectionEntries !== undefined && this.state.collectionEntries.length > 0)
-                            ?
-                                this.state.collectionEntries.map(collectionEntry => {
+                        {
 
-                                    return (
+                            (this.state.collectionEntries !== null && this.state.collectionEntries !== undefined && this.state.collectionEntries.length > 0)
+                                ?
+                                    this.state.collectionEntries.map(collectionEntry => {
 
-                                        <li className="collection-entry">
+                                        return (
 
-                                            <ArtistSearchResultTile {...this.props} artist={collectionEntry.artist} />
+                                            <li className="collection-entry">
 
-                                        </li>
-                                    );
-                                })
-                            : ""
-                    }
-                </ul>
+                                                <ArtistSearchResultTile {...this.props} artist={collectionEntry.artist} />
+
+                                            </li>
+                                        );
+                                    })
+                                : ""
+                        }
+                    </ul>
+
+                </div>
 
             </div>
         );

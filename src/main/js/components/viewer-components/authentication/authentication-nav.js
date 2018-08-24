@@ -13,6 +13,8 @@ class AuthenticationNav extends React.Component {
 
             <nav class="authentication-nav">
 
+                <i className="fas fa-user"></i>
+
                 <ul>
 
                     <li>
@@ -50,7 +52,6 @@ class AuthenticationNav extends React.Component {
                     {
                         (username !== null && username !== undefined && username !== "" && username !== "guest")
                             ?   <span>
-                                    <i className="fas fa-user"></i>
                                     { " Logged in as " + username }
                                 </span>
                             : ""
