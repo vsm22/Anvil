@@ -6,12 +6,7 @@ class LikeArtistButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isButtonActive: false
-        }
-
         this.isButtonActive = this.isButtonActive.bind(this);
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleButtonFocus = this.handleButtonFocus.bind(this);
 
@@ -22,12 +17,13 @@ class LikeArtistButton extends React.Component {
 
         event.preventDefault();
 
-        if (this.state.isButtonActive === false) {
+        let isButtonActive = this.isButtonActive();
+
+        if (isButtonActive === false) {
 
             ApiClientService.addLikedArtist(this.props.artist)
                 .then(json => {
                     this.props.setLikedArtists(json);
-                    this.isButtonActive();
                 })
                 .catch(response => {
                 });
@@ -37,7 +33,6 @@ class LikeArtistButton extends React.Component {
             ApiClientService.removeLikedArtist(this.props.artist)
                 .then(json => {
                     this.props.setLikedArtists(json);
-                    this.isButtonActive();
                 })
                 .catch(response => {
                 });
@@ -60,7 +55,6 @@ class LikeArtistButton extends React.Component {
 
             label.classList.remove("visible");
             label.classList.add("hidden");
-
         }
 
         return false;
@@ -68,52 +62,29 @@ class LikeArtistButton extends React.Component {
 
     isButtonActive() {
 
-        let isButtonActive = false;
-
+        let artist = this.props.artist;
         let likedArtistMbids = this.props.likedArtists.map(likedArtist => likedArtist.artistMbid);
         let likedArtistNames = this.props.likedArtists.map(likedArtist => likedArtist.artistName);
-        let artist = this.props.artist;
 
-        console.log("Liked artists in button: " + this.props.likedArtists);
-
+        // Check if artist mbid matches a liked artist mbid, or if mbid is empty, check if artist name matches a liked artist name
         if (artist.mbid !== null && artist.mbid !== undefined && artist.mbid !== "") {
 
             if (likedArtistMbids.includes(artist.mbid) === true) {
-                isButtonActive = true;
+                return true;
             }
         } else {
 
             if (likedArtistNames.includes(artist.artistName) === true) {
-                isButtonActive = true;
+                return true;
             }
         }
 
-        this.setState({
-            isButtonActive: isButtonActive
-        });
-
-        return isButtonActive;
-    }
-
-    componentDidMount() {
-
-        this.isButtonActive();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-
-        if (this.state.isButtonActive === nextState.isButtonActive) {
-            return false;
-        }
-
-        this.isButtonActive();
-
-        return true;
+        return false;
     }
 
     render() {
 
-        console.log(this.props.likedArtists);
+        let isButtonActive = this.isButtonActive();
 
         return (
 
@@ -127,19 +98,17 @@ class LikeArtistButton extends React.Component {
                         onBlur={this.handleButtonFocus} >
 
                         {
-                            (this.state.isButtonActive === true)
-                                ?
-                                    <i className="fas fa-heart red"></i>
-                                :
-                                    <i className="fas fa-heart"></i>
-
+                            (isButtonActive === true)
+                                ? <i className="fas fa-heart red"></i>
+                                : <i className="fas fa-heart"></i>
                         }
+
                     </button>
                 </form>
 
                 <div className="tool-label hidden">
                 {
-                    (this.state.isButtonActive === false) ? "Like" : "Unlike"
+                    (isButtonActive === true) ? "Unlike" : "Like"
                 }
                 </div>
 
