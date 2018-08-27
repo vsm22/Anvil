@@ -25,7 +25,8 @@ const ApiUrls = {
     GET_LIKED_ARTISTS_URL: "api/secured/getLikedArtists",
     ADD_LIKED_ARTIST_URL: "api/secured/addLikedArtist",
     GET_LIKED_ARTIST_MBID_LIST_URL: "api/secured/getLikedArtistMbidList",
-    REMOVE_LIKED_ARTIST_URL: "api/secured/removeLikedArtist"
+    REMOVE_LIKED_ARTIST_URL: "api/secured/removeLikedArtist",
+    DELETE_ARTIST_COLLECTION_URL: "api/secured/deleteArtistCollection"
 }
 
 export default ApiUrls

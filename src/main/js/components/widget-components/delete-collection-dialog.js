@@ -29,26 +29,30 @@ class DeleteCollectionDialog extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        this.deleteCollection(this.props.collection.collectionName);
+        this.deleteCollection(this.props.collection.collectionName)
+            .then(json => {
+                this.setState({ serverMessage: "" });
+                return this.props.closeDialog();
+            })
+            .catch(response => {
+                return response.text().then(text => { this.setState({ serverMessage: text }); });
+            });
     }
 
     deleteCollection(collectionName) {
 
-        ApiClientService.deleteArtistCollection(collectionName)
-            .then((response) => {
+        return new Promise((resolve, reject) => {
 
-                this.setState({ serverMessage: "" });
-
-                response.json().then(json => {
+            ApiClientService.deleteArtistCollection(collectionName)
+                .then(json => {
                     this.props.setArtistCollections(json);
                     return resolve(json);
-                });
-            })
-            .catch(response => {
+                })
+                .catch(response => {
 
-                this.setState({ serverMessage: "" });
-                return reject(response);
-            });
+                    return reject(response);
+                });
+        });
     }
 
     render() {
@@ -57,26 +61,20 @@ class DeleteCollectionDialog extends React.Component {
 
         return (
 
-            <div ref={this.componentRef} className="add-artist-to-collection-dialog">
-
-                <header>
-
-                    <form name="close-dialog-form" className="close-dialog-form" onSubmit={this.handleCloseDialogSubmit}>
-                        <button type="submit" className="submit">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </form>
-
-                    <h1>
-                        Delete <b>{collection.collectionName}</b> collection?
-                    </h1>
-
-                </header>
+            <div ref={this.componentRef} className="delete-collection-dialog">
 
                 <form name="delete-collection-form" className="delete-collection-form" onSubmit={this.handleSubmit} >
-                    <button type="submit" className="submit">
-                        Delete
-                    </button>
+
+                    <fieldset>
+
+                        <label> Really delete? </label>
+
+                        <button type="submit" className="submit red-button">
+                            Delete
+                        </button>
+
+                    </fieldset>
+
                 </form>
 
             </div>

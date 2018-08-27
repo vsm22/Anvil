@@ -19,8 +19,6 @@ class CollectionTile extends React.Component {
 
             <div className="item-card collection-tile">
 
-                <img className="background-image" src={imageUrl} />
-
                 <div className="avatar-wrap">
                     {
                         (imageUrl !== "")

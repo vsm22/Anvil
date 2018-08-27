@@ -578,6 +578,37 @@ const ApiClientService = {
                         });
                 });
             });
+    },
+
+    deleteArtistCollection(collectionName) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.DELETE_ARTIST_COLLECTION_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: collectionName
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
     }
 }
 
