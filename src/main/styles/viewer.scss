@@ -1,0 +1,16 @@
+.viewer {
+    display: block;
+    text-align: center;
+
+    h1 {
+        padding: 2rem;
+        color: $dark-grey;
+        font-size: 2rem;
+    }
+
+    h2 {
+        padding: 2rem;
+        color: $medium-grey;
+        font-size: 1.5rem;
+    }
+}

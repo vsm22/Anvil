@@ -8,7 +8,9 @@ node_modules
 .metadata
 .project
 .settings
-.package-lock.json
+package-lock.json
+.vscode
 hs_err_**
 target/
 RemoteSystemsTempFiles/
+.indexes/

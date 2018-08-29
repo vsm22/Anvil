@@ -1,15 +1,4 @@
-import { ARTIST_SEARCH_URL,
-         ALBUM_SEARCH_URL,
-         TRACK_SEARCH_URL,
-         ARTIST_INFO_URL,
-         ALBUM_INFO_URL,
-         TRACK_INFO_URL,
-         SIMILAR_ARTISTS_URL,
-         ARTIST_ALBUMS_URL,
-         CREATE_ARTIST_COLLECTION_URL,
-         GET_ARTIST_COLLECTIONS_URL,
-         ADD_ARTIST_TO_COLLECTION_URL } from "config";
-
+import ApiUrls from "config/api-urls";
 import AuthenticationService from "services/authentication-service";
 
 const ApiClientService = {
@@ -19,7 +8,7 @@ const ApiClientService = {
      */
     getArtistSearch: function getArtistSearch(artistName) {
 
-        let query = ARTIST_SEARCH_URL
+        let query = ApiUrls.ARTIST_SEARCH_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -38,7 +27,7 @@ const ApiClientService = {
      */
     getArtistInfo: function getArtistSearch(artistName) {
 
-        let query = ARTIST_INFO_URL
+        let query = ApiUrls.ARTIST_INFO_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -57,7 +46,7 @@ const ApiClientService = {
      */
     getSimilarArtists: function getSimilarArtists(artistName) {
 
-        let query = SIMILAR_ARTISTS_URL
+        let query = ApiUrls.SIMILAR_ARTISTS_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -76,7 +65,7 @@ const ApiClientService = {
      */
     getArtistAlbums: function getArtistAlbums(artistName) {
 
-        let query = ARTIST_ALBUMS_URL
+        let query = ApiUrls.ARTIST_ALBUMS_URL
                     + "?query=" + artistName;
 
         return fetch(query)
@@ -92,7 +81,7 @@ const ApiClientService = {
 
     /* =====================================================================
      * AUTHENTICATED API METHODS
-     * ===================================================================== /
+     * ===================================================================== */
 
     /**
      * Create a new artist collection.
@@ -104,7 +93,7 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    let query = CREATE_ARTIST_COLLECTION_URL
+                    let query = ApiUrls.CREATE_ARTIST_COLLECTION_URL
                                 + "?query=" + collectionName;
 
                     fetch(query, {
@@ -152,7 +141,7 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(GET_ARTIST_COLLECTIONS_URL, {
+                    fetch(ApiUrls.GET_ARTIST_COLLECTIONS_URL, {
                         method: "GET",
                         headers: {
                            "Authorization": "Bearer " + user.jwt
@@ -190,17 +179,50 @@ const ApiClientService = {
     },
 
     /**
-     * Add artist to a collection.
+     * Get the entries for a collection.
      */
-    addArtistToCollection: function addArtistToCollection(artist, collection) {
+    getArtistCollection: function getArtistCollection(username, collectionName) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    let query = ADD_ARTIST_TO_COLLECTION_URL
-                                + "?collectionName=" + collection.collectionName;
+                    fetch(ApiUrls.GET_ARTIST_COLLECTION_URL + "?username=" + username + "&collectionName=" + collectionName, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Add artist to a collection.
+     */
+    addArtistToCollection: function addArtistToCollection(artist, collectionName) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    let query = ApiUrls.ADD_ARTIST_TO_COLLECTION_URL
+                                + "?collectionName=" + collectionName;
 
                     fetch(query, {
                         method: "POST",
@@ -236,6 +258,355 @@ const ApiClientService = {
                      }).catch(() => {
                          return reject();
                      });
+                });
+            });
+    },
+
+    /**
+     * Search for a user based on query. Return a list of users.
+     */
+    getUserSearch: function getUserSearch(query) {
+
+        return new Promise((resolve, reject) => {
+
+            fetch(ApiUrls.USER_SEARCH_URL + "?query=" + query)
+                .then(response => {
+
+                    if (response.status !== 200) {
+                        return reject(response);
+                    }
+                    else {
+
+                        response.json().then(json => {
+                            return resolve(json);
+                        });
+                    }
+                })
+                .catch(() => {
+                    return reject();
+                });
+        });
+    },
+
+    /**
+     * Add a user to friends list.
+     */
+    addUserToFriends: function addUserToFriends(username) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.ADD_USER_TO_FRIENDS_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: username
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Get a list of current user's friends.
+     */
+    getFriends: function getFriends() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FRIENDS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Get a list of current user's recommendations
+     */
+    getRecommendations: function getRecommendations() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_RECOMMENDATIONS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Recommend artist to a friend.
+     */
+    recommendArtist: function recommendArtist(artist, friend) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.RECOMMEND_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify({
+                                "recommendToUser": friend.username,
+                                "artist": artist
+                            })
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    /**
+     * Get a list of usernames artist was already recommended to.
+     */
+    getFriendsArtistWasRecommendedTo(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL + "?artistMbid=" + artist.mbid, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    getLikedArtists() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_LIKED_ARTISTS_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    getLikedArtistMbidList() {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.GET_LIKED_ARTIST_MBID_LIST_URL, {
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            }
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    addLikedArtist(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.ADD_LIKED_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify(artist)
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    removeLikedArtist(artist) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.REMOVE_LIKED_ARTIST_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: JSON.stringify(artist)
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
+                });
+            });
+    },
+
+    deleteArtistCollection(collectionName) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    fetch(ApiUrls.DELETE_ARTIST_COLLECTION_URL, {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + user.jwt
+                            },
+                            body: collectionName
+                        })
+                        .then(response => {
+
+                            if (response.status !== 200) {
+                                return reject(response);
+                            } else {
+                                response.json().then(json => {
+                                   return resolve(json);
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            return reject();
+                        });
                 });
             });
     }

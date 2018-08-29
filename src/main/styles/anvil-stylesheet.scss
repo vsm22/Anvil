@@ -1,8 +1,14 @@
 @import 'globals';
-@import 'item-tools';
-@import 'artist-search-result-tile';
+@import 'viewer';
+@import 'panel';
+@import 'item-card';
 @import 'authentication';
 @import 'main-nav';
+@import 'recommendations';
+@import 'user-search';
+@import 'item-tools';
+@import 'like-button';
+@import 'util';
 
 /* ==================================================================================== */
 /* COMPONENTS
@@ -11,21 +17,19 @@
 /**
  * Header
  */
-header {
+.main-header {
 	text-align: center;
 	padding: 1em;
+
+	h2 {
+    	font-size: 1.5em;
+    }
 }
 
-header h2 {
-	font-size: 1.5em;
-}
-
-/**
- * Root component
- */
-#root-component-wrap {
-	height: 100vh;
-	width: 100vw;
+.nav-container {
+    line-height: 100%;
+    vertical-align: middle;
+    border: 1px solid red;
 }
 
 /**
@@ -37,7 +41,6 @@ header h2 {
 	border: 1px solid #aaa;
 	padding: 1em;
 	text-align: center;
-	background-color: #fff;
 }
 
 #main-search-widgets-container {
@@ -72,32 +75,6 @@ header h2 {
 
 .main-viewer-component-wrap {
 	width: 100vw;
-}
-
-/***********************
- * Artist search results
- ***********************/
-
-#artist-search-result-container {
-	display: block;
-	text-align: center;
-}
-
-.background-effects {
-	position: absolute;
-	top: 10px;
-	left: 0;
-	height: 100%;
-	width: 100%;
-}
-
-.background-effects .bar {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	width: 0px;
-	height: 17%;
-	background-color: blue;
 }
 
 /**

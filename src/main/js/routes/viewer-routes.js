@@ -1,14 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import ArtistSearchResultViewerComponent from "components/viewer-components/artist-search-result-viewer-component";
-import ArtistInfoViewerComponent from "components/viewer-components/artist-info-viewer-component";
-import SpinnerComponent from "components/viewer-components/spinner-component";
-import DevViewerComponent from "components/viewer-components/dev-viewer-component";
-import LoginViewerComponent from "components/viewer-components/login-viewer-component";
-import LogoutViewerComponent from "components/viewer-components/logout-viewer-component";
-import RegistrationViewerComponent from "components/viewer-components/registration-viewer-component";
-import CreateArtistCollectionComponent from "components/viewer-components/create-artist-collection-component";
-import GetArtistCollectionsComponent from "components/viewer-components/get-artist-collections-component";
+import ArtistSearchViewer from "components/viewer-components/artist-search/artist-search-viewer";
+import ArtistInfoViewer from "components/viewer-components/artist-info/artist-info-viewer";
+import LoginViewer from "components/viewer-components/authentication/login-viewer";
+import LogoutViewer from "components/viewer-components/authentication/logout-viewer";
+import RegistrationViewer from "components/viewer-components/authentication/registration-viewer";
+import FriendsViewer from "components/viewer-components/friends/friends-viewer";
+import RecommendationsViewer from "components/viewer-components/recommendations/recommendations-viewer";
+import CollectionsViewer from "components/viewer-components/collections/collections-viewer";
+import CollectionViewer from "components/viewer-components/collections/collection-viewer";
 
 const ViewerRoutes = (props) => {
 
@@ -17,35 +17,31 @@ const ViewerRoutes = (props) => {
         <div>
 
             <Route path="/login"
-                render={(routeProps) => <LoginViewerComponent {...Object.assign({}, props, routeProps)} /> }
+                render={(routeProps) => <LoginViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/logout"
-                render={(routeProps) => <LogoutViewerComponent {...Object.assign({}, props, routeProps)} /> }
+                render={(routeProps) => <LogoutViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/register"
-                render={(routeProps) => <RegistrationViewerComponent {...Object.assign({}, props, routeProps)} /> }
+                render={(routeProps) => <RegistrationViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/artistSearch"
-                render={(routeProps) => <ArtistSearchResultViewerComponent {...Object.assign({}, props, routeProps)} /> }
+                render={(routeProps) => <ArtistSearchViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/artistInfo"
-                render={(routeProps) => <ArtistInfoViewerComponent {...Object.assign({}, props, routeProps)} /> }
-            />
-
-            <Route path="/createArtistCollection"
-                render={(routeProps) => <CreateArtistCollectionComponent {...Object.assign({}, props, routeProps)} /> }
-            />
-
-            <Route path="/getArtistCollections"
-                render={(routeProps) => <GetArtistCollectionsComponent {...Object.assign({}, props, routeProps)} /> }
+                render={(routeProps) => <ArtistInfoViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/collections"
                 render={(routeProps) => <CollectionsViewer {...Object.assign({}, props, routeProps)} /> }
+            />
+
+            <Route path="/collection"
+                render={(routeProps) => <CollectionViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
             <Route path="/favorites"
@@ -54,6 +50,10 @@ const ViewerRoutes = (props) => {
 
             <Route path="/friends"
                 render={(routeProps) => <FriendsViewer {...Object.assign({}, props, routeProps)} /> }
+            />
+
+            <Route path="/recommendations"
+                render={(routeProps) => <RecommendationsViewer {...Object.assign({}, props, routeProps)} /> }
             />
 
         </div>

@@ -28,7 +28,7 @@ $dark-grey: #424242;
 }
 
 body {
-	background-color: hsl(0, 100%, 100%);
+    background-color: white;
 }
 
 ul {
@@ -39,6 +39,7 @@ a {
     text-decoration: none;
     color: $dark-grey;
     padding: 0.5rem;
+    border-radius: 5px;
 
     &:hover {
         background-color: $color3;
@@ -58,29 +59,4 @@ button {
 
 h1 {
 	text-align: center;
-}
-
-/* =================================== */
-/* UTILITY CLASSES
-/* =================================== */
-
-.visible {
-    visibility: visible;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.display-none {
-    display: none;
-}
-
-.display-inline-block {
-    display: inline-block;
-}
-
-.server-response-message {
-    color: red;
-    text-align: center;
 }

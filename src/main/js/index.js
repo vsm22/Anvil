@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import Router from "./router";
+import Root from "./root";
 import Stylesheet from "../styles/anvil-stylesheet.scss";
 
-ReactDOM.render(<Router />, document.getElementById("root"));
+ReactDOM.render(<Root />, document.getElementById("root"));
