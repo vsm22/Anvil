@@ -15,3 +15,4 @@ target/
 RemoteSystemsTempFiles/
 .indexes/
 build.js
+*.sql
