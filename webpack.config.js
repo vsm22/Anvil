@@ -33,7 +33,7 @@ module.exports = [{
             {
                 test: /\.scss$/,
                 use: [
-                    (process.env.NODE_ENV === "production")
+                    (process.env.NODE_ENV === "prod")
                         ? MiniCssExtractPlugin.loader
                         : 'style-loader',
                     "css-loader",
@@ -46,7 +46,7 @@ module.exports = [{
 
     plugins: [
 
-        (process.env.NODE_ENV === "production")
+        (process.env.NODE_ENV === "prod")
             ? new UglifyJsPlugin({ test: /\.js$/ })
             : (() => {}),
 
