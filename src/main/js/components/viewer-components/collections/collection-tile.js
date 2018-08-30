@@ -42,8 +42,10 @@ class CollectionTile extends React.Component {
                             <span>
                                 {
                                     (numItems !== undefined)
-                                        ? "(" + numItems + ") items"
-                                        : "(0) items"
+                                        ? (numItems === 1)
+                                            ? "(1 item)"
+                                            : "(" + numItems + " items)"
+                                        : "(0 items)"
                                 }
                             </span>
                         </Link>

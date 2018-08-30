@@ -18,26 +18,37 @@ class RecommendationsViewer extends React.Component {
 
             <div className="viewer recommendations-viewer">
 
-                <h1> Recommendations </h1>
+                <div className="panel">
 
-                <ul className="recommendations-list">
-                {
-                    (this.props.recommendations !== null && this.props.recommendations !== undefined && this.props.recommendations.length > 0)
-                        ?
-                                this.props.recommendations.map(recommendation => {
+                    <h1>
+                        <span>
+                            <i className="fas fa-paper-plane"></i>
+                        </span>
+                        <span>
+                            Recommendations
+                        </span>
+                    </h1>
 
-                                    return (
+                    <ul className="recommendations-list">
+                    {
+                        (this.props.recommendations !== null && this.props.recommendations !== undefined && this.props.recommendations.length > 0)
+                            ?
+                                    this.props.recommendations.map(recommendation => {
 
-                                       <li className="item-card-wrap">
-                                            <RecommendationTile {...this.props}
-                                                recommendation={recommendation} />
-                                       </li>
+                                        return (
 
-                                    );
-                                })
-                        : ""
-                }
-                </ul>
+                                           <li className="item-card-wrap">
+                                                <RecommendationTile {...this.props}
+                                                    recommendation={recommendation} />
+                                           </li>
+
+                                        );
+                                    })
+                            : "You have no recommendations"
+                    }
+                    </ul>
+
+                </div>
 
             </div>
         );

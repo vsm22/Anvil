@@ -8,7 +8,7 @@ const MainHeader = (props) => (
 
         <div>
             <h1> anvil </h1>
-            <h2> a tool for music exploration </h2>
+            <h2> a music database manager </h2>
         </div>
 
         <div className="authentication-nav-wrap">

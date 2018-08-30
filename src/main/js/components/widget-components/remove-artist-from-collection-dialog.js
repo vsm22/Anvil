@@ -1,7 +1,7 @@
 import React from "react";
 import ApiClientService from "services/api-client-service";
 
-class DeleteCollectionDialog extends React.Component {
+class RemoveArtistFromCollectionDialog extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,7 @@ class DeleteCollectionDialog extends React.Component {
 
         this.handleCloseDialogSubmit = this.handleCloseDialogSubmit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.deleteCollection = this.deleteCollection.bind(this);
+        this.removeArtistFromCollection = this.removeArtistFromCollection.bind(this);
 
         this.componentRef = React.createRef();
     }
@@ -29,7 +29,7 @@ class DeleteCollectionDialog extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        this.deleteCollection(this.props.collection.collectionName)
+        this.removeArtistFromCollection(this.props.collectionName, this.props.artist.artistName)
             .then(json => {
                 this.setState({ serverMessage: "" });
                 return this.props.closeDialog();
@@ -39,17 +39,16 @@ class DeleteCollectionDialog extends React.Component {
             });
     }
 
-    deleteCollection(collectionName) {
+    removeArtistFromCollection(collectionName, artistName) {
 
         return new Promise((resolve, reject) => {
 
-            ApiClientService.deleteArtistCollection(collectionName)
+            ApiClientService.removeArtistFromCollection(collectionName, artistName)
                 .then(json => {
-                    this.props.setArtistCollections(json);
+                    this.props.setCollectionData(json);
                     return resolve(json);
                 })
                 .catch(response => {
-
                     return reject(response);
                 });
         });
@@ -61,25 +60,28 @@ class DeleteCollectionDialog extends React.Component {
 
         return (
 
-            <div ref={this.componentRef} className="delete-collection-dialog">
+            <div ref={this.componentRef} className="remove-artist-from-collection-dialog">
 
-                <form name="delete-collection-form" className="delete-collection-form" onSubmit={this.handleSubmit} >
+                <form name="remove-artist-from-collection-form" className="remove-artist-from-collection-form" onSubmit={this.handleSubmit} >
 
                     <fieldset>
 
-                        <label> Really delete? </label>
+                        <label> Really remove? </label>
 
                         <button type="submit" className="submit red-button">
-                            Delete
+                            Remove
                         </button>
 
                     </fieldset>
 
                 </form>
 
+                <div className="server-response-message">
+                    { this.state.serverMessage }
+                </div>
             </div>
         );
     }
 }
 
-export default DeleteCollectionDialog
+export default RemoveArtistFromCollectionDialog

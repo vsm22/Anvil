@@ -1,6 +1,6 @@
 import React from "react";
 import ToolWidget from "components/widget-components/tool-widget";
-import AddArtistToCollectionDialog from "components/widget-components/add-artist-to-collection-dialog";
+import RemoveArtistFromCollectionDialog from "components/widget-components/remove-artist-from-collection-dialog";
 import RecommmendArtistToFriendDialog from "components/widget-components/recommend-artist-to-friend-dialog";
 import LikeArtistButton from "components/widget-components/like-artist-button";
 
@@ -21,9 +21,9 @@ class ItemToolsNav extends React.Component {
 
                     <li>
                         <ToolWidget {...this.props}
-                            toolLabel="Add to a collection"
-                            toolIconClassName="fas fa-plus"
-                            toolDialogComponent={AddArtistToCollectionDialog} />
+                            toolLabel="Remove from collection"
+                            toolIconClassName="fas fa-minus"
+                            toolDialogComponent={RemoveArtistFromCollectionDialog} />
                     </li>
 
                     <li>
