@@ -1,0 +1,71 @@
+.user-search-viewer {
+    margin-bottom: 5rem;
+    text-align: left;
+}
+
+.user-list, .user-search-results {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.user-tile-wrap {
+    display: block;
+}
+
+.user-tile {
+    border-bottom: 1px solid $light-grey;
+    padding-bottom: 1.5rem;
+
+    .user-info {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        line-height: 100%;
+        border-radius: 5px;
+
+        .icon-wrap {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            line-height: 3rem;
+            vertical-align: middle;
+
+            i {
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        .username {
+            display: inline-block;
+            color: $medium-grey;
+            line-height: 3rem;
+            vertical-align: bottom;
+        }
+
+        .add-user-to-friends-form {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            vertical-align: middle;
+
+            button {
+                height: 30px;
+                width: 30px;
+                margin: 0;
+                padding: 0;
+                line-height: 100%;
+                border-radius: 50%;
+                border: 0;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .server-response-message {
+        display: block;
+    }
+}

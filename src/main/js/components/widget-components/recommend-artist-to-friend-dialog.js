@@ -8,33 +8,45 @@ class RecommendArtistToFriendDialog extends React.Component {
 
         this.state = {
             serverResponse: "",
+            selectedFriend: "",
             friendsArtistWasRecommendedTo: []
         }
 
-        this.handleCloseDialogSubmit = this.handleCloseDialogSubmit.bind(this);
-        this.handleMenuItemSubmit = this.handleMenuItemSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.getFriendsArtistWasRecommendedTo = this.getFriendsArtistWasRecommendedTo.bind(this);
 
         this.componentRef = React.createRef();
     }
 
-    handleCloseDialogSubmit(event) {
+    handleChange(event) {
 
         event.preventDefault();
+        event.stopPropagation();
 
-        this.props.closeDialog(event);
+        let form = this.componentRef.current.querySelector(".recommend-artist-to-friend-form");
+
+        this.setState({
+            selectedFriend: form.elements["friend-username-select"].value
+        });
     }
 
-    handleMenuItemSubmit(event, artist, friend) {
+    handleSubmit(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        let artist = this.props.artist;
+        let friend = this.state.selectedFriend;
 
         ApiClientService.recommendArtist(artist, friend)
-            .then(response => {
+            .then(json => {
 
-                this.setState((prevState, props) => {
-                    friendsArtistWasRecommendedTo: prevState.friendsArtistWasRecommendedTo.concat(friend.username)
+                this.setState({
+                    friendsArtistWasRecommendedTo: json,
+                    serverResponse: ""
                 });
 
-                this.setState({ serverResponse: "" });
             })
             .catch(response => {
                 response.text()
@@ -70,65 +82,49 @@ class RecommendArtistToFriendDialog extends React.Component {
 
             <div ref={this.componentRef} className="recommend-artist-to-friend-dialog">
 
-                <header>
+                <form name="recommend-artist-to-friend-form" className="recommend-artist-to-friend-form" onSubmit={this.handleSubmit} >
 
-                    <form name="close-dialog-form" className="close-dialog-form" onSubmit={this.handleCloseDialogSubmit}>
-                        <button type="submit" className="submit">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </form>
+                    <fieldset>
 
-                    <h1>
-                        Recommend <b>{artist.artistName}</b> to a friend
-                    </h1>
+                        <select name="friend-username-select" onChange={this.handleChange} >
+                            <option value="" selected disabled hidden> select friend </option>
 
-                </header>
+                            {
+                                friends.map(friend => {
 
-                <h2>
-                    Friends:
-                </h2>
+                                    let isRecommended = (this.state.friendsArtistWasRecommendedTo.includes(friend.username));
 
-                <nav>
-                    <ul>
+                                    return ((isRecommended === false)
+                                        ?
+                                            <option value={friend.username}>
+                                                {friend.username}
+                                            </option>
+                                        :
+                                            <option value="" disabled>
+                                                &#10004; {friend.username}
+                                            </option>
+                                        );
+                                })
+                            }
+                        </select>
+
                         {
-                            friends.map(friend => {
-
-                                // If friend has already received a recommendation for this artist from current user
-                                if (friendsArtistWasRecommendedTo.includes(friend.username)) {
-
-                                    return (
-
-                                        <li className="menu-item">
-
-                                            <div className="label friend-name">
-                                                { friend.username }
-                                            </div>
-
-                                            <i className="fas fa-check green"></i>
-                                        </li>
-                                    );
-
-                                } else {
-
-                                    return (
-
-                                        <li className="menu-item" onClick={(event) => { this.handleMenuItemSubmit(event, artist, friend); }}>
-
-                                            <div className="label friend-name">
-                                                { friend.username }
-                                            </div>
-
-                                            <i className="fas fa-plus"></i>
-                                        </li>
-                                    );
-                                }
-                            })
+                            (!this.state.friendsArtistWasRecommendedTo.includes(this.state.selectedFriend))
+                                 ?
+                                    <button type="submit" className="submit">
+                                        <i className="fas fa-paper-plane"></i>
+                                    </button>
+                                 :
+                                    <button type="submit" className="submit white green-background" disabled>
+                                        <i className="fas fa-check"></i>
+                                    </button>
                         }
-                    </ul>
-                </nav>
+                    </fieldset>
+
+                </form>
 
                 <div className="server-response-message">
-                    { this.state.serverResponse }
+                    { this.state.serverMessage }
                 </div>
 
             </div>

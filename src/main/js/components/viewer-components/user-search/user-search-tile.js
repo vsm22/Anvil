@@ -41,27 +41,23 @@ class UserSearchTile extends React.Component {
 
                 <div className="user-info">
 
-                    <div className="icon-wrap">
-                        <i className="fas fa-user"></i>
-                    </div>
-
                     <div className="username">
                         {this.user.username}
                     </div>
 
+                    <form name="add-user-to-friends-form" className="add-user-to-friends-form" onSubmit={this.handleAddUserToFriendsFormSubmit}>
                     {
                         (this.props.isFriend === false)
                             ?
-                                <form name="add-user-to-friends-form" className="add-user-to-friends-form" onSubmit={this.handleAddUserToFriendsFormSubmit}>
-                                    <button type="submit">
-                                        <i className="fas fa-plus"></i>
-                                    </button>
-                                </form>
+                                <button type="submit" className="submit">
+                                    <i className="fas fa-user-plus"></i>
+                                </button>
                             :
-                                <div>
-                                    <i className="fas fa-check"></i>
-                                </div>
+                                <button type="submit" disabled="true" className="submit white green-background">
+                                    <i className="fas fa-user-check"></i>
+                                </button>
                     }
+                    </form>
 
                 </div>
 

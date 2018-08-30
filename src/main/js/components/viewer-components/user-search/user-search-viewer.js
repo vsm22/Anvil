@@ -59,21 +59,28 @@ class UserSearchViewer extends React.Component {
 
                 <ul className="user-list user-search-results">
                 {
+
                     (this.state.userList !== null && this.state.userList.length > 0)
                         ?
-                            this.state.userList.map(user => {
 
-                                let isFriend = friendUsernames.includes(user.username);
+                            <div>
+                                <div> Search results: </div>
+                            {
+                                this.state.userList.map(user => {
 
-                                return (
-                                            <li className="user-tile-wrap">
-                                                <UserSearchTile {...this.props}
-                                                    user={user}
-                                                    isFriend={isFriend} />
-                                            </li>
-                                       );
-                            })
-                        : ""
+                                    let isFriend = friendUsernames.includes(user.username);
+
+                                    return (
+                                                <li className="user-tile-wrap">
+                                                    <UserSearchTile {...this.props}
+                                                        user={user}
+                                                        isFriend={isFriend} />
+                                                </li>
+                                           );
+                                })
+                            }
+                            </div>
+                        : "No results"
                 }
                 </ul>
 

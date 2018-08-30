@@ -94,8 +94,7 @@ class CollectionsViewer extends React.Component {
                                 collections.map(collection => {
 
                                     let collectionLink = "/collection?"
-                                                            + "username=" + this.props.authentication.username
-                                                            + "&collectionName=" + collection.collectionName;
+                                                            + "collectionName=" + collection.collectionName;
 
                                     return (
 

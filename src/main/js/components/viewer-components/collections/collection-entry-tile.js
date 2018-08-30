@@ -1,33 +1,33 @@
 import React from "react";
+import CollectionEntryItemToolsNav from "components/widget-components/collection-entry-item-tools-nav";
 import { Link } from "react-router-dom";
-import ItemToolsNav from "components/widget-components/item-tools-nav";
 
-class RecommendationTile extends React.Component {
+class ArtistSearchResultTile extends React.Component {
 
     constructor(props) {
         super(props);
 
+        this.componentRef = React.createRef();
     }
 
     render() {
 
-        const recommendation = this.props.recommendation;
-        const artist = recommendation.artist;
+        let artist = this.props.artist;
 
         return (
 
-            <div className="item-card recommendation-tile" ref={this.componentRef}>
+            <div className="item-card artist-search-result-tile" ref={this.componentRef}>
 
                 <div className="avatar-wrap">
                     <div className="image-wrap">
-
                         <Link to={"/artistInfo?artistName=" + artist.artistName} >
-                            <img className="image" src={artist["imageLargeUrl"]} />
+                            <img className="image" src={ artist.imageLargeUrl } />
                         </Link>
                     </div>
                 </div>
 
                 <div className="card-content-wrap">
+
                     <div className="title">
                         <Link to={"/artistInfo?artistName=" + artist.artistName} >
                             { artist.artistName }
@@ -35,12 +35,9 @@ class RecommendationTile extends React.Component {
                     </div>
 
                     <div className="item-tools-nav-wrap">
-                        <ItemToolsNav {...this.props} artist={artist} />
+                        <CollectionEntryItemToolsNav {...this.props} />
                     </div>
 
-                    <div className="recommended-by">
-                        Recommended by { recommendation.recommender.username }
-                    </div>
                 </div>
 
             </div>
@@ -48,4 +45,4 @@ class RecommendationTile extends React.Component {
     }
 }
 
-export default RecommendationTile
+export default ArtistSearchResultTile

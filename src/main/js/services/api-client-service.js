@@ -181,14 +181,14 @@ const ApiClientService = {
     /**
      * Get the entries for a collection.
      */
-    getArtistCollection: function getArtistCollection(username, collectionName) {
+    getArtistCollection: function getArtistCollection(collectionName) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.GET_ARTIST_COLLECTION_URL + "?username=" + username + "&collectionName=" + collectionName, {
+                    fetch(ApiUrls.GET_ARTIST_COLLECTION_URL + "?collectionName=" + collectionName, {
                             method: "GET",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt
@@ -231,32 +231,37 @@ const ApiClientService = {
                         },
                         body: JSON.stringify(artist)
                     }).then(response => {
-
-                        if (response.status !== 200) {
-
-                            if (response.status === 401) {
-
-                                AuthenticationService.getGuestToken()
-                                    .then(user => {
-                                        return ApiClientService.addArtistToCollection(artist, collection);
-                                    });
-
-                            } else {
-
-                                return reject(response);
-                            }
-                        } else {
-
-                            let authorization = JSON.parse(response.headers.get('Authorization'));
-                            AuthenticationService.saveAuthorization({
-                                username: authorization.username,
-                                jwt: authorization.token
-                            });
-
-                            return resolve(response);
-                        }
+                          return resolve(response);
                      }).catch(() => {
                          return reject();
+                     });
+                });
+            });
+    },
+
+    removeArtistFromCollection: function removeArtistFromCollection(collectionName, artistName) {
+
+        return AuthenticationService.getCurrentUser()
+            .then(user => {
+
+                return new Promise((resolve, reject) => {
+
+                    let query = ApiUrls.REMOVE_ARTIST_FROM_COLLECTION_URL
+                                + "?collectionName=" + collectionName
+                                + "&artistName=" + artistName;
+
+                    fetch(query, {
+                        method: "POST",
+                        headers: {
+                            "Authorization" : "Bearer " + user.jwt
+                        }
+                    }).then(response => {
+
+                        response.json()
+                        .then(json => { return resolve(json); });
+
+                     }).catch(response => {
+                         return reject(response);
                      });
                 });
             });
@@ -391,7 +396,7 @@ const ApiClientService = {
     /**
      * Recommend artist to a friend.
      */
-    recommendArtist: function recommendArtist(artist, friend) {
+    recommendArtist: function recommendArtist(artist, friendUsername) {
 
         return AuthenticationService.getCurrentUser()
             .then(user => {
@@ -404,7 +409,7 @@ const ApiClientService = {
                                 "Authorization": "Bearer " + user.jwt
                             },
                             body: JSON.stringify({
-                                "recommendToUser": friend.username,
+                                "recommendToUser": friendUsername,
                                 "artist": artist
                             })
                         })
@@ -413,8 +418,9 @@ const ApiClientService = {
                             if (response.status !== 200) {
                                 return reject(response);
                             } else {
-                                response.json().then(json => {
-                                   return resolve(json);
+
+                                return response.json().then(json => {
+                                    return resolve(json);
                                 });
                             }
                         })
@@ -435,7 +441,9 @@ const ApiClientService = {
 
                 return new Promise((resolve, reject) => {
 
-                    fetch(ApiUrls.GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL + "?artistMbid=" + artist.mbid, {
+                    fetch(ApiUrls.GET_FRIENDS_ARTIST_WAS_RECOMMENDED_TO_URL
+                                + "?artistMbid=" + artist.mbid
+                                + "&artistName=" + artist.artistName, {
                             method: "GET",
                             headers: {
                                 "Authorization": "Bearer " + user.jwt

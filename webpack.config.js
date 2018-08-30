@@ -4,8 +4,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = [{
 
-    // watch: true,
-
     devtool: "inline-source-map",
 
     context: __dirname + "/src/main/js",
@@ -23,7 +21,8 @@ module.exports = [{
             components: path.resolve(__dirname, "src/main/js/components"),
             services: path.resolve(__dirname, "src/main/js/services"),
             routes: path.resolve(__dirname, "src/main/js/routes"),
-            graphics: path.resolve(__dirname, "src/main/js/graphics")
+            graphics: path.resolve(__dirname, "src/main/js/graphics"),
+            scss: path.resolve(__dirname, "src/main/scss")
         }
     },
 
@@ -34,8 +33,9 @@ module.exports = [{
             {
                 test: /\.scss$/,
                 use: [
-                    // process.env.NODE_ENV !== 'production' ? 'style-loader' :
-                    MiniCssExtractPlugin.loader,
+                    (process.env.NODE_ENV === "production")
+                        ? MiniCssExtractPlugin.loader
+                        : 'style-loader',
                     "css-loader",
                     "sass-loader"
                 ]
@@ -45,9 +45,10 @@ module.exports = [{
     },
 
     plugins: [
-//        new UglifyJsPlugin({
-//            test: /\.js$/
-//        }),
+
+        (process.env.NODE_ENV === "production")
+            ? new UglifyJsPlugin({ test: /\.js$/ })
+            : (() => {}),
 
         new MiniCssExtractPlugin({
             filename: "stylesheets/anvil-stylesheet.css"

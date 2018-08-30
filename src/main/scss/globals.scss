@@ -1,0 +1,64 @@
+/* =================================== */
+/* BREAK POINTS
+/* =================================== */
+
+$break-medium: 640px;
+$break-large: 980px;
+
+/* =================================== */
+/* COLORS
+/* =================================== */
+
+$color1: #FFFFFF;
+$color2: #414141;
+$color3: #2591DB;
+$color4: #004290;
+$color5: #0A56BD;
+
+$light-grey: #ccc;
+$medium-grey: #777;
+$dark-grey: #424242;
+
+/* =================================== */
+/* DEFAULTS
+/* =================================== */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    color: $dark-grey;
+    min-height: 10000px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: $dark-grey;
+    padding: 0.5rem;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: $color3;
+        color: $color1;
+        transition: background-color 0.1s;
+    }
+}
+
+button {
+
+	&:hover {
+        background-color: $color3;
+        color: $color1;
+        transition: background-color 0.1s;
+	}
+}
+
+h1 {
+	text-align: center;
+}

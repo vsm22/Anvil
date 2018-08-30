@@ -1,5 +1,6 @@
 import React from "react";
-import ArtistSearchResultTile from "components/viewer-components/artist-search/artist-search-result-tile";
+import { Link } from "react-router-dom";
+import CollectionEntryTile from "./collection-entry-tile";
 import ApiClientService from "services/api-client-service";
 
 class CollectionViewer extends React.Component {
@@ -13,6 +14,9 @@ class CollectionViewer extends React.Component {
                 artist: {}
             }]
         }
+
+        this.getData = this.getData.bind(this);
+        this.setCollectionData = this.setCollectionData.bind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -31,18 +35,17 @@ class CollectionViewer extends React.Component {
 
     getData(urlParam) {
 
-        const queryRegex = /\?username=(.*)&collectionName=(.*)/;
+        const queryRegex = /\?collectionName=(.*)/;
 
         if (urlParam !== null && urlParam !== undefined && urlParam !== "") {
 
             const params = queryRegex.exec(urlParam);
 
-            const username = params[1];
-            const collectionName = params[2];
+            const collectionName = params[1];
 
             this.setState({ collectionName: collectionName });
 
-            ApiClientService.getArtistCollection(username, collectionName)
+            ApiClientService.getArtistCollection(collectionName)
                 .then((json) => {
 
                     this.setState({
@@ -50,6 +53,13 @@ class CollectionViewer extends React.Component {
                     });
                 });
         }
+    }
+
+    setCollectionData(data) {
+
+        this.setState({
+            collectionEntries: data
+        });
     }
 
     render() {
@@ -60,7 +70,16 @@ class CollectionViewer extends React.Component {
 
                 <div className="panel">
 
-                    <h1> { this.state.collectionName } </h1>
+                    <Link to="/collections">
+                        <span>
+                            <i className="fas fa-arrow-left"></i>
+                        </span>
+                        <span>
+                            Return to collections
+                        </span>
+                    </Link>
+
+                    <h1> { this.state.collectionName } collection </h1>
 
                     <ul>
 
@@ -74,12 +93,15 @@ class CollectionViewer extends React.Component {
 
                                             <li className="collection-entry">
 
-                                                <ArtistSearchResultTile {...this.props} artist={collectionEntry.artist} />
+                                                <CollectionEntryTile {...this.props}
+                                                    artist={collectionEntry.artist}
+                                                    collectionName={this.state.collectionName}
+                                                    setCollectionData={this.setCollectionData} />
 
                                             </li>
                                         );
                                     })
-                                : ""
+                                : "Collection is empty"
                         }
                     </ul>
 
