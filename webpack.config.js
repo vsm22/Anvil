@@ -21,7 +21,8 @@ module.exports = [{
             components: path.resolve(__dirname, "src/main/js/components"),
             services: path.resolve(__dirname, "src/main/js/services"),
             routes: path.resolve(__dirname, "src/main/js/routes"),
-            graphics: path.resolve(__dirname, "src/main/js/graphics")
+            graphics: path.resolve(__dirname, "src/main/js/graphics"),
+            scss: path.resolve(__dirname, "src/main/scss")
         }
     },
 

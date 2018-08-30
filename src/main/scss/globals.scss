@@ -29,6 +29,8 @@ $dark-grey: #424242;
 
 body {
     background-color: white;
+    color: $dark-grey;
+    min-height: 10000px;
 }
 
 ul {

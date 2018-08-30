@@ -1,12 +1,13 @@
 .user-search-viewer {
     margin-bottom: 5rem;
+    text-align: left;
 }
 
 .user-list, .user-search-results {
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    text-align: left;
 }
 
 .user-tile-wrap {
@@ -14,22 +15,21 @@
 }
 
 .user-tile {
+    border-bottom: 1px solid $light-grey;
+    padding-bottom: 1.5rem;
 
     .user-info {
         display: flex;
         justify-content: space-between;
         width: 100%;
         line-height: 100%;
-        vertical-align: middle;
-        padding: 2rem;
         border-radius: 5px;
-        box-shadow: 0px 1px 0px 1px $light-grey;
 
         .icon-wrap {
             display: inline-block;
             padding: 0;
             margin: 0;
-            line-height: 100%;
+            line-height: 3rem;
             vertical-align: middle;
 
             i {
@@ -42,13 +42,15 @@
         .username {
             display: inline-block;
             color: $medium-grey;
-            padding: 1rem;
+            line-height: 3rem;
+            vertical-align: bottom;
         }
 
         .add-user-to-friends-form {
             display: inline-block;
             margin: 0;
             padding: 0;
+            vertical-align: middle;
 
             button {
                 height: 30px;
@@ -56,6 +58,8 @@
                 margin: 0;
                 padding: 0;
                 line-height: 100%;
+                border-radius: 50%;
+                border: 0;
                 vertical-align: middle;
             }
         }
