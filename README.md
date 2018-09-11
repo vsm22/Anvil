@@ -2,6 +2,8 @@
 
 Anvil is a music database browser and manager built with Spring and React. It allows users to search for music artists, place them in collections, like them, and recommend them to other users.
 
+![anvil-image](https://vsm22.github.io/resources/images/anvil.gif)
+
 # Dev Environment
 
 Built with Spring-Boot and React
