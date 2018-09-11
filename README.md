@@ -1,6 +1,6 @@
 # Anvil
 
-A tool for managing your listening interests
+Anvil is a music database browser and manager built with Spring and React. It allows users to search for music artists, place them in collections, like them, and recommend them to other users.
 
 # Dev Environment
 
@@ -8,16 +8,10 @@ Built with Spring-Boot and React
 
 ## Back-end
 
-Spring Boot
-Maven for dependency management and build
-
 Build - ```mvn clean package```
 Run - ```mvn spring-boot:run```
 
 ## Front-end
-
-React, Flux, React-router
-Npm and webpack for dependency management and build
 
 Install - ```npm install```
 Build - ```npm run build```
