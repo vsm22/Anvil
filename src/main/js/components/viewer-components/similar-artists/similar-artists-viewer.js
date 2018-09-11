@@ -16,8 +16,7 @@ class SimilarArtistsViewer extends React.Component {
                     imageMediumUrl: "",
                     imageLargeUrl: ""
                 }]
-            },
-            hoveredArtistName: "placeholder"
+            }
         }
 
         this.getData = this.getData.bind(this);
@@ -58,10 +57,9 @@ class SimilarArtistsViewer extends React.Component {
 
         return (
 
-            <div id="similar-artists-container">
+            <div className="similar-artists-container">
 
                 <h1> Similar Artists </h1>
-                <div className="similar-artist-name-display"> {this.state.hoveredArtistName} </div>
 
                 <ul>
                     {
